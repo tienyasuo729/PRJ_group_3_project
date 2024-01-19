@@ -3,19 +3,18 @@ use shipping_project;
 
 CREATE TABLE people (
     id_people INT AUTO_INCREMENT PRIMARY KEY,
-    cccd VARCHAR(12),
-    name VARCHAR(500),
-    DateOfBirth DATE,
+    cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$'),
+    name VARCHAR(500) not null CHECK (name NOT REGEXP '[0-9]'),
+    DateOfBirth date,
     sex CHAR(1),
-    email VARCHAR(500),
-    delivery_address VARCHAR(500),
-    image_selfie_address VARCHAR(500),
-    image_cccd_front_address VARCHAR(500),
-    image_cccd_back_address VARCHAR(500),
+    email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
+    delivery_address VARCHAR(500) NOT NULL,
+    image_selfie VARCHAR(500),
+    image_cccd_front VARCHAR(500),
+    image_cccd_back VARCHAR(500),
     order_number INT,
-    spending VARCHAR(500)
+    spending VARCHAR(500) CHECK (spending REGEXP '^[0-9]+$')
 );
-
 
 CREATE TABLE address (
     id_address INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,13 +22,16 @@ CREATE TABLE address (
     address VARCHAR(500)
 );
 
-
 CREATE TABLE account (
-    phone_number VARCHAR(11),
-    password VARCHAR(500),
+    phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
+    -- chỉ chứa số phone number ( cần nghiên cứu thêm để validate dữ liệu chổ này vì có nhiều đầu số và nhiều đầu mạng khác. Cần nghiên cứu thêm)
+    password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
+    -- password không chứa các chữ chứa dấu tiếng việt và dấu cách, còn lại thì chấp nhận hết
     permission VARCHAR(500),
-    joining_date DATETIME
+    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP
+    -- joining_date tự động lấy thời gian hiện tại khi thêm dòng đó vào bảng
 );
+
 
 
 CREATE TABLE Shipper (
