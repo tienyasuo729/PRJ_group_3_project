@@ -95,8 +95,13 @@ CREATE TABLE transit_vehicle (
     car_company VARCHAR(500) not null,
     type VARCHAR(500) not null,
     license_plate VARCHAR(9),
-    tank_volume INT,
-    maximum_storage_volume INT
+    tank_volume INT not null ,
+    maximum_storage_volume INT not null,
+	id_account VARCHAR(11) unique not null,
+    id_driver int unique not null,
+	FOREIGN KEY (id_account) REFERENCES account(phone_number),
+	FOREIGN KEY (id_driver) REFERENCES driver_transit_vehicle(id_driver)
+    
 );
 
 
