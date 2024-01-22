@@ -4,73 +4,97 @@ use shipping_project;
 CREATE TABLE people (
     id_people INT AUTO_INCREMENT PRIMARY KEY,
     cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$'),
+    -- cccd có kiểu dữ liệu là ký tự nhưng chỉ chấp nhận số và phải đủ 12 số ( chưa kiểm tra được có đúng số hợp lệ không, cần nghiên cứu thêm )
     name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    DateOfBirth date,
+    -- name chỉ chấp nhận chữ hoặc chữ tiếng việt, không chấp nhận số và kí tự đặc biệt như . , ? ...
+    DateOfBirth DATE CHECK (DateOfBirth <= CURDATE() - INTERVAL 18 YEAR),
+    -- DateOfBirth tính tới thời gian thêm vào phải đủ 18 tuổi
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
+    -- email chỉ chấp nhận form email hợp lệ 
     delivery_address VARCHAR(500) NOT NULL,
     image_selfie VARCHAR(500),
     image_cccd_front VARCHAR(500),
     image_cccd_back VARCHAR(500),
-    order_number INT,
-    spending VARCHAR(500) CHECK (spending REGEXP '^[0-9]+$')
+	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
+    order_number INT default 0,
+    -- order_number có giá trị mặc định là 0
+     spending VARCHAR(500) DEFAULT '0' CHECK (spending REGEXP '^[0-9]+$')
+	-- spending có giá trị mặc định là 0
 );
+-- *lưu ý cho people :đối với shipper, manager, driver transic vehicle thì tất cả các thuộc tính đều không được null ngoại trừ order number và spending có thể null và delivery address sẽ được xem là địa chỉ sống của shipper
 
 CREATE TABLE address (
     id_address INT AUTO_INCREMENT PRIMARY KEY,
     name_address VARCHAR(500),
-    address VARCHAR(500)
+    address VARCHAR(500),
+    id_people int unique not null,
+	FOREIGN KEY (id_people) REFERENCES people(id_people)
 );
 
 CREATE TABLE account (
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
-    -- chỉ chứa số phone number ( cần nghiên cứu thêm để validate dữ liệu chổ này vì có nhiều đầu số và nhiều đầu mạng khác. Cần nghiên cứu thêm)
+    -- phone_number chỉ chứa số ( cần nghiên cứu thêm để validate dữ liệu chổ này vì có nhiều đầu số và nhiều đầu mạng khác. Cần nghiên cứu thêm)
     password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
     -- password không chứa các chữ chứa dấu tiếng việt và dấu cách, còn lại thì chấp nhận hết
     permission VARCHAR(500),
-    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP
+    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     -- joining_date tự động lấy thời gian hiện tại khi thêm dòng đó vào bảng
+    id_people int unique not null,
+	FOREIGN KEY (id_people) REFERENCES people(id_people)
 );
 
 
 
 CREATE TABLE Shipper (
     id_shipper INT AUTO_INCREMENT PRIMARY KEY,
-    license_plates VARCHAR(11),
-    image_driver_license VARCHAR(500),
-    image_vehicle_registration VARCHAR(500),
-    image_Curriculum_Vitae VARCHAR(500),
-    image_Civil_Guarantee_Letter VARCHAR(500),
-    image_Certificate_of_No_Criminal_Record VARCHAR(500),
-    image_Birth_Certificate VARCHAR(500),
-    image_Household_Registration VARCHAR(500),
-    image_Health_Examination_Certificate VARCHAR(500),
-    status BOOLEAN
+    license_plates VARCHAR(9) not null,
+    image_driver_license VARCHAR(500) not null,
+    image_vehicle_registration VARCHAR(500) not null,
+    image_Curriculum_Vitae VARCHAR(500) not null,
+    image_Civil_Guarantee_Letter VARCHAR(500) not null,
+    image_Certificate_of_No_Criminal_Record VARCHAR(500) not null,
+    image_Birth_Certificate VARCHAR(500) not null,
+    image_Household_Registration VARCHAR(500) not null,
+    image_Health_Examination_Certificate VARCHAR(500) not null,
+	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
+    status BOOLEAN,
+    id_account VARCHAR(11) unique not null,
+    id_post_office INT not null,
+	FOREIGN KEY (id_account) REFERENCES account(phone_number),
+	FOREIGN KEY (id_post_office) REFERENCES Post_Office(id_post_office),
+    CONSTRAINT CheckStatusPostOfficeIsNull CHECK ((status IS NULL AND id_post_office IS NULL) OR (status IS NOT NULL AND id_post_office IS NOT NULL))
+    -- ràng buộc này để đảm bảo status và id_post_office nếu 1 trong 2 null thì cả 2 đều phải null ( vì nếu 1 shipper đang trong quá trình tuyển dụng mà chưa có vị trí nào ở bưu cục thì sẽ vào chế độ chờ)
 );
-
+-- Lưu ý : status dùng để coi shipper đã có vị trí trong bưu cục nào chưa để tiện cho việc tuyển dụng
 
 CREATE TABLE manager (
     id_manager INT AUTO_INCREMENT PRIMARY KEY,
-    image_Curriculum_Vitae VARCHAR(500),
-    image_Civil_Guarantee_Letter VARCHAR(500),
-    image_Certificate_of_No_Criminal_Record VARCHAR(500),
-    image_Birth_Certificate VARCHAR(500),
-    image_Household_Registration VARCHAR(500),
-    image_Health_Examination_Certificate VARCHAR(500)
+    image_Curriculum_Vitae VARCHAR(500) not null,
+    image_Civil_Guarantee_Letter VARCHAR(500) not null,
+    image_Certificate_of_No_Criminal_Record VARCHAR(500) not null,
+    image_Birth_Certificate VARCHAR(500) not null,
+    image_Household_Registration VARCHAR(500) not null,
+    image_Health_Examination_Certificate VARCHAR(500) not null,
+	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
+	id_account VARCHAR(11) unique not null,
+	FOREIGN KEY (id_account) REFERENCES account(phone_number)
 );
 
 
 CREATE TABLE Post_Office (
     id_post_office INT AUTO_INCREMENT PRIMARY KEY,
-    location VARCHAR(500)
+    location VARCHAR(500) not null,
+    id_manager int unique not null,
+	FOREIGN KEY (id_manager) REFERENCES manager(id_manager)
 );
 
 
 CREATE TABLE transit_vehicle (
     id_transit_vehicle INT AUTO_INCREMENT PRIMARY KEY,
-    car_company VARCHAR(500),
-    type VARCHAR(500),
-    license_plate VARCHAR(11),
+    car_company VARCHAR(500) not null,
+    type VARCHAR(500) not null,
+    license_plate VARCHAR(9),
     tank_volume INT,
     maximum_storage_volume INT
 );
@@ -78,55 +102,62 @@ CREATE TABLE transit_vehicle (
 
 CREATE TABLE image_order (
     id_image_order INT AUTO_INCREMENT PRIMARY KEY,
-    shooting_date DATETIME,
-    image_1 VARCHAR(500),
-    image_2 VARCHAR(500),
-    image_3 VARCHAR(500),
-    image_4 VARCHAR(500)
+	shooting_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- shooting_date sẽ lấy thời gian hiện tại nhưng ( VẪN CHƯA TẠO RA RÀNG BUỘC KHÔNG ĐƯỢC SỬA ĐỔI DỮ LIỆU SHOOTING_DATE )
+	image_1 VARCHAR(500) not null,
+    image_2 VARCHAR(500) not null,
+    image_3 VARCHAR(500) not null,
+    image_4 VARCHAR(500) not null
+    -- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
 );
 
 
 create table current_location(
     id_current_location INT AUTO_INCREMENT PRIMARY KEY,
-	date DATETIME
+	current_location_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+-- current_location_date sẽ lấy thời gian hiện tại nhưng ( VẪN CHƯA TẠO RA RÀNG BUỘC KHÔNG ĐƯỢC SỬA ĐỔI DỮ LIỆU current_location_date )
 
-create table Order_history(
-    id_Order_history INT AUTO_INCREMENT PRIMARY KEY
-);
 
 CREATE TABLE Order_Shipping (
     id_order INT AUTO_INCREMENT PRIMARY KEY,
     note_for_shipper VARCHAR(500),
     check_package BOOLEAN,
-    collection_money INT,
-    transportation_cost INT,
-    order_date DATETIME,
-    status BOOLEAN
+    -- check_package để xem đơn hàng có cho kiểm tra hàng khi giao hay không
+    collection_money INT default 0,
+    -- collection_money mặc định là 0 nếu không có giá trị
+    transportation_cost INT default 0,
+    -- transportation_cost mặc định là 0 nếu không có giá trị
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- order_date lấy thời gian hiện tại khi tạo đơn
+    status_order BOOLEAN
+    -- status_order dùng để xem đơn hàng có được giao thành công hay không
 );
 
 
 CREATE TABLE package (
     id_package INT AUTO_INCREMENT PRIMARY KEY,
     name_Item VARCHAR(500),
-    Volume INT,
-    weight INT,
-    image_1 VARCHAR(500),
-    image_2 VARCHAR(500),
-    image_3 VARCHAR(500),
-    image_4 VARCHAR(500)
+    Volume INT not null,
+    weight INT not null,
+    image_1 VARCHAR(500) not null,
+    image_2 VARCHAR(500) not null,
+    image_3 VARCHAR(500) not null,
+    image_4 VARCHAR(500) not null
+    -- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
 );
 
 
 CREATE TABLE driver_transit_vehicle (
     id_driver INT AUTO_INCREMENT PRIMARY KEY,
-    image_driver_license VARCHAR(500),
-    image_vehicle_registration VARCHAR(500),
-    image_Curriculum_Vitae VARCHAR(500),
-    image_Civil_Guarantee_Letter VARCHAR(500),
-    image_Certificate_of_No_Criminal_Record VARCHAR(500),
-    image_Birth_Certificate VARCHAR(500),
-    image_Household_Registration VARCHAR(500),
-    image_Health_Examination_Certificate VARCHAR(500),
+    image_driver_license VARCHAR(500) not null,
+    image_vehicle_registration VARCHAR(500) not null,
+    image_Curriculum_Vitae VARCHAR(500) not null,
+    image_Civil_Guarantee_Letter VARCHAR(500) not null,
+    image_Certificate_of_No_Criminal_Record VARCHAR(500) not null,
+    image_Birth_Certificate VARCHAR(500) not null,
+    image_Household_Registration VARCHAR(500) not null,
+    image_Health_Examination_Certificate VARCHAR(500) not null,
+    -- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
     status BOOLEAN
 );
