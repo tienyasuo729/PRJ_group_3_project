@@ -107,7 +107,6 @@ CREATE TABLE transit_vehicle (
 CREATE TABLE driver_transit_vehicle (
     id_driver INT AUTO_INCREMENT PRIMARY KEY,
     image_driver_license VARCHAR(500) not null,
-    image_vehicle_registration VARCHAR(500) not null,
     image_Curriculum_Vitae VARCHAR(500) not null,
     image_Civil_Guarantee_Letter VARCHAR(500) not null,
     image_Certificate_of_No_Criminal_Record VARCHAR(500) not null,
