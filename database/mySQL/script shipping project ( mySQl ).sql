@@ -1,8 +1,22 @@
 create database shipping_project;
 use shipping_project;
 
-CREATE TABLE people (
-    id_people INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE address (
+    id_address INT AUTO_INCREMENT PRIMARY KEY,
+    name_address VARCHAR(500),
+    address VARCHAR(500),
+    phone_number VARCHAR(11) not null,
+	FOREIGN KEY (phone_number) REFERENCES account(phone_number)
+);
+
+CREATE TABLE account (
+    phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
+    -- phone_number chỉ chứa số ( cần nghiên cứu thêm để validate dữ liệu chổ này vì có nhiều đầu số và nhiều đầu mạng khác. Cần nghiên cứu thêm)
+    password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
+    -- password không chứa các chữ chứa dấu tiếng việt và dấu cách, còn lại thì chấp nhận hết
+    permission VARCHAR(500),
+    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- joining_date tự động lấy thời gian hiện tại khi thêm dòng đó vào bảng ( vẫn chưa có cách không cho chỉnh sửa cột này  )
     cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$'),
     -- cccd có kiểu dữ liệu là ký tự nhưng chỉ chấp nhận số và phải đủ 12 số ( chưa kiểm tra được có đúng số hợp lệ không, cần nghiên cứu thêm )
     name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
@@ -24,26 +38,6 @@ CREATE TABLE people (
 );
 -- *lưu ý cho people :đối với shipper, manager, driver transic vehicle thì tất cả các thuộc tính đều không được null ngoại trừ order number và spending có thể null và delivery address sẽ được xem là địa chỉ sống của shipper
 
-CREATE TABLE address (
-    id_address INT AUTO_INCREMENT PRIMARY KEY,
-    name_address VARCHAR(500),
-    address VARCHAR(500),
-    id_people int unique not null,
-	FOREIGN KEY (id_people) REFERENCES people(id_people)
-);
-
-CREATE TABLE account (
-    phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
-    -- phone_number chỉ chứa số ( cần nghiên cứu thêm để validate dữ liệu chổ này vì có nhiều đầu số và nhiều đầu mạng khác. Cần nghiên cứu thêm)
-    password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
-    -- password không chứa các chữ chứa dấu tiếng việt và dấu cách, còn lại thì chấp nhận hết
-    permission VARCHAR(500),
-    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    -- joining_date tự động lấy thời gian hiện tại khi thêm dòng đó vào bảng
-    id_people int unique not null,
-	FOREIGN KEY (id_people) REFERENCES people(id_people)
-);
-
 
 
 CREATE TABLE Shipper (
@@ -61,6 +55,7 @@ CREATE TABLE Shipper (
     status BOOLEAN,
     id_account VARCHAR(11) unique not null,
     id_post_office INT not null,
+    -- khoá ngoại id_post_office dùng để coi shipper đã có vị trí trong bưu cục nào chưa để tiện cho việc tuyển dụng. Nếu nó null nghĩa là sipper đang chờ để xem có vị trí shipper trong bưu cục nào cần tuyển không
 	FOREIGN KEY (id_account) REFERENCES account(phone_number),
 	FOREIGN KEY (id_post_office) REFERENCES Post_Office(id_post_office),
     CONSTRAINT CheckStatusPostOfficeIsNull CHECK ((status IS NULL AND id_post_office IS NULL) OR (status IS NOT NULL AND id_post_office IS NOT NULL))
