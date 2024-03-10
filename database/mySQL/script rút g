@@ -7,7 +7,7 @@ CREATE TABLE people (
     -- cccd có kiểu dữ liệu là ký tự nhưng chỉ chấp nhận số và phải đủ 12 số ( chưa kiểm tra được có đúng số hợp lệ không, cần nghiên cứu thêm )
     name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
     -- name chỉ chấp nhận chữ hoặc chữ tiếng việt, không chấp nhận số và kí tự đặc biệt như . , ? ...
-    DateOfBirth DATE CHECK (DateOfBirth <= DATE_SUB(CURDATE(), INTERVAL 18 YEAR)),
+	DateOfBirth DATE CHECK (DATEDIFF(CURRENT_DATE, ngay_sinh) >= 6570),
     -- DateOfBirth tính tới thời gian thêm vào phải đủ 18 tuổi
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),

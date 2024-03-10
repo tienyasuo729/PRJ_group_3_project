@@ -1,15 +1,16 @@
-create database shipping_project;
-use shipping_project;
+-- create database shipping_project;
+-- use shipping_project;
 
-CREATE TABLE address (
-    id_address INT AUTO_INCREMENT PRIMARY KEY,
-    name_address VARCHAR(500),
-    address VARCHAR(500),
-    phone_number VARCHAR(11) not null,
-	FOREIGN KEY (phone_number) REFERENCES account(phone_number)
-);
+-- CREATE TABLE address (
+--     id_address INT AUTO_INCREMENT PRIMARY KEY,
+--     name_address VARCHAR(500),
+--     address VARCHAR(500),
+--     phone_number VARCHAR(11) not null,
+-- 	FOREIGN KEY (phone_number) REFERENCES account(phone_number)
+-- );
 
 CREATE TABLE account (
+	id_account int primary key auto_increment,
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
     -- phone_number chỉ chứa số ( cần nghiên cứu thêm để validate dữ liệu chổ này vì có nhiều đầu số và nhiều đầu mạng khác. Cần nghiên cứu thêm)
     password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
@@ -21,8 +22,8 @@ CREATE TABLE account (
     -- cccd có kiểu dữ liệu là ký tự nhưng chỉ chấp nhận số và phải đủ 12 số ( chưa kiểm tra được có đúng số hợp lệ không, cần nghiên cứu thêm )
     name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
     -- name chỉ chấp nhận chữ hoặc chữ tiếng việt, không chấp nhận số và kí tự đặc biệt như . , ? ...
-    DateOfBirth DATE CHECK (DateOfBirth <= CURDATE() - INTERVAL 18 YEAR),
-    -- DateOfBirth tính tới thời gian thêm vào phải đủ 18 tuổi
+    DateOfBirth DATE ,
+    -- % DateOfBirth tính tới thời gian thêm vào phải đủ 18 tuổi
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
     -- email chỉ chấp nhận form email hợp lệ 
@@ -31,14 +32,11 @@ CREATE TABLE account (
     image_cccd_front VARCHAR(500),
     image_cccd_back VARCHAR(500),
 	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
-    order_number INT default 0,
-    -- order_number có giá trị mặc định là 0
-     spending VARCHAR(500) DEFAULT '0' CHECK (spending REGEXP '^[0-9]+$')
-	-- spending có giá trị mặc định là 0
+    address varchar(500),
+    -- address phải theo định dạng
+    list_old_address text
+	-- list_old_address phải theo định dạng
 );
--- *lưu ý cho people :đối với shipper, manager, driver transic vehicle thì tất cả các thuộc tính đều không được null ngoại trừ order number và spending có thể null và delivery address sẽ được xem là địa chỉ sống của shipper
-
-
 
 CREATE TABLE Shipper (
     id_shipper INT AUTO_INCREMENT PRIMARY KEY,
@@ -53,50 +51,39 @@ CREATE TABLE Shipper (
     image_Health_Examination_Certificate VARCHAR(500) not null,
 	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
     status BOOLEAN,
-    id_account VARCHAR(11) unique not null,
-    id_post_office INT not null,
-    -- khoá ngoại id_post_office dùng để coi shipper đã có vị trí trong bưu cục nào chưa để tiện cho việc tuyển dụng. Nếu nó null nghĩa là sipper đang chờ để xem có vị trí shipper trong bưu cục nào cần tuyển không
-	FOREIGN KEY (id_account) REFERENCES account(phone_number),
-	FOREIGN KEY (id_post_office) REFERENCES Post_Office(id_post_office),
-    CONSTRAINT CheckStatusPostOfficeIsNull CHECK ((status IS NULL AND id_post_office IS NULL) OR (status IS NOT NULL AND id_post_office IS NOT NULL))
-    -- ràng buộc này để đảm bảo status và id_post_office nếu 1 trong 2 null thì cả 2 đều phải null ( vì nếu 1 shipper đang trong quá trình tuyển dụng mà chưa có vị trí nào ở bưu cục thì sẽ vào chế độ chờ)
-);
+    id_account int not null,
+	FOREIGN KEY (id_account) REFERENCES account(id_account)
+    );
 -- Lưu ý : status dùng để coi shipper đã có vị trí trong bưu cục nào chưa để tiện cho việc tuyển dụng
 
-CREATE TABLE manager (
-    id_manager INT AUTO_INCREMENT PRIMARY KEY,
-    image_Curriculum_Vitae VARCHAR(500) not null,
-    image_Civil_Guarantee_Letter VARCHAR(500) not null,
-    image_Certificate_of_No_Criminal_Record VARCHAR(500) not null,
-    image_Birth_Certificate VARCHAR(500) not null,
-    image_Household_Registration VARCHAR(500) not null,
-    image_Health_Examination_Certificate VARCHAR(500) not null,
-	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
-	id_account VARCHAR(11) unique not null,
-	FOREIGN KEY (id_account) REFERENCES account(phone_number)
-);
+-- CREATE TABLE manager (
+--     id_manager INT AUTO_INCREMENT PRIMARY KEY,
+--     image_Curriculum_Vitae VARCHAR(500) not null,
+--     image_Civil_Guarantee_Letter VARCHAR(500) not null,
+--     image_Certificate_of_No_Criminal_Record VARCHAR(500) not null,
+--     image_Birth_Certificate VARCHAR(500) not null,
+--     image_Household_Registration VARCHAR(500) not null,
+--     image_Health_Examination_Certificate VARCHAR(500) not null,
+-- 	-- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
+-- 	id_account VARCHAR(11) unique not null,
+-- 	FOREIGN KEY (id_account) REFERENCES account(phone_number)
+-- );
 
-
-CREATE TABLE Post_Office (
-    id_post_office INT AUTO_INCREMENT PRIMARY KEY,
-    location VARCHAR(500) not null,
-    id_manager int unique not null,
-	FOREIGN KEY (id_manager) REFERENCES manager(id_manager)
-);
-
+-- CREATE TABLE Post_Office (
+--     id_post_office INT AUTO_INCREMENT PRIMARY KEY,
+--     location VARCHAR(500) not null,
+--     id_manager int unique not null,
+-- 	FOREIGN KEY (id_manager) REFERENCES manager(id_manager)
+-- );
 
 CREATE TABLE transit_vehicle (
     id_transit_vehicle INT AUTO_INCREMENT PRIMARY KEY,
-    car_company VARCHAR(500) not null,
+    name_vehicle VARCHAR(500) not null,
     type VARCHAR(500) not null,
     license_plate VARCHAR(9),
     tank_volume INT not null ,
     maximum_storage_volume INT not null,
-    id_post_office int,
-    CONSTRAINT CheckLicensePlatePostOfficeIsNull CHECK ((license_plate IS NULL AND id_post_office IS NULL) OR (license_plate IS NOT NULL AND id_post_office IS NOT NULL)),
-    -- ràng buộc này nếu 1 trong 2 license_plate và id_post_office null thì cả 2 đều phải null và ngược lại
-	FOREIGN KEY (id_post_office) REFERENCES Post_Office(id_post_office)
-    
+    current_position varchar(500)
 );
 
 CREATE TABLE driver_transit_vehicle (
@@ -110,11 +97,7 @@ CREATE TABLE driver_transit_vehicle (
     image_Household_Registration VARCHAR(500) not null,
     image_Health_Examination_Certificate VARCHAR(500) not null,
     -- image không được null ( image dùng để chứa địa chỉ ảnh trong server )
-    timetable varchar(8),
-    status BOOLEAN,
-    CONSTRAINT ChecktimetablestatusIsNull CHECK ((timetable IS NULL AND status IS NULL) OR (timetable IS NOT NULL AND status IS NOT NULL)),
-    -- ràng buộc này nếu 1 trong 2 timetable và status null thì cả 2 đều phải null và ngược lại
-	id_account VARCHAR(11) unique not null,
+	id_account int unique not null,
     id_transit_vehicle int,
 	FOREIGN KEY (id_account) REFERENCES account(phone_number),
 	FOREIGN KEY (id_transit_vehicle) REFERENCES transit_vehicle(id_transit_vehicle)
@@ -138,15 +121,11 @@ create table current_location(
     id_current_location INT AUTO_INCREMENT PRIMARY KEY,
 	current_location_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_order int,
-    id_post_office int,
 	id_transit_vehicle int,
 	id_image_order int unique not null,
 	FOREIGN KEY (id_order) REFERENCES Order_Shipping(id_order),
-	FOREIGN KEY (id_post_office) REFERENCES Post_Office(id_post_office),
 	FOREIGN KEY (id_transit_vehicle) REFERENCES transit_vehicle(id_transit_vehicle),
-	FOREIGN KEY (id_image_order) REFERENCES image_order(id_image_order),
-    CONSTRAINT CheckPostOfficeTransitVehicleIsNull CHECK ((id_post_office IS NULL AND id_transit_vehicle IS NOT NULL) OR (id_post_office IS NOT NULL AND id_transit_vehicle IS NULL))
-    -- id post office hoặc id transit vehicle phải null, id còn lại thì không được null
+	FOREIGN KEY (id_image_order) REFERENCES image_order(id_image_order)
 );
 -- current_location_date sẽ lấy thời gian hiện tại nhưng ( VẪN CHƯA TẠO RA RÀNG BUỘC KHÔNG ĐƯỢC SỬA ĐỔI DỮ LIỆU current_location_date )
 
@@ -167,13 +146,22 @@ CREATE TABLE Order_Shipping (
 	id_sender VARCHAR(11) not null,
 	id_receiver VARCHAR(11) not null,
     id_package int unique not null,
-    id_shipper int,
+    id_pickup int,
+    id_delivery int,
 	FOREIGN KEY (id_sender) REFERENCES account(phone_number),
 	FOREIGN KEY (id_receiver) REFERENCES account(phone_number),
 	FOREIGN KEY (id_package) REFERENCES package(id_package),
-	FOREIGN KEY (id_shipper) REFERENCES Shipper(id_shipper),
-	CONSTRAINT CheckSenderReceiverDifferent CHECK (id_sender <> id_receiver)
+	FOREIGN KEY (id_pickup) REFERENCES Shipper(id_shipper),
+	FOREIGN KEY (id_delivery) REFERENCES Shipper(id_shipper),
+	CONSTRAINT CheckSenderReceiverDifferent CHECK (id_sender <> id_receiver),
+    CONSTRAINT CheckPickupDeliveryExclusive CHECK (
+        (id_pickup IS NULL AND id_delivery IS NULL) OR
+        (id_pickup IS NOT NULL AND id_delivery IS NULL) OR
+        (id_pickup IS NULL AND id_delivery IS NOT NULL)
+    ),
+    CONSTRAINT UniquePickupDeliveryPair UNIQUE (id_pickup, id_delivery)
     -- id sender khác id receiver và không được null vì không thể giao cho chính người gửi được
+	-- ràng buộc cả 2 id_pickup và id_delivery có thể null hoặc 1 trong 2 có thể null nhưng nếu cả 2 có dữ liệu thì tôi muốn 2 cột đó không được trùng nhau
 );
 
 
