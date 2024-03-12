@@ -1,0 +1,133 @@
+CREATE DATABASE shipping_project;
+GO
+
+USE shipping_project;
+GO
+
+CREATE TABLE account (
+    id_account INT PRIMARY KEY IDENTITY(1,1),
+    phone_number VARCHAR(11) CHECK (phone_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    password VARCHAR(500) CHECK (password LIKE '[!-~]+'),
+    permission VARCHAR(500),
+    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    name VARCHAR(500) NOT NULL CHECK (name LIKE '[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+'),
+    DateOfBirth DATE,
+    sex CHAR(1),
+    email VARCHAR(500) CHECK (email LIKE '[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}'),
+    delivery_address VARCHAR(500) NOT NULL,
+    image_selfie VARCHAR(500),
+    image_cccd_front VARCHAR(500),
+    image_cccd_back VARCHAR(500),
+    address VARCHAR(500),
+    list_old_address TEXT
+);
+GO
+
+CREATE TABLE permission (
+    id_permission INT PRIMARY KEY IDENTITY(1,1),
+    name_table_permission VARCHAR(500)
+);
+GO
+
+CREATE TABLE account_shipping (
+    id_account_shipping INT PRIMARY KEY IDENTITY(1,1),
+    phone_number VARCHAR(11) CHECK (phone_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    password VARCHAR(500) CHECK (password LIKE '[!-~]+'),
+    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(500) NOT NULL CHECK (name LIKE '[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+'),
+    DateOfBirth DATE,
+    sex CHAR(1),
+    email VARCHAR(500) CHECK (email LIKE '[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}'),
+    current_position VARCHAR(500) NOT NULL,
+    permission INT,
+    FOREIGN KEY (permission) REFERENCES permission(id_permission)
+);
+GO
+
+CREATE TABLE transit_vehicle (
+    id_transit_vehicle INT PRIMARY KEY IDENTITY(1,1),
+    name_vehicle VARCHAR(500) NOT NULL,
+    type VARCHAR(500) NOT NULL,
+    license_plate VARCHAR(9),
+    tank_volume INT NOT NULL,
+    maximum_storage_volume INT NOT NULL,
+    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    image_selfie VARCHAR(500),
+    image_cccd_front VARCHAR(500),
+    image_cccd_back VARCHAR(500),
+    image_driver_license VARCHAR(500) NOT NULL,
+    image_vehicle_registration VARCHAR(500) NOT NULL,
+    image_Curriculum_Vitae VARCHAR(500) NOT NULL,
+    image_Civil_Guarantee_Letter VARCHAR(500) NOT NULL,
+    image_Certificate_of_No_Criminal_Record VARCHAR(500) NOT NULL,
+    image_Birth_Certificate VARCHAR(500) NOT NULL,
+    image_Household_Registration VARCHAR(500) NOT NULL,
+    image_Health_Examination_Certificate VARCHAR(500) NOT NULL,
+    id_account_shipping INT,
+    FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
+);
+GO
+
+CREATE TABLE Shipper (
+    id_shipper INT PRIMARY KEY IDENTITY(1,1),
+    license_plates VARCHAR(9) NOT NULL,
+    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    image_selfie VARCHAR(500),
+    image_cccd_front VARCHAR(500),
+    image_cccd_back VARCHAR(500),
+    image_driver_license VARCHAR(500) NOT NULL,
+    image_vehicle_registration VARCHAR(500) NOT NULL,
+    image_Curriculum_Vitae VARCHAR(500) NOT NULL,
+    image_Civil_Guarantee_Letter VARCHAR(500) NOT NULL,
+    image_Certificate_of_No_Criminal_Record VARCHAR(500) NOT NULL,
+    image_Birth_Certificate VARCHAR(500) NOT NULL,
+    image_Household_Registration VARCHAR(500) NOT NULL,
+    image_Health_Examination_Certificate VARCHAR(500) NOT NULL,
+    id_account_shipping INT,
+    FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
+);
+GO
+
+CREATE TABLE package (
+    id_package INT PRIMARY KEY IDENTITY(1,1),
+    name_Item VARCHAR(500),
+    Volume INT NOT NULL,
+    weight INT NOT NULL,
+    image_1 VARCHAR(500) NOT NULL,
+    image_2 VARCHAR(500) NOT NULL,
+    image_3 VARCHAR(500) NOT NULL,
+    image_4 VARCHAR(500) NOT NULL
+);
+GO
+
+CREATE TABLE Order_Shipping (
+    id_order INT PRIMARY KEY IDENTITY(1,1),
+    note_for_shipper VARCHAR(500),
+    check_package BIT,
+    collection_money INT DEFAULT 0,
+    transportation_cost INT DEFAULT 0,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status_order BIT,
+    apartment_number VARCHAR(500),
+    street_name VARCHAR(500),
+    District VARCHAR(500),
+    Ward VARCHAR(500),
+    city VARCHAR(500),
+    request_for_shipper VARCHAR(500),
+    receiving_time VARCHAR(500),
+    id_sender INT NOT NULL,
+    id_receiver INT NOT NULL,
+    id_package INT UNIQUE NOT NULL,
+    id_pickup INT,
+    CONSTRAINT FK_Sender FOREIGN KEY (id_sender) REFERENCES account(id_account),
+    CONSTRAINT FK_Receiver FOREIGN KEY (id_receiver) REFERENCES account(id_account),
+    CONSTRAINT FK_Package FOREIGN KEY (id_package) REFERENCES package(id_package),
+    CONSTRAINT FK_Pickup FOREIGN KEY (id_pickup) REFERENCES Shipper(id_shipper),
+    CONSTRAINT CheckSenderReceiverDifferent CHECK (id_sender <> id_receiver)
+);
+GO
+
+CREATE TABLE current_location (
+    id_current_location INT PRIMARY KEY IDENTITY(1,1),
+    current_location_date DAT
