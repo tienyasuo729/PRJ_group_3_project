@@ -1,14 +1,16 @@
 create database shipping_project;
 use shipping_project;
 
-CREATE TABLE account (
+CREATE TABLE user_account (
 	id_account int primary key auto_increment,
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
     password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
     permission VARCHAR(500),
     joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$'),
-    name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    first_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    middle_name VARCHAR(500) CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    last_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
     DateOfBirth DATE ,
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
@@ -30,7 +32,9 @@ CREATE TABLE account_shipping (
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
     password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
     joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+	first_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    middle_name VARCHAR(500) CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    last_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
     DateOfBirth DATE ,
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
@@ -112,8 +116,8 @@ CREATE TABLE Order_Shipping (
 	id_receiver int not null,
     id_package int unique not null,
     id_pickup int,
-	FOREIGN KEY (id_sender) REFERENCES account(id_account),
-	FOREIGN KEY (id_receiver) REFERENCES account(id_account),
+	FOREIGN KEY (id_sender) REFERENCES user_account(id_account),
+	FOREIGN KEY (id_receiver) REFERENCES user_account(id_account),
 	FOREIGN KEY (id_package) REFERENCES package(id_package),
 	FOREIGN KEY (id_pickup) REFERENCES Shipper(id_shipper),
 	CONSTRAINT CheckSenderReceiverDifferent CHECK (id_sender <> id_receiver)
