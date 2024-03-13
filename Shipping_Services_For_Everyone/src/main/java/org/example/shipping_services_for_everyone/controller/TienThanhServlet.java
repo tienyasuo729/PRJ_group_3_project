@@ -275,70 +275,8 @@ public class TienThanhServlet extends HttpServlet {
     private void Form_create_Android_Phone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("Android_Phone/createAndroid_Phone.jsp").forward(request, response);
     }
-    private void create_Android_Phone(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id = request.getParameter("id");
-        String name_owner = request.getParameter("name_owner");
-        String name_phone = request.getParameter("name_phone");
-
-        // ở JSP gửi về kiểu string và định dạng là  ###,###,###,### nên phải xoá dấu , mới có thể có một số
-        String numericValue = request.getParameter("price").replace(",", "");
-        int price = Integer.parseInt(numericValue);
-
-        String status = request.getParameter("status");
-        String password = request.getParameter("password");
-        String note = request.getParameter("note");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date start_Date = null;
-        try {
-            start_Date = dateFormat.parse(request.getParameter("start_Date"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        String id_of_phone = request.getParameter("id_of_phone");
-        String phone_number_owner = request.getParameter("phone_number_owner");
-
-        if (status.equals("")){
-            status = "Bình thường";
-        }
-        if (note.equals("")){
-            note = "Không có";
-        }
-        if (password.equals("")){
-            password = "Không có";
-        }
-        if (phone_number_owner.equals("")){
-            phone_number_owner = "Không có";
-        }
 
 
-//        BufferedReader reader = request.getReader();
-//        StringBuilder stringBuilder = new StringBuilder();
-//        String line;
-//        while ((line = reader.readLine()) != null) {
-//            stringBuilder.append(line);
-//        }
-//        String jsonString = stringBuilder.toString();
-//        JSONObject jsonObject = new JSONObject(jsonString);
-
-//        String id = jsonObject.getString("id");
-//        String name_owner = jsonObject.getString("name_owner");
-//        String name_phone = jsonObject.getString("name_phone");
-//        int price = (int) jsonObject.getDouble("price");
-//        String status = jsonObject.getString("status");
-//        String password = jsonObject.getString("password");
-//        String note = jsonObject.getString("note");
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        Date start_Date = null;
-//        try {
-//            start_Date = dateFormat.parse(jsonObject.getString("start_Date"));
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-
-        Android_Phone android_phone = new Android_Phone(id,name_owner,name_phone,id_of_phone,price,start_Date,phone_number_owner,status,password,note);
-        android_phoneService.add_New_Android_Phone(android_phone);
-//        request.getRequestDispatcher("Android_Phone/createAndroid_Phone.jsp").forward(request,response);
-    }
     private int money_all_days(int days, int price){
         int payment = 0;
         payment = ((price / 1000000) * 3000 + less_than_500(price)) * days;

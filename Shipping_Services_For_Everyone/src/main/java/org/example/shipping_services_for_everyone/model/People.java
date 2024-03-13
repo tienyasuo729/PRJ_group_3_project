@@ -8,7 +8,6 @@ public class People {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String phoneNumber;
     private LocalDate dateOfBirth;
     private char sex;
     private String email;

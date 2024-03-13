@@ -2,25 +2,32 @@ create database shipping_project;
 use shipping_project;
 
 CREATE TABLE user_account (
-	id_account int primary key auto_increment,
+    id_account int PRIMARY KEY AUTO_INCREMENT,
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
-    password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
-    permission VARCHAR(500),
+	password VARCHAR(99) CHECK (
+        password NOT LIKE '% %' 
+        AND LENGTH(password) >= 8 
+        AND LENGTH(password) <= 99
+        AND password NOT REGEXP '[^\x00-\x7F]' -- Loại bỏ chữ cái tiếng Việt
+    ),
     joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$'),
-    first_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    middle_name VARCHAR(500) CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    last_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    DateOfBirth DATE ,
+    first_name VARCHAR(500) NOT NULL CHECK (first_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    middle_name VARCHAR(500) CHECK (middle_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    last_name VARCHAR(500) NOT NULL CHECK (last_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    DateOfBirth DATE,
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
     delivery_address VARCHAR(500) NOT NULL,
     image_selfie VARCHAR(500),
     image_cccd_front VARCHAR(500),
     image_cccd_back VARCHAR(500),
-    address varchar(500),
-    list_old_address text
+    address VARCHAR(500),
+    list_old_address TEXT
 );
+
+INSERT INTO `shipping_project`.`user_account` (`phone_number`, `password`, `cccd`, `first_name`, `last_name`, `DateOfBirth`, `sex`, `email`, `delivery_address`, `image_selfie`, `image_cccd_front`, `image_cccd_back`, `address`, `list_old_address`) VALUES ('0935430002', 'tien220403', '222222222223', 'nguyễn nghĩa hải', 'an', '2004-12-12', 'm', 'an@gmail.com', 'á', 'á', 'á', 'á', 'á', 'á');
+
 
 CREATE TABLE permission (
     id_permission INT PRIMARY KEY auto_increment,
@@ -30,11 +37,15 @@ CREATE TABLE permission (
 CREATE TABLE account_shipping (
 	id_account_shipping int primary key auto_increment,
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$'),
-    password VARCHAR(500) CHECK (password REGEXP '^[!-~]+$'),
-    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-	first_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    middle_name VARCHAR(500) CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    last_name VARCHAR(500) NOT NULL CHECK (name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+	password VARCHAR(99) CHECK (
+        password NOT LIKE '% %' 
+        AND LENGTH(password) >= 8 
+        AND LENGTH(password) <= 99
+        AND password NOT REGEXP '[^\x00-\x7F]' -- Loại bỏ chữ cái tiếng Việt
+    ),    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+	first_name VARCHAR(500) NOT NULL CHECK (first_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    middle_name VARCHAR(500) CHECK (middle_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    last_name VARCHAR(500) NOT NULL CHECK (last_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
     DateOfBirth DATE ,
     sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),

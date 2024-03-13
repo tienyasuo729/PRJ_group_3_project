@@ -1,133 +1,187 @@
+-- Tạo database và chuyển sang sử dụng nó
 CREATE DATABASE shipping_project;
 GO
-
 USE shipping_project;
 GO
 
-CREATE TABLE account (
+-- Tạo bảng user_account
+CREATE TABLE user_account (
     id_account INT PRIMARY KEY IDENTITY(1,1),
-    phone_number VARCHAR(11) CHECK (phone_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-    password VARCHAR(500) CHECK (password LIKE '[!-~]+'),
-    permission VARCHAR(500),
-    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-    name VARCHAR(500) NOT NULL CHECK (name LIKE '[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+'),
+    phone_number VARCHAR(11) CHECK (phone_number LIKE '[0-9]' AND LEN(phone_number) BETWEEN 10 AND 11),
+    password VARCHAR(99) CHECK (
+        password NOT LIKE '% %' 
+        AND LEN(password) >= 8 
+        AND LEN(password) <= 99
+    ),
+    joining_date DATETIME DEFAULT GETDATE(),
+    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9]' AND LEN(cccd) = 12),
+    first_name NVARCHAR(500) NOT NULL CHECK (first_name NOT LIKE '%[^a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]%'),
+    middle_name NVARCHAR(500) CHECK (middle_name NOT LIKE '%[^a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]%'),
+    last_name NVARCHAR(500) NOT NULL CHECK (last_name NOT LIKE '%[^a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]%'),
     DateOfBirth DATE,
     sex CHAR(1),
-    email VARCHAR(500) CHECK (email LIKE '[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}'),
-    delivery_address VARCHAR(500) NOT NULL,
-    image_selfie VARCHAR(500),
-    image_cccd_front VARCHAR(500),
-    image_cccd_back VARCHAR(500),
-    address VARCHAR(500),
+    email NVARCHAR(500) CHECK (email LIKE '[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}'),
+    delivery_address NVARCHAR(500) NOT NULL,
+    image_selfie NVARCHAR(500),
+    image_cccd_front NVARCHAR(500),
+    image_cccd_back NVARCHAR(500),
+    address NVARCHAR(500),
     list_old_address TEXT
 );
-GO
 
+-- Insert dữ liệu vào bảng user_account
+INSERT INTO user_account (
+    phone_number, 
+    password, 
+    cccd, 
+    first_name, 
+    last_name, 
+    DateOfBirth, 
+    sex, 
+    email, 
+    delivery_address, 
+    image_selfie, 
+    image_cccd_front, 
+    image_cccd_back, 
+    address, 
+    list_old_address
+) VALUES (
+    '0935430002', 
+    'tien220403', 
+    '222222222223', 
+    'nguyễn nghĩa hải', 
+    'an', 
+    '2004-12-12', 
+    'm', 
+    'an@gmail.com', 
+    'á', 
+    'á', 
+    'á', 
+    'á', 
+    'á', 
+    'á'
+);
+
+-- Tạo bảng permission
 CREATE TABLE permission (
     id_permission INT PRIMARY KEY IDENTITY(1,1),
-    name_table_permission VARCHAR(500)
+    name_table_permission NVARCHAR(500)
 );
-GO
 
+-- Tạo bảng account_shipping
 CREATE TABLE account_shipping (
     id_account_shipping INT PRIMARY KEY IDENTITY(1,1),
-    phone_number VARCHAR(11) CHECK (phone_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-    password VARCHAR(500) CHECK (password LIKE '[!-~]+'),
-    joining_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    name VARCHAR(500) NOT NULL CHECK (name LIKE '[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+'),
+    phone_number VARCHAR(11) CHECK (phone_number LIKE '[0-9]' AND LEN(phone_number) BETWEEN 10 AND 11),
+    password VARCHAR(99) CHECK (
+        password NOT LIKE '% %' 
+        AND LEN(password) >= 8 
+        AND LEN(password) <= 99
+    ),
+    joining_date DATETIME DEFAULT GETDATE(),
+    first_name NVARCHAR(500) NOT NULL CHECK (first_name NOT LIKE '%[^a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]%'),
+    middle_name NVARCHAR(500) CHECK (middle_name NOT LIKE '%[^a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]%'),
+    last_name NVARCHAR(500) NOT NULL CHECK (last_name NOT LIKE '%[^a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]%'),
     DateOfBirth DATE,
     sex CHAR(1),
-    email VARCHAR(500) CHECK (email LIKE '[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}'),
-    current_position VARCHAR(500) NOT NULL,
+    email NVARCHAR(500) CHECK (email LIKE '[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,4}'),
+    current_position NVARCHAR(500) NOT NULL,
     permission INT,
     FOREIGN KEY (permission) REFERENCES permission(id_permission)
 );
-GO
 
+-- Tạo bảng transit_vehicle
 CREATE TABLE transit_vehicle (
     id_transit_vehicle INT PRIMARY KEY IDENTITY(1,1),
-    name_vehicle VARCHAR(500) NOT NULL,
-    type VARCHAR(500) NOT NULL,
+    name_vehicle NVARCHAR(500) NOT NULL,
+    type NVARCHAR(500) NOT NULL,
     license_plate VARCHAR(9),
     tank_volume INT NOT NULL,
     maximum_storage_volume INT NOT NULL,
-    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-    image_selfie VARCHAR(500),
-    image_cccd_front VARCHAR(500),
-    image_cccd_back VARCHAR(500),
-    image_driver_license VARCHAR(500) NOT NULL,
-    image_vehicle_registration VARCHAR(500) NOT NULL,
-    image_Curriculum_Vitae VARCHAR(500) NOT NULL,
-    image_Civil_Guarantee_Letter VARCHAR(500) NOT NULL,
-    image_Certificate_of_No_Criminal_Record VARCHAR(500) NOT NULL,
-    image_Birth_Certificate VARCHAR(500) NOT NULL,
-    image_Household_Registration VARCHAR(500) NOT NULL,
-    image_Health_Examination_Certificate VARCHAR(500) NOT NULL,
+    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9]' AND LEN(cccd) = 12),
+    image_selfie NVARCHAR(500),
+    image_cccd_front NVARCHAR(500),
+    image_cccd_back NVARCHAR(500),
+    image_driver_license NVARCHAR(500) NOT NULL,
+    image_vehicle_registration NVARCHAR(500) NOT NULL,
+    image_Curriculum_Vitae NVARCHAR(500) NOT NULL,
+    image_Civil_Guarantee_Letter NVARCHAR(500) NOT NULL,
+    image_Certificate_of_No_Criminal_Record NVARCHAR(500) NOT NULL,
+    image_Birth_Certificate NVARCHAR(500) NOT NULL,
+    image_Household_Registration NVARCHAR(500) NOT NULL,
+    image_Health_Examination_Certificate NVARCHAR(500) NOT NULL,
     id_account_shipping INT,
     FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
 );
-GO
 
+-- Tạo bảng Shipper
 CREATE TABLE Shipper (
     id_shipper INT PRIMARY KEY IDENTITY(1,1),
     license_plates VARCHAR(9) NOT NULL,
-    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-    image_selfie VARCHAR(500),
-    image_cccd_front VARCHAR(500),
-    image_cccd_back VARCHAR(500),
-    image_driver_license VARCHAR(500) NOT NULL,
-    image_vehicle_registration VARCHAR(500) NOT NULL,
-    image_Curriculum_Vitae VARCHAR(500) NOT NULL,
-    image_Civil_Guarantee_Letter VARCHAR(500) NOT NULL,
-    image_Certificate_of_No_Criminal_Record VARCHAR(500) NOT NULL,
-    image_Birth_Certificate VARCHAR(500) NOT NULL,
-    image_Household_Registration VARCHAR(500) NOT NULL,
-    image_Health_Examination_Certificate VARCHAR(500) NOT NULL,
+    cccd VARCHAR(12) CHECK (cccd LIKE '[0-9]' AND LEN(cccd) = 12),
+    image_selfie NVARCHAR(500),
+    image_cccd_front NVARCHAR(500),
+    image_cccd_back NVARCHAR(500),
+    image_driver_license NVARCHAR(500) NOT NULL,
+    image_vehicle_registration NVARCHAR(500) NOT NULL,
+    image_Curriculum_Vitae NVARCHAR(500) NOT NULL,
+    image_Civil_Guarantee_Letter NVARCHAR(500) NOT NULL,
+    image_Certificate_of_No_Criminal_Record NVARCHAR(500) NOT NULL,
+    image_Birth_Certificate NVARCHAR(500) NOT NULL,
+    image_Household_Registration NVARCHAR(500) NOT NULL,
+    image_Health_Examination_Certificate NVARCHAR(500) NOT NULL,
     id_account_shipping INT,
     FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
 );
-GO
 
+-- Tạo bảng package
 CREATE TABLE package (
     id_package INT PRIMARY KEY IDENTITY(1,1),
-    name_Item VARCHAR(500),
+    name_Item NVARCHAR(500),
     Volume INT NOT NULL,
     weight INT NOT NULL,
-    image_1 VARCHAR(500) NOT NULL,
-    image_2 VARCHAR(500) NOT NULL,
-    image_3 VARCHAR(500) NOT NULL,
-    image_4 VARCHAR(500) NOT NULL
+    image_1 NVARCHAR(500) NOT NULL,
+    image_2 NVARCHAR(500) NOT NULL,
+    image_3 NVARCHAR(500) NOT NULL,
+    image_4 NVARCHAR(500) NOT NULL
 );
-GO
 
+-- Tạo bảng Order_Shipping
 CREATE TABLE Order_Shipping (
     id_order INT PRIMARY KEY IDENTITY(1,1),
-    note_for_shipper VARCHAR(500),
+    note_for_shipper NVARCHAR(500),
     check_package BIT,
     collection_money INT DEFAULT 0,
     transportation_cost INT DEFAULT 0,
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    order_date DATETIME DEFAULT GETDATE(),
     status_order BIT,
-    apartment_number VARCHAR(500),
-    street_name VARCHAR(500),
-    District VARCHAR(500),
-    Ward VARCHAR(500),
-    city VARCHAR(500),
-    request_for_shipper VARCHAR(500),
-    receiving_time VARCHAR(500),
+    apartment_number NVARCHAR(500),
+    street_name NVARCHAR(500),
+    District NVARCHAR(500),
+    Ward NVARCHAR(500),
+    city NVARCHAR(500),
+    request_for_shipper NVARCHAR(500),
+    receiving_time NVARCHAR(500),
     id_sender INT NOT NULL,
     id_receiver INT NOT NULL,
     id_package INT UNIQUE NOT NULL,
     id_pickup INT,
-    CONSTRAINT FK_Sender FOREIGN KEY (id_sender) REFERENCES account(id_account),
-    CONSTRAINT FK_Receiver FOREIGN KEY (id_receiver) REFERENCES account(id_account),
-    CONSTRAINT FK_Package FOREIGN KEY (id_package) REFERENCES package(id_package),
-    CONSTRAINT FK_Pickup FOREIGN KEY (id_pickup) REFERENCES Shipper(id_shipper),
+    FOREIGN KEY (id_sender) REFERENCES user_account(id_account),
+    FOREIGN KEY (id_receiver) REFERENCES user_account(id_account),
+    FOREIGN KEY (id_package) REFERENCES package(id_package),
+    FOREIGN KEY (id_pickup) REFERENCES Shipper(id_shipper),
     CONSTRAINT CheckSenderReceiverDifferent CHECK (id_sender <> id_receiver)
 );
-GO
 
+-- Tạo bảng current_location
 CREATE TABLE current_location (
     id_current_location INT PRIMARY KEY IDENTITY(1,1),
-    current_location_date DAT
+    current_location_date DATETIME DEFAULT GETDATE(),
+    image_1 NVARCHAR(500) NOT NULL,
+    image_2 NVARCHAR(500) NOT NULL,
+    image_3 NVARCHAR(500) NOT NULL,
+    image_4 NVARCHAR(500) NOT NULL,
+    id_order INT,
+    id_account_shipping INT,
+    FOREIGN KEY (id_order) REFERENCES Order_Shipping(id_order),
+    FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
+);
