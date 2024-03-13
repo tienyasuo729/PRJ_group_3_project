@@ -228,3 +228,15 @@ create table current_location(
 	FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
 );
 -- current_location_date sẽ lấy thời gian hiện tại nhưng ( VẪN CHƯA TẠO RA RÀNG BUỘC KHÔNG ĐƯỢC SỬA ĐỔI DỮ LIỆU current_location_date )
+
+-- type_vehicle
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('motorbike');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('bus');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('truck');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('xe container');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('container truck');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('airplane');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('train');
+INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('Boat');
+
+-- 
