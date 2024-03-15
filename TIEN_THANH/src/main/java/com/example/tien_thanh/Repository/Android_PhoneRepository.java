@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface Android_PhoneRepository {
+    String ad = "hh";
     List<Android_Phone> displayAndroid_Phone();
     void add_New_Android_Phone(Android_Phone android_phone);
     void edit_Android_Phone(Android_Phone android_phone);

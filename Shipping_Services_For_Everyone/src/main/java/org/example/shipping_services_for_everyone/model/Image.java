@@ -3,29 +3,13 @@ package org.example.shipping_services_for_everyone.model;
 import java.time.LocalDate;
 
 public class Image {
-    private LocalDate current_location_date;
     private String image1;
     private String image2;
     private String image3;
     private String image4;
+    private LocalDate currentLocationDate;
 
     public Image() {
-    }
-
-    public Image(LocalDate current_location_date, String image1, String image2, String image3, String image4) {
-        this.current_location_date = current_location_date;
-        this.image1 = image1;
-        this.image2 = image2;
-        this.image3 = image3;
-        this.image4 = image4;
-    }
-
-    public LocalDate getCurrent_location_date() {
-        return current_location_date;
-    }
-
-    public void setCurrent_location_date(LocalDate current_location_date) {
-        this.current_location_date = current_location_date;
     }
 
     public String getImage1() {
@@ -58,5 +42,13 @@ public class Image {
 
     public void setImage4(String image4) {
         this.image4 = image4;
+    }
+
+    public LocalDate getCurrentLocationDate() {
+        return currentLocationDate;
+    }
+
+    public void setCurrentLocationDate(LocalDate currentLocationDate) {
+        this.currentLocationDate = currentLocationDate;
     }
 }

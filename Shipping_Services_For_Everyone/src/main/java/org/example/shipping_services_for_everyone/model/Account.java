@@ -6,7 +6,7 @@ public class Account {
     private int idAccount;
     private String phoneNumber;
     private String password;
-    private Permission permission;
+    private TypeVehicle typeVehicle;
     private LocalDate joining_date;
 
     public Account() {
@@ -36,12 +36,12 @@ public class Account {
         this.password = password;
     }
 
-    public Permission getPermission() {
-        return permission;
+    public TypeVehicle getPermission() {
+        return typeVehicle;
     }
 
-    public void setPermission(Permission permission) {
-        this.permission = permission;
+    public void setPermission(TypeVehicle typeVehicle) {
+        this.typeVehicle = typeVehicle;
     }
 
     public LocalDate getJoining_date() {

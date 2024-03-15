@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Android_PhoneRepositoryImpl implements Android_PhoneRepository {
     private BaseRepository baseRepository = new BaseRepository();
-    private String DISPLAY_ANDROID_PHONE = "select * from android_phone order by android_phone.id desc;";
+    public String DISPLAY_ANDROID_PHONE = "select * from android_phone order by android_phone.id desc;";
     private String ADD_NEW_ANDROID_PHONE = "INSERT INTO android_phone(id,name_owner, name_phone, price, start_Date, status, password, note ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     private String DELETE_ANDROID_PHONE_BY_ID = "delete from android_phone where id = ?";
     private String EDIT_ANDROID_PHONE_BY_ID = "UPDATE android_phone SET name_owner = ?,name_phone = ?,price = ?,start_Date = ?,status = ?,password = ?,note = ? WHERE id = ?";

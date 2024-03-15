@@ -33,6 +33,7 @@ public class TienThanhServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         listAndroid_Phone(request,response);
+
     }
 
     @Override

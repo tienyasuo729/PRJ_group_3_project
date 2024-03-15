@@ -3,4 +3,24 @@ package org.example.shipping_services_for_everyone.model;
 public class Shipper {
     private People people;
     private ImageIdentification imageIdentification;
+
+    public Shipper() {
+    }
+
+    public People getPeople() {
+        return people;
+    }
+
+    public void setPeople(People people) {
+        this.people = people;
+    }
+
+    public ImageIdentification getImageIdentification() {
+        return imageIdentification;
+    }
+
+    public void setImageIdentification(ImageIdentification imageIdentification) {
+        this.imageIdentification = imageIdentification;
+    }
 }
+
