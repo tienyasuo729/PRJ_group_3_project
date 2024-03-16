@@ -247,6 +247,3 @@ INSERT INTO `shipping_project`.`evaluate` (`Rating`, `comment`, `id_account_ship
 INSERT INTO `shipping_project`.`evaluate` (`Rating`, `comment`, `id_account_shipping`) VALUES ('5', 'n', '5');
 
 
-
-
-
