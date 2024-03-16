@@ -93,24 +93,9 @@ private IRepository shipimpl= new AccountShippingImpl();
                         request.setAttribute("userName", name);
                         request.getRequestDispatcher("loginSuccess.jsp").forward(request, response);
                     }
-                    
-//                    HttpSession session = request.getSession();
-//                    session.setAttribute("loginSession", account);
-//                    AccountDB acc = new AccountDB();
-//                    UserAccount a = acc.login(number, password);
-//                    if (a == null) {
-//                        String msg = "Sai Số điện thoại hoặc mật khẩu!";
-//                        request.setAttribute("MSG", msg);
-//                        request.getRequestDispatcher("login.jsp").forward(request, response);
-//                    } else {
-//                        String fistName = a.getPeople().getFirstName();
-//                        String lastName = a.getPeople().getLastName();
-//                        String name = fistName + " " + lastName;
-//                        request.setAttribute("userName", name);
-//                        request.getRequestDispatcher("loginSuccess.jsp").forward(request, response);
-//                    }   
-                    
+                                       
                 }else{
+                        //phần đăng nhập của Shiper
                       List<AccountShipping> listShippers = new ArrayList<>();
                       String number = request.getParameter("number");
                        String password = request.getParameter("pass");
@@ -126,7 +111,7 @@ private IRepository shipimpl= new AccountShippingImpl();
                            session.setAttribute("loginSession", account);
                            String name =listShippers.get(0).getNameAccount();
                            request.setAttribute("userName", name);
-                           request.getRequestDispatcher("loginSuccess.jsp").forward(request, response);
+                           request.getRequestDispatcher("loginSuccessShiper.jsp").forward(request, response);
                        }
                 }
             }
