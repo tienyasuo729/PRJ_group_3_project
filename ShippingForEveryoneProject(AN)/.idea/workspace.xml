@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="91d490e0-cbd4-487b-ba89-232cf1a1761b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/Repository/QueryStatement/ShipperQueryStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/Repository/QueryStatement/ShipperQueryStatement.java" afterDir="false" />
-    </list>
+    <list default="true" id="530626d6-260b-4e2f-a7d7-79f1ac00ac28" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,9 +13,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2dl3nlq1IdSrcTo5Ymy8oqYciyD" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,7 +27,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/LEARN/codegym/PRJ_group_3_project/ShippingForEveryoneProject(AN)",
+    "last_opened_file_path": "C:/LEARN/codegym/PRJ_group_3_project/Shipping_Services_For_Everyone",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
