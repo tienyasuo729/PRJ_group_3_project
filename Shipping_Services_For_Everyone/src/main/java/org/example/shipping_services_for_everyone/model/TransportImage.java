@@ -9,6 +9,13 @@ public class TransportImage {
     public TransportImage() {
     }
 
+    public TransportImage(String imageVehicleFront, String imageVehicleLeft, String imageVehicleRight, String imageVehicleBehind) {
+        this.imageVehicleFront = imageVehicleFront;
+        this.imageVehicleLeft = imageVehicleLeft;
+        this.imageVehicleRight = imageVehicleRight;
+        this.imageVehicleBehind = imageVehicleBehind;
+    }
+
     public String getImageVehicleFront() {
         return imageVehicleFront;
     }

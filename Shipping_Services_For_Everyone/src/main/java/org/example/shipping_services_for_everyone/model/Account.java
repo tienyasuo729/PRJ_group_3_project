@@ -6,10 +6,14 @@ public class Account {
     private int idAccount;
     private String phoneNumber;
     private String password;
-    private TypeVehicle typeVehicle;
     private LocalDate joining_date;
 
     public Account() {
+    }
+
+    public Account(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
     }
 
     public int getIdAccount() {

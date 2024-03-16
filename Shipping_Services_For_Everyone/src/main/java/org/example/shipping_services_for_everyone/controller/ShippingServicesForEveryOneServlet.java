@@ -28,7 +28,7 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
         String lastName = request.getParameter("lastName");
-        String nameAccount;
+        String nameAccount = null;
         LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
         char sex = request.getParameter("sex").charAt(0);
         String email = request.getParameter("email");
@@ -44,11 +44,11 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String imageHouseholdRegistration = request.getParameter("imageHouseholdRegistration");
         String imageHealthExaminationCertificate = request.getParameter("imageHealthExaminationCertificate");
         int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle"));
-        String length = request.getParameter("length");
-        String width = request.getParameter("width");
-        String height = request.getParameter("height");
-        String weight = request.getParameter("weight");
-        String maximumStorageVolume = request.getParameter("maximumStorageVolume");
+        int length = Integer.parseInt(request.getParameter("length"));
+        int width = Integer.parseInt(request.getParameter("width"));
+        int height = Integer.parseInt(request.getParameter("height"));
+        int weight = Integer.parseInt(request.getParameter("weight"));
+        int maximumStorageVolume = Integer.parseInt(request.getParameter("maximumStorageVolume"));
         String licensePlate = request.getParameter("licensePlate");
         String apartmentNumber = request.getParameter("apartmentNumber");
         String streetName = request.getParameter("streetName");
@@ -60,12 +60,13 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String imageVehicleRight = request.getParameter("imageVehicleRight");
         String imageVehicleBehind = request.getParameter("imageVehicleBehind");
 
-        Address address = new Address(apartmentNumber,streetName,district,ward,city);
+        Address currentPosition = new Address(apartmentNumber,streetName,district,ward,city);
         TypeVehicle typeVehicle = new TypeVehicle(idTypeVehicle);
-        People people = new People(cccd,firstName,middleName,lastName,dateOfBirth,sex,email,address,imageSelfie,imageCccdFront,imageCccdBack);
+        People people = new People(cccd,firstName,middleName,lastName,dateOfBirth,sex,email,currentPosition,imageSelfie,imageCccdFront,imageCccdBack);
+        TransportImage transportImage = new TransportImage(imageVehicleFront,imageVehicleLeft,imageVehicleRight,imageVehicleBehind);
         Account account = new Account();
-        AccountShipping accountShipping = new AccountShipping(nameAccount);
-        Size size = new Size();
+        Size size = new Size(length,width,height,weight);
+        AccountShipping accountShipping = new AccountShipping(nameAccount,account,typeVehicle,size,maximumStorageVolume,licensePlate,currentPosition,transportImage);
 
     }
 }

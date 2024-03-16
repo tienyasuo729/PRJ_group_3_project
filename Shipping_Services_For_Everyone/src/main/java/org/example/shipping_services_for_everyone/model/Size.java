@@ -9,6 +9,13 @@ public class Size {
     public Size() {
     }
 
+    public Size(int length, int width, int height, int weight) {
+        this.length = length;
+        this.width = width;
+        this.height = height;
+        this.weight = weight;
+    }
+
     public int getLength() {
         return length;
     }

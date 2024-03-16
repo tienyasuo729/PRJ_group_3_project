@@ -13,6 +13,17 @@ public class AccountShipping {
     public AccountShipping() {
     }
 
+    public AccountShipping(String nameAccount, Account account, TypeVehicle typeVehicle, Size size, int maximumStorageVolume, String licensePlate, Address currentPosition, TransportImage transportImage) {
+        this.nameAccount = nameAccount;
+        this.account = account;
+        this.typeVehicle = typeVehicle;
+        this.size = size;
+        this.maximumStorageVolume = maximumStorageVolume;
+        this.licensePlate = licensePlate;
+        this.currentPosition = currentPosition;
+        this.transportImage = transportImage;
+    }
+
     public String getNameAccount() {
         return nameAccount;
     }
