@@ -28,6 +28,8 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
         String lastName = request.getParameter("lastName");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
         String nameAccount = null;
         LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
         char sex = request.getParameter("sex").charAt(0);
@@ -62,10 +64,12 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
 
         Address currentPosition = new Address(apartmentNumber,streetName,district,ward,city);
         TypeVehicle typeVehicle = new TypeVehicle(idTypeVehicle);
+        ImageIdentification imageIdentification = new ImageIdentification(imageDriverLicense,imageVehicleRegistration,imageCurriculumVitae,imageCivilGuaranteeLetter,imageCertificateOfNoCriminalRecord,imageBirthCertificate,imageHouseholdRegistration,imageHealthExaminationCertificate);
         People people = new People(cccd,firstName,middleName,lastName,dateOfBirth,sex,email,currentPosition,imageSelfie,imageCccdFront,imageCccdBack);
         TransportImage transportImage = new TransportImage(imageVehicleFront,imageVehicleLeft,imageVehicleRight,imageVehicleBehind);
-        Account account = new Account();
+        Account account = new Account(phoneNumber,password);
         Size size = new Size(length,width,height,weight);
+        Shipper shipper = new Shipper(people,imageIdentification);
         AccountShipping accountShipping = new AccountShipping(nameAccount,account,typeVehicle,size,maximumStorageVolume,licensePlate,currentPosition,transportImage);
 
     }

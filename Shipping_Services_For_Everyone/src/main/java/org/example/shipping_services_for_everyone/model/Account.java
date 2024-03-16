@@ -40,14 +40,6 @@ public class Account {
         this.password = password;
     }
 
-    public TypeVehicle getPermission() {
-        return typeVehicle;
-    }
-
-    public void setPermission(TypeVehicle typeVehicle) {
-        this.typeVehicle = typeVehicle;
-    }
-
     public LocalDate getJoining_date() {
         return joining_date;
     }

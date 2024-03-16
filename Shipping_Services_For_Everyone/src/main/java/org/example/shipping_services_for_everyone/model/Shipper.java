@@ -7,6 +7,11 @@ public class Shipper {
     public Shipper() {
     }
 
+    public Shipper(People people, ImageIdentification imageIdentification) {
+        this.people = people;
+        this.imageIdentification = imageIdentification;
+    }
+
     public People getPeople() {
         return people;
     }

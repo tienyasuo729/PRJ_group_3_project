@@ -13,6 +13,17 @@ public class ImageIdentification {
     public ImageIdentification() {
     }
 
+    public ImageIdentification(String imageDriverLicense, String imageVehicleRegistration, String imageCurriculumVitae, String imageCivilGuaranteeLetter, String imageCertificateOfNoCriminalRecord, String imageBirthCertificate, String imageHouseholdRegistration, String imageHealthExaminationCertificate) {
+        this.imageDriverLicense = imageDriverLicense;
+        this.imageVehicleRegistration = imageVehicleRegistration;
+        this.imageCurriculumVitae = imageCurriculumVitae;
+        this.imageCivilGuaranteeLetter = imageCivilGuaranteeLetter;
+        this.imageCertificateOfNoCriminalRecord = imageCertificateOfNoCriminalRecord;
+        this.imageBirthCertificate = imageBirthCertificate;
+        this.imageHouseholdRegistration = imageHouseholdRegistration;
+        this.imageHealthExaminationCertificate = imageHealthExaminationCertificate;
+    }
+
     public String getImageDriverLicense() {
         return imageDriverLicense;
     }
