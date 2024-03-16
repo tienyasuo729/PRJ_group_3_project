@@ -24,6 +24,17 @@ public class AccountShipping {
         this.transportImage = transportImage;
     }
 
+    public AccountShipping(Account account) {
+        this.account = account;       
+    }
+
+    public AccountShipping(String nameAccount, Account account) {
+        this.nameAccount = nameAccount;
+        this.account = account;
+    }
+
+    
+    
     public String getNameAccount() {
         return nameAccount;
     }

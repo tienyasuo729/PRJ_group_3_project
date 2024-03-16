@@ -138,4 +138,11 @@ public class People {
     public void setImageCccdBack(String imageCccdBack) {
         this.imageCccdBack = imageCccdBack;
     }
+
+    @Override
+    public String toString() {
+        return "People{" + "firstName=" + firstName + ", lastName=" + lastName + '}';
+    }
+    
+    
 }

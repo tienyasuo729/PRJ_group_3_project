@@ -4,6 +4,7 @@
  */
 package controller;
 
+import Impl.AccountShippingImpl;
 import Impl.AccountUserImpl;
 import QueryStatement.IRepository;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.AccountShipping;
 import model.UserAccount;
 
 /**
@@ -23,6 +25,7 @@ import model.UserAccount;
  */
 public class loginServlet extends HttpServlet {
 private IRepository usimpl=new AccountUserImpl();
+private IRepository shipimpl= new AccountShippingImpl();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,7 +79,7 @@ private IRepository usimpl=new AccountUserImpl();
                     Account account = new Account(number, password);
                     UserAccount usAcc = new UserAccount(account);
                     listUsers=usimpl.find(usAcc);
-                    if(listUsers==null){
+                    if(listUsers.isEmpty()){
                         String msg = "Sai Số điện thoại hoặc mật khẩu!";
                        request.setAttribute("MSG", msg);                        
                        request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -108,7 +111,23 @@ private IRepository usimpl=new AccountUserImpl();
 //                    }   
                     
                 }else{
-                  //phần đăng nhập của Shipper  
+                      List<AccountShipping> listShippers = new ArrayList<>();
+                      String number = request.getParameter("number");
+                       String password = request.getParameter("pass");
+                       Account account = new Account(number, password);
+                       AccountShipping accShipping = new AccountShipping(account);
+                       listShippers=shipimpl.find(accShipping);
+                       if(listShippers.isEmpty()){
+                           String msg = "Sai Số điện thoại hoặc mật khẩu!";
+                           request.setAttribute("MSG", msg);                        
+                           request.getRequestDispatcher("login.jsp").forward(request, response);
+                       }else{
+                           HttpSession session = request.getSession();
+                           session.setAttribute("loginSession", account);
+                           String name =listShippers.get(0).getNameAccount();
+                           request.setAttribute("userName", name);
+                           request.getRequestDispatcher("loginSuccess.jsp").forward(request, response);
+                       }
                 }
             }
                     
