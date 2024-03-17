@@ -5,7 +5,6 @@ public class AccountShipping {
     private Account account;
     private TypeVehicle typeVehicle;
     private Size size;
-    private int maximumStorageVolume;
     private String licensePlate;
     private Address currentPosition;
     private TransportImage transportImage;
@@ -13,12 +12,11 @@ public class AccountShipping {
     public AccountShipping() {
     }
 
-    public AccountShipping(String nameAccount, Account account, TypeVehicle typeVehicle, Size size, int maximumStorageVolume, String licensePlate, Address currentPosition, TransportImage transportImage) {
+    public AccountShipping(String nameAccount, Account account, TypeVehicle typeVehicle, Size size, String licensePlate, Address currentPosition, TransportImage transportImage) {
         this.nameAccount = nameAccount;
         this.account = account;
         this.typeVehicle = typeVehicle;
         this.size = size;
-        this.maximumStorageVolume = maximumStorageVolume;
         this.licensePlate = licensePlate;
         this.currentPosition = currentPosition;
         this.transportImage = transportImage;
@@ -54,14 +52,6 @@ public class AccountShipping {
 
     public void setSize(Size size) {
         this.size = size;
-    }
-
-    public int getMaximumStorageVolume() {
-        return maximumStorageVolume;
-    }
-
-    public void setMaximumStorageVolume(int maximumStorageVolume) {
-        this.maximumStorageVolume = maximumStorageVolume;
     }
 
     public String getLicensePlate() {

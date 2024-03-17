@@ -4,8 +4,15 @@ public class Shipper {
     private int idShipper;
     private People people;
     private ImageIdentification imageIdentification;
+    private Account idAccountShipping;
 
     public Shipper() {
+
+    }
+
+    public Shipper(People people, ImageIdentification imageIdentification) {
+        this.people = people;
+        this.imageIdentification = imageIdentification;
     }
 
     public int getIdShipper() {
@@ -16,10 +23,6 @@ public class Shipper {
         this.idShipper = idShipper;
     }
 
-    public Shipper(People people, ImageIdentification imageIdentification) {
-        this.people = people;
-        this.imageIdentification = imageIdentification;
-    }
 
     public People getPeople() {
         return people;
@@ -35,6 +38,14 @@ public class Shipper {
 
     public void setImageIdentification(ImageIdentification imageIdentification) {
         this.imageIdentification = imageIdentification;
+    }
+
+    public Account getIdAccountShipping() {
+        return idAccountShipping;
+    }
+
+    public void setIdAccountShipping(Account idAccountShipping) {
+        this.idAccountShipping = idAccountShipping;
     }
 }
 
