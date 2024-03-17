@@ -20,6 +20,25 @@ public class AccountShippingRepositoryImpl implements IRepository<AccountShippin
     public void addNew(AccountShipping object) {
         try {
             PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(ShipperQueryStatement.addNewShipper);
+            preparedStatement.setString(1, );
+            preparedStatement.setString(2, );
+            preparedStatement.setString(3, );
+            preparedStatement.setInt(4,);
+            preparedStatement.setInt(5,);
+            preparedStatement.setInt(6,);
+            preparedStatement.setInt(7,);
+            preparedStatement.setInt(8,);
+            preparedStatement.setString(9,);
+            preparedStatement.setString(10,);
+            preparedStatement.setString(11,);
+            preparedStatement.setString(12,);
+            preparedStatement.setString(13, );
+            preparedStatement.setString(14, );
+            preparedStatement.setString(15,);
+            preparedStatement.setString(16,);
+            preparedStatement.setString(17,);
+            preparedStatement.setString(18,);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

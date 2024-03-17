@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class OrderShipping {
     private int idOrder;
+    private UserAccount idSender;
+    private UserAccount idReceiver;
     private int collectionMoney;
     private int transportationCost;
     private LocalDate orderDate;
@@ -12,8 +14,42 @@ public class OrderShipping {
     private Address address;
     private String noteForShipper;
     private LocalDate estimatedDeliveryTime;
+    private AccountShipping idPickup;
+    private AccountShipping idDelivery;
 
     public OrderShipping() {
+    }
+
+    public UserAccount getIdSender() {
+        return idSender;
+    }
+
+    public void setIdSender(UserAccount idSender) {
+        this.idSender = idSender;
+    }
+
+    public UserAccount getIdReceiver() {
+        return idReceiver;
+    }
+
+    public void setIdReceiver(UserAccount idReceiver) {
+        this.idReceiver = idReceiver;
+    }
+
+    public AccountShipping getIdPickup() {
+        return idPickup;
+    }
+
+    public void setIdPickup(AccountShipping idPickup) {
+        this.idPickup = idPickup;
+    }
+
+    public AccountShipping getIdDelivery() {
+        return idDelivery;
+    }
+
+    public void setIdDelivery(AccountShipping idDelivery) {
+        this.idDelivery = idDelivery;
     }
 
     public int getIdOrder() {
