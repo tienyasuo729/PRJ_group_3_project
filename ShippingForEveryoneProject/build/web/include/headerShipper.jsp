@@ -35,7 +35,7 @@
                 <div class="navigation container-fluid d-flex flex-wrap align-items-center my-2 pe-4 ps-5 ">
 
                     <div class="col-md-3 brand-logo">
-                        <a href="index.jsp" class="d-inline-flex link-body-emphasis text-decoration-none">
+                        <a href="indexShipper.jsp" class="d-inline-flex link-body-emphasis text-decoration-none">
                             <img class="col-md-6" src="images/logoPage.png" alt=""  width="100" height="93">
                             <img class="col-md-6" src="images/LogoTitel.png" alt="alt" width="100" height="93" />
                         </a>
@@ -49,7 +49,7 @@
                             <ul class="navbar-nav align-items-center flex-grow-1 Menuheader">
 
                                 <li class="nav-list mx-3">
-                                    <a href="index.jsp" class="nav-link px-2">
+                                    <a href="indexShipper.jsp" class="nav-link px-2">
                                         <h5> Home </h5>
                                     </a>
                                 </li>
@@ -75,7 +75,7 @@
                                    
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        ${userName}
+                                        ${sessionScope.name}
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">Action</a></li>

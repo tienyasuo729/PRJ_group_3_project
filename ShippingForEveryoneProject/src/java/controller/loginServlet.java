@@ -113,7 +113,7 @@ private IRepository shipimpl= new AccountShippingImpl();
                            String name =listShippers.get(0).getNameAccount();
                            session.setAttribute("name", name);
 //                           request.setAttribute("userName", name);
-                           request.getRequestDispatcher("loginSuccessShiper.jsp").forward(request, response);
+                           request.getRequestDispatcher("indexShipper.jsp").forward(request, response);
                        }
                 }
             }
