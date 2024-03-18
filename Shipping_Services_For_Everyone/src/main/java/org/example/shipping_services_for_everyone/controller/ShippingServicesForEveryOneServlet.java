@@ -22,15 +22,15 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     private TransitVehicleRepositoryImpl transitVehicleRepository = new TransitVehicleRepositoryImpl();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("view/RegisterUserAccount.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        registerUserAccount(request,response);
     }
 
-    private void addNewUserAccount(HttpServletRequest request, HttpServletResponse response) {
+    private void registerUserAccount(HttpServletRequest request, HttpServletResponse response) {
         String phoneNumber = request.getParameter("phoneNumber");
         String password = request.getParameter("password");
         String cccd = request.getParameter("cccd");
