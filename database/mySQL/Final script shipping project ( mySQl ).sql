@@ -1,7 +1,7 @@
 create database shipping_project;
 use shipping_project;
-
 CREATE TABLE user_account (
+
     id_account int PRIMARY KEY AUTO_INCREMENT,
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$') not null unique,
 	password VARCHAR(99) CHECK (
@@ -25,6 +25,31 @@ CREATE TABLE user_account (
     image_cccd_back VARCHAR(500),
 	joining_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- CREATE TABLE user_account (
+--     id_account int PRIMARY KEY AUTO_INCREMENT,
+--     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$') not null unique,
+-- 	password VARCHAR(99) CHECK (
+--     password NOT LIKE '% %' AND -- Không chứa khoảng trắng
+--     CHAR_LENGTH(password) >= 8 AND -- Tối thiểu 8 ký tự
+--     CHAR_LENGTH(password) <= 99 AND -- Tối đa 99 ký tự
+--     BINARY password != BINARY LOWER(password) AND -- Có ít nhất 1 ký tự in hoa
+--     password NOT REGEXP '[^\x00-\x7F]' -- Không chứa chữ cái tiếng Việt
+-- 	),
+--     cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$') unique,
+--     first_name VARCHAR(500) CHECK (first_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+--     middle_name VARCHAR(500) CHECK (middle_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+--     last_name VARCHAR(500) CHECK (last_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+--     DateOfBirth DATE,
+--     sex CHAR(1),
+--     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
+--     address VARCHAR(500),
+--     list_old_address TEXT,
+--     image_selfie VARCHAR(500),
+--     image_cccd_front VARCHAR(500),
+--     image_cccd_back VARCHAR(500),
+-- 	joining_date DATETIME DEFAULT CURRENT_TIMESTAMP
+-- );
 
 CREATE TABLE type_vehicle (
     id_type INT PRIMARY KEY auto_increment,
