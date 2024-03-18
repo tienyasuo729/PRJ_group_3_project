@@ -1,7 +1,6 @@
 create database shipping_project;
 use shipping_project;
 CREATE TABLE user_account (
-
     id_account int PRIMARY KEY AUTO_INCREMENT,
     phone_number VARCHAR(11) CHECK (phone_number REGEXP '^[0-9]{10,11}$') not null unique,
 	password VARCHAR(99) CHECK (
