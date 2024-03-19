@@ -130,4 +130,17 @@ public class People {
     public void setImageCccdBack(String imageCccdBack) {
         this.imageCccdBack = imageCccdBack;
     }
+    public String toStringListOld_address(){
+        if (listOldAddress.isEmpty()){
+            return null;
+        }else {
+            String listAddress = null;
+            for (Address oldAddress: listOldAddress) {
+                listAddress += oldAddress.getNameAddress() + "|" + oldAddress.getApartmentNumber() + "|" + oldAddress.getStreetName() + "|" + oldAddress.getDistrict() + "|" + oldAddress.getWard() + "|" + oldAddress.getCity() + "|";
+            }
+            listAddress = listAddress.substring(0,listAddress.length() - 1) + ".";
+            return listAddress;
+        }
+
+    }
 }

@@ -1,5 +1,6 @@
 package org.example.shipping_services_for_everyone.repository.Impl;
 
+import org.example.shipping_services_for_everyone.model.Address;
 import org.example.shipping_services_for_everyone.repository.IRepository;
 import org.example.shipping_services_for_everyone.repository.queryStatement.UserAccountQueryStatement;
 import org.example.shipping_services_for_everyone.connection_config.BaseRepositoryJDBC;
@@ -61,5 +62,17 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
     @Override
     public Boolean checkIdIsExist(UserAccount object) {
         return null;
+    }
+
+    public void editAddressToTheList(UserAccount userAccount){
+        try {
+            PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.editListOldAddress);
+            preparedStatement.setString(1, userAccount.getPeople().toStringListOld_address());
+            preparedStatement.setInt(2, userAccount.getAccount().getIdAccount());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
