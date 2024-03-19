@@ -2,7 +2,7 @@ package org.example.shipping_services_for_everyone.validate;
 
 public class RegexStatement {
     final String cccdForShipper = "^\\d{12}$";
-    final String phoneNumber = "^0\\\\d{9,10}$";
+    final String phoneNumber = "^0\\d{9,10}$";
     final String cccdForUser = "^(?:\\d{12})?$";
     final String password = "^(?=.*[A-Z])[A-Za-z\\d\\W_]{8,99}$";
     final String nameAccount = "^[a-zA-ZÀ-ỹ]+(?: [a-zA-ZÀ-ỹ]+)*$";

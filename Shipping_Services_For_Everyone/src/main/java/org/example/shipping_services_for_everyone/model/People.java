@@ -136,7 +136,7 @@ public class People {
         }else {
             String listAddress = null;
             for (Address oldAddress: listOldAddress) {
-                listAddress += oldAddress.getNameAddress() + "|" + oldAddress.getApartmentNumber() + "|" + oldAddress.getStreetName() + "|" + oldAddress.getDistrict() + "|" + oldAddress.getWard() + "|" + oldAddress.getCity() + "|";
+                listAddress += oldAddress.getNameAddress() + "|" + oldAddress.getApartmentNumber() + "|" + oldAddress.getStreetName() + "|" + oldAddress.getDistrict() + "|" + oldAddress.getWard() + "|" + oldAddress.getCity() + "|" + oldAddress.getPhoneNumberForThisAddress();
             }
             listAddress = listAddress.substring(0,listAddress.length() - 1) + ".";
             return listAddress;

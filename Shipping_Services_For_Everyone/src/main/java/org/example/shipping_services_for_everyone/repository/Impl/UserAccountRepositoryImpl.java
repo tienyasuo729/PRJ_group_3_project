@@ -9,6 +9,7 @@ import org.example.shipping_services_for_everyone.validate.ValidateByRegex;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,10 +35,11 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
             preparedStatement.setDate(7, Date.valueOf(userAccount.getPeople().getDateOfBirth()));
             preparedStatement.setString(8, String.valueOf(userAccount.getPeople().getSex()));
             preparedStatement.setString(9, userAccount.getPeople().getEmail());
-            preparedStatement.setString(10, userAccount.getPeople().getAddress().getNameAddress() + " | " + userAccount.getPeople().getAddress().getApartmentNumber() + " | " + userAccount.getPeople().getAddress().getStreetName() + " | " + userAccount.getPeople().getAddress().getDistrict() + " | " + userAccount.getPeople().getAddress().getWard() + " | " + userAccount.getPeople().getAddress().getCity()+ " | " + userAccount.getPeople().getAddress().getPhoneNumberForThisAddress());
-            preparedStatement.setString(11, userAccount.getPeople().getImageSelfie());
-            preparedStatement.setString(12, userAccount.getPeople().getImageCccdFront());
-            preparedStatement.setString(13, userAccount.getPeople().getImageCccdBack());
+            preparedStatement.setString(10, userAccount.getPeople().getAddress().getNameAddress() + "|" + userAccount.getPeople().getAddress().getApartmentNumber() + "|" + userAccount.getPeople().getAddress().getStreetName() + "|" + userAccount.getPeople().getAddress().getDistrict() + "|" + userAccount.getPeople().getAddress().getWard() + "|" + userAccount.getPeople().getAddress().getCity()+ "|" + userAccount.getPeople().getAddress().getPhoneNumberForThisAddress());
+            preparedStatement.setString(11, userAccount.getPeople().getAddress().getNameAddress() + "|" + userAccount.getPeople().getAddress().getApartmentNumber() + "|" + userAccount.getPeople().getAddress().getStreetName() + "|" + userAccount.getPeople().getAddress().getDistrict() + "|" + userAccount.getPeople().getAddress().getWard() + "|" + userAccount.getPeople().getAddress().getCity()+ "|" + userAccount.getPeople().getAddress().getPhoneNumberForThisAddress() + ".");
+            preparedStatement.setString(12, userAccount.getPeople().getImageSelfie());
+            preparedStatement.setString(13, userAccount.getPeople().getImageCccdFront());
+            preparedStatement.setString(14, userAccount.getPeople().getImageCccdBack());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -64,12 +66,25 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
         return null;
     }
 
-    public void editAddressToTheList(UserAccount userAccount){
+    public void editAddressToTheListById(UserAccount userAccount){
         try {
             PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.editListOldAddress);
             preparedStatement.setString(1, userAccount.getPeople().toStringListOld_address());
             preparedStatement.setInt(2, userAccount.getAccount().getIdAccount());
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public String getAddressToTheListById(UserAccount userAccount){
+        try {
+            PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.getListOldAddress);
+            preparedStatement.setInt(1, userAccount.getAccount().getIdAccount());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getString("list_old_address");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
