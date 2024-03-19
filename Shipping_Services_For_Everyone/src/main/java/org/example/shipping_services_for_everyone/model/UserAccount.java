@@ -7,6 +7,10 @@ public class UserAccount {
     public UserAccount() {
     }
 
+    public UserAccount(Account account) {
+        this.account = account;
+    }
+
     public UserAccount(Account account, People people) {
         this.account = account;
         this.people = people;

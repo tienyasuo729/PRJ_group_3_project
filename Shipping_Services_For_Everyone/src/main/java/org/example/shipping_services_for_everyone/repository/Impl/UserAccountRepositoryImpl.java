@@ -5,12 +5,12 @@ import org.example.shipping_services_for_everyone.repository.IRepository;
 import org.example.shipping_services_for_everyone.repository.queryStatement.UserAccountQueryStatement;
 import org.example.shipping_services_for_everyone.connection_config.BaseRepositoryJDBC;
 import org.example.shipping_services_for_everyone.model.UserAccount;
-import org.example.shipping_services_for_everyone.validate.ValidateByRegex;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
@@ -66,7 +66,7 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
         return null;
     }
 
-    public void editAddressToTheListById(UserAccount userAccount){
+    public void editOrDeleteAddressInTheListById(UserAccount userAccount){
         try {
             PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.editListOldAddress);
             preparedStatement.setString(1, userAccount.getPeople().toStringListOld_address());
@@ -78,16 +78,29 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
 
     }
 
-    public String getAddressToTheListById(UserAccount userAccount){
+    public List<Address> getAddressToTheListById(UserAccount userAccount){
+        List<Address> addressList = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.getListOldAddress);
             preparedStatement.setInt(1, userAccount.getAccount().getIdAccount());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return resultSet.getString("list_old_address");
+            String[] elements = resultSet.getString("list_old_address").split("\\|");
+            elements[elements.length - 1] = elements[elements.length - 1].replace(".", "").trim();
+            for (int i = 0; i < elements.length; i += 7) {
+                addressList.add(new Address(
+                        elements[i],
+                        elements[i + 1],
+                        elements[i + 2],
+                        elements[i + 3],
+                        elements[i + 4],
+                        elements[i + 5],
+                        elements[i + 6]
+                ));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return addressList;
     }
 }

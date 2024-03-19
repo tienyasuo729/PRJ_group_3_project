@@ -21,6 +21,10 @@ public class People {
     public People() {
     }
 
+    public People(List<Address> listOldAddress) {
+        this.listOldAddress = listOldAddress;
+    }
+
     public People(String cccd, String firstName, String middleName, String lastName, LocalDate dateOfBirth, char sex, String email, Address address, String imageSelfie, String imageCccdFront, String imageCccdBack) {
         this.cccd = cccd;
         this.firstName = firstName;

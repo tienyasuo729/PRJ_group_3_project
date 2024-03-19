@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(name = "ShippingServicesForEveryOneServlet", value = "/shipping")
 public class ShippingServicesForEveryOneServlet extends HttpServlet {
@@ -26,6 +27,7 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("view/RegisterUserAccount.jsp").forward(request, response);
+        userAccountRepository.getAddressToTheListById(new UserAccount(new Account(1)));
     }
 
     @Override
@@ -33,6 +35,7 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         registerUserAccount(request,response);
+
     }
 
     private void registerUserAccount(HttpServletRequest request, HttpServletResponse response) {
@@ -163,5 +166,37 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         AccountShipping accountShipping = new AccountShipping(nameAccount,account,typeVehicle,size,licensePlate,currentPosition,transportImage);
         accountShippingRepository.addNew(accountShipping);
         transitVehicleRepository.addNew(transitVehicle);
+    }
+
+    private void formEditAddressDefault(HttpServletRequest request, HttpServletResponse response){
+        int idUserWam = ValidateByRegex.checkLength(request.getParameter("newAddressToAdd"));
+        String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
+        String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
+        String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
+        String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));
+        String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
+        String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
+        String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
+    }
+
+    private void formGetListOldAddress(HttpServletRequest request, HttpServletResponse response){
+
+    }
+
+    private void formAddNewAddressToListOldAddress(HttpServletRequest request, HttpServletResponse response){
+        int idUserWantToAddNewAddress = ValidateByRegex.checkLength(request.getParameter("newAddressToAdd"));
+        String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
+        String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
+        String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
+        String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));
+        String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
+        String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
+        String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
+        Address newAddress = new Address(nameAddress,apartmentNumber,streetName,district,ward,city,phoneNumber);
+        Account account = new Account(idUserWantToAddNewAddress);
+        List<Address> addressList = userAccountRepository.getAddressToTheListById(new UserAccount(account));
+        addressList.add(newAddress);
+        People people = new People(addressList);
+        userAccountRepository.editOrDeleteAddressInTheListById(new UserAccount(account,people));
     }
 }
