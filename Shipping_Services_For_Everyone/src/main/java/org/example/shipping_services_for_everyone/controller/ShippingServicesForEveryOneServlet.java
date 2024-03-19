@@ -36,24 +36,24 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     }
 
     private void registerUserAccount(HttpServletRequest request, HttpServletResponse response) {
-        String phoneNumber = request.getParameter("phoneNumber").replace(" ","");
-        String password = request.getParameter("password");
-        String cccd = request.getParameter("cccd").replace(" ","");
-        String firstName = request.getParameter("firstName").trim().replace("  "," ");
-        String middleName = request.getParameter("middleName").trim().replace("  "," ");
-        String lastName = request.getParameter("lastName").trim().replace("  "," ");
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth").replace(" ",""));
-        char sex = request.getParameter("sex").replace(" ","").charAt(0);
-        String email = request.getParameter("email").trim();
-        String imageSelfie = request.getParameter("imageSelfie");
-        String imageCccdFront = request.getParameter("imageCccdFront");
-        String imageCccdBack = request.getParameter("imageCccdBack");
-        String nameAddress = request.getParameter("nameAddress").trim();
-        String apartmentNumber = request.getParameter("apartmentNumber").trim();
-        String streetName = request.getParameter("streetName").trim();
-        String district = request.getParameter("district").trim();
-        String ward = request.getParameter("ward").trim();
-        String city = request.getParameter("city").trim();
+        String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
+        String password = ValidateByRegex.checkPasswordForUser(request.getParameter("password"));
+        String cccd = ValidateByRegex.checkCccdUser(request.getParameter("cccd"));
+        String firstName = ValidateByRegex.checkFirstName(request.getParameter("firstName"));
+        String middleName = ValidateByRegex.checkMiddleName(request.getParameter("middleName"));
+        String lastName = ValidateByRegex.checkLastName(request.getParameter("lastName"));
+        LocalDate dateOfBirth = LocalDate.parse(ValidateByRegex.checkDateOfBirth(request.getParameter("dateOfBirth")));
+        char sex = ValidateByRegex.checkSex(request.getParameter("sex")).charAt(0);
+        String email = ValidateByRegex.checkEmail(request.getParameter("email"));
+        String imageSelfie = ValidateByRegex.checkImageSelfie(request.getParameter("imageSelfie"));
+        String imageCccdFront = ValidateByRegex.checkImageCccdFront(request.getParameter("imageCccdFront"));
+        String imageCccdBack = ValidateByRegex.checkImageCccdBack(request.getParameter("imageCccdBack"));
+        String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
+        String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
+        String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));
+        String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
+        String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
+        String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
 
         Account account = new Account(phoneNumber,password);
         Address address = new Address(nameAddress,apartmentNumber,streetName,district,ward,city,phoneNumber);
@@ -63,16 +63,16 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     }
 
     private void registerShipper(HttpServletRequest request, HttpServletResponse response) {
-        String cccd = ValidateByRegex.checkCccdAccountShipping(request.getParameter("cccd").replace(" ",""));
-        String firstName = request.getParameter("firstName").trim().replace("  "," ");
-        String middleName = request.getParameter("middleName").trim().replace("  "," ");
-        String lastName = request.getParameter("lastName").trim().replace("  "," ");
-        String phoneNumber = request.getParameter("phoneNumber").replace(" ","");
-        String password = request.getParameter("password");
+        String cccd = ValidateByRegex.checkCccdAccountShipping(request.getParameter("cccd"));
+        String firstName = ValidateByRegex.checkFirstName(request.getParameter("firstName"));
+        String middleName = ValidateByRegex.checkMiddleName(request.getParameter("middleName"));
+        String lastName = ValidateByRegex.checkLastName(request.getParameter("lastName"));
+        String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
+        String password = ValidateByRegex.checkPasswordForAccountShipping(request.getParameter("password"));
         String nameAccount = firstName + " " + middleName + " " + lastName;
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth").replace(" ",""));
-        char sex = request.getParameter("sex").replace(" ","").charAt(0);
-        String email = request.getParameter("email").trim();
+        LocalDate dateOfBirth = LocalDate.parse(ValidateByRegex.checkDateOfBirth(request.getParameter("dateOfBirth")));
+        char sex = ValidateByRegex.checkSex(request.getParameter("sex")).charAt(0);
+        String email = ValidateByRegex.checkEmail(request.getParameter("email"));
         String imageSelfie = request.getParameter("imageSelfie");
         String imageCccdFront = request.getParameter("imageCccdFront");
         String imageCccdBack = request.getParameter("imageCccdBack");
@@ -84,17 +84,17 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String imageBirthCertificate = request.getParameter("imageBirthCertificate");
         String imageHouseholdRegistration = request.getParameter("imageHouseholdRegistration");
         String imageHealthExaminationCertificate = request.getParameter("imageHealthExaminationCertificate");
-        int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle").replace(" ",""));
-        int length = Integer.parseInt(request.getParameter("length").replace(" ",""));
-        int width = Integer.parseInt(request.getParameter("width").replace(" ",""));
-        int height = Integer.parseInt(request.getParameter("height").replace(" ",""));
-        int weight = Integer.parseInt(request.getParameter("weight").replace(" ",""));
-        String licensePlate = request.getParameter("licensePlate");
-        String apartmentNumber = request.getParameter("apartmentNumber").replace(" ","");
-        String streetName = request.getParameter("streetName").trim().replace("  "," ");
-        String district = request.getParameter("district").trim().replace("  "," ");
-        String ward = request.getParameter("ward").trim().replace("  "," ");
-        String city = request.getParameter("city").trim().replace("  "," ");
+        int idTypeVehicle = ValidateByRegex.checkIdTypeVehicle(request.getParameter("idTypeVehicle"));
+        int length = ValidateByRegex.checkLength(request.getParameter("length"));
+        int width = ValidateByRegex.checkWidth(request.getParameter("width"));
+        int height = ValidateByRegex.checkHeight(request.getParameter("height"));
+        int weight = ValidateByRegex.checkWeight(request.getParameter("weight"));
+        String licensePlate = request.getParameter("licensePlate").replace(" ","");
+        String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
+        String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));
+        String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
+        String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
+        String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
         String imageVehicleFront = request.getParameter("imageVehicleFront");
         String imageVehicleLeft = request.getParameter("imageVehicleLeft");
         String imageVehicleRight = request.getParameter("imageVehicleRight");
@@ -114,16 +114,16 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     }
 
     private void registerTransitVehicle(HttpServletRequest request, HttpServletResponse response) {
-        String cccd = request.getParameter("cccd").replace(" ","");
-        String firstName = request.getParameter("firstName").trim().replace("  "," ");
-        String middleName = request.getParameter("middleName").trim().replace("  "," ");
-        String lastName = request.getParameter("lastName").trim().replace("  "," ");
-        String phoneNumber = request.getParameter("phoneNumber").replace(" ","");
-        String password = request.getParameter("password");
+        String cccd = ValidateByRegex.checkCccdAccountShipping(request.getParameter("cccd"));
+        String firstName = ValidateByRegex.checkFirstName(request.getParameter("firstName"));
+        String middleName = ValidateByRegex.checkMiddleName(request.getParameter("middleName"));
+        String lastName = ValidateByRegex.checkLastName(request.getParameter("lastName"));
+        String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
+        String password = ValidateByRegex.checkPasswordForAccountShipping(request.getParameter("password"));
         String nameAccount = firstName + " " + middleName + " " + lastName;
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth").replace(" ",""));
-        char sex = request.getParameter("sex").replace(" ","").charAt(0);
-        String email = request.getParameter("email").trim();
+        LocalDate dateOfBirth = LocalDate.parse(ValidateByRegex.checkDateOfBirth(request.getParameter("dateOfBirth")));
+        char sex = ValidateByRegex.checkSex(request.getParameter("sex")).charAt(0);
+        String email = ValidateByRegex.checkEmail(request.getParameter("email"));
         String imageSelfie = request.getParameter("imageSelfie");
         String imageCccdFront = request.getParameter("imageCccdFront");
         String imageCccdBack = request.getParameter("imageCccdBack");
@@ -135,17 +135,17 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String imageBirthCertificate = request.getParameter("imageBirthCertificate");
         String imageHouseholdRegistration = request.getParameter("imageHouseholdRegistration");
         String imageHealthExaminationCertificate = request.getParameter("imageHealthExaminationCertificate");
-        int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle").replace(" ",""));
-        int length = Integer.parseInt(request.getParameter("length").replace(" ",""));
-        int width = Integer.parseInt(request.getParameter("width").replace(" ",""));
-        int height = Integer.parseInt(request.getParameter("height").replace(" ",""));
-        int weight = Integer.parseInt(request.getParameter("weight").replace(" ",""));
-        String licensePlate = request.getParameter("licensePlate");
-        String apartmentNumber = request.getParameter("apartmentNumber").replace(" ","");
-        String streetName = request.getParameter("streetName").trim().replace("  "," ");
-        String district = request.getParameter("district").trim().replace("  "," ");
-        String ward = request.getParameter("ward").trim().replace("  "," ");
-        String city = request.getParameter("city").trim().replace("  "," ");
+        int idTypeVehicle = ValidateByRegex.checkIdTypeVehicle(request.getParameter("idTypeVehicle"));
+        int length = ValidateByRegex.checkLength(request.getParameter("length"));
+        int width = ValidateByRegex.checkWidth(request.getParameter("width"));
+        int height = ValidateByRegex.checkHeight(request.getParameter("height"));
+        int weight = ValidateByRegex.checkWeight(request.getParameter("weight"));
+        String licensePlate = request.getParameter("licensePlate").replace(" ","");
+        String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
+        String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));
+        String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
+        String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
+        String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
         String imageVehicleFront = request.getParameter("imageVehicleFront");
         String imageVehicleLeft = request.getParameter("imageVehicleLeft");
         String imageVehicleRight = request.getParameter("imageVehicleRight");

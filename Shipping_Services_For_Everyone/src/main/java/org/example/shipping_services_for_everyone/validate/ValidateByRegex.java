@@ -111,6 +111,15 @@ public class ValidateByRegex {
             return "error";
         }
     }
+    public static String checkPropertiesAddress(String propertiesAddress) {
+        if (propertiesAddress.replace(" ","").isEmpty()){
+            return null;
+        }else if (propertiesAddress.trim().replace("  ", " ").matches(regexStatement.propertiesAddress)){
+            return propertiesAddress.trim().replace("  ", " ");
+        }else {
+            return "error";
+        }
+    }
 
     public static String checkEmail(String email) {
         if (email.replace(" ","").isEmpty()){
@@ -178,6 +187,16 @@ public class ValidateByRegex {
             return 0;
         }else if (weight.matches(regexStatement.weight)){
             return Integer.parseInt(weight);
+        }else {
+            return 0;
+        }
+
+    }
+    public static int checkIdTypeVehicle(String idTypeVehicle) {
+        if (idTypeVehicle.replace(" ","").isEmpty()){
+            return 0;
+        }else if (idTypeVehicle.matches(regexStatement.idTypeVehicle)){
+            return Integer.parseInt(idTypeVehicle);
         }else {
             return 0;
         }

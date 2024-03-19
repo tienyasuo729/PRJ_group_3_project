@@ -18,7 +18,9 @@ public class RegexStatement {
     final String width = "^[1-9]\\d*$";
     final String height = "^[1-9]\\d*$";
     final String weight = "^[1-9]\\d*$";
+    final String propertiesAddress = "^[^.|]*$";
     final String idSender = "^[1-9]\\d*$";
+    final String idTypeVehicle = "^[1-9]\\d*$";
     final String idEeceiver = "^[1-9]\\d*$";
     final String collectionMoney = "^\\d+$";
     final String transportationCost = "^\\d+$";
