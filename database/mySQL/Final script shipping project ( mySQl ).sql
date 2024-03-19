@@ -178,7 +178,7 @@ CREATE TABLE package (
     width INT not null,
     height INT not null,
     weight INT not null,
-    photography_time datetime,
+    photography_time datetime DEFAULT CURRENT_TIMESTAMP,
     image_1 VARCHAR(500) not null,
     image_2 VARCHAR(500) not null,
     image_3 VARCHAR(500) not null,

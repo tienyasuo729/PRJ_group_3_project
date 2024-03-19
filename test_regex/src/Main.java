@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Validate.checkIntInPut("","a:","b:"));
+        while (true){
+            System.out.println(Validate.checkIntInPut("^[a-zA-ZÀ-ỹ]+(?: [a-zA-ZÀ-ỹ]+)*$","a:","b:"));
+        }
+//        System.out.println("        ".trim().equals(""));
     }
 }

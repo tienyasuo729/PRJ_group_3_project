@@ -5,6 +5,7 @@ import org.example.shipping_services_for_everyone.repository.Impl.ShipperReposit
 import org.example.shipping_services_for_everyone.repository.Impl.TransitVehicleRepositoryImpl;
 import org.example.shipping_services_for_everyone.repository.Impl.UserAccountRepositoryImpl;
 import org.example.shipping_services_for_everyone.model.*;
+import org.example.shipping_services_for_everyone.validate.ValidateByRegex;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,24 +36,24 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     }
 
     private void registerUserAccount(HttpServletRequest request, HttpServletResponse response) {
-        String phoneNumber = request.getParameter("phoneNumber");
+        String phoneNumber = request.getParameter("phoneNumber").replace(" ","");
         String password = request.getParameter("password");
-        String cccd = request.getParameter("cccd");
-        String firstName = request.getParameter("firstName");
-        String middleName = request.getParameter("middleName");
-        String lastName = request.getParameter("lastName");
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
-        char sex = request.getParameter("sex").charAt(0);
-        String email = request.getParameter("email");
+        String cccd = request.getParameter("cccd").replace(" ","");
+        String firstName = request.getParameter("firstName").trim().replace("  "," ");
+        String middleName = request.getParameter("middleName").trim().replace("  "," ");
+        String lastName = request.getParameter("lastName").trim().replace("  "," ");
+        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth").replace(" ",""));
+        char sex = request.getParameter("sex").replace(" ","").charAt(0);
+        String email = request.getParameter("email").trim();
         String imageSelfie = request.getParameter("imageSelfie");
         String imageCccdFront = request.getParameter("imageCccdFront");
         String imageCccdBack = request.getParameter("imageCccdBack");
-        String nameAddress = request.getParameter("nameAddress");
-        String apartmentNumber = request.getParameter("apartmentNumber");
-        String streetName = request.getParameter("streetName");
-        String district = request.getParameter("district");
-        String ward = request.getParameter("ward");
-        String city = request.getParameter("city");
+        String nameAddress = request.getParameter("nameAddress").trim();
+        String apartmentNumber = request.getParameter("apartmentNumber").trim();
+        String streetName = request.getParameter("streetName").trim();
+        String district = request.getParameter("district").trim();
+        String ward = request.getParameter("ward").trim();
+        String city = request.getParameter("city").trim();
 
         Account account = new Account(phoneNumber,password);
         Address address = new Address(nameAddress,apartmentNumber,streetName,district,ward,city,phoneNumber);
@@ -62,16 +63,16 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     }
 
     private void registerShipper(HttpServletRequest request, HttpServletResponse response) {
-        String cccd = request.getParameter("cccd");
-        String firstName = request.getParameter("firstName");
-        String middleName = request.getParameter("middleName");
-        String lastName = request.getParameter("lastName");
-        String phoneNumber = request.getParameter("phoneNumber");
+        String cccd = ValidateByRegex.checkCccdAccountShipping(request.getParameter("cccd").replace(" ",""));
+        String firstName = request.getParameter("firstName").trim().replace("  "," ");
+        String middleName = request.getParameter("middleName").trim().replace("  "," ");
+        String lastName = request.getParameter("lastName").trim().replace("  "," ");
+        String phoneNumber = request.getParameter("phoneNumber").replace(" ","");
         String password = request.getParameter("password");
         String nameAccount = firstName + " " + middleName + " " + lastName;
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
-        char sex = request.getParameter("sex").charAt(0);
-        String email = request.getParameter("email");
+        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth").replace(" ",""));
+        char sex = request.getParameter("sex").replace(" ","").charAt(0);
+        String email = request.getParameter("email").trim();
         String imageSelfie = request.getParameter("imageSelfie");
         String imageCccdFront = request.getParameter("imageCccdFront");
         String imageCccdBack = request.getParameter("imageCccdBack");
@@ -83,17 +84,17 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String imageBirthCertificate = request.getParameter("imageBirthCertificate");
         String imageHouseholdRegistration = request.getParameter("imageHouseholdRegistration");
         String imageHealthExaminationCertificate = request.getParameter("imageHealthExaminationCertificate");
-        int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle"));
-        int length = Integer.parseInt(request.getParameter("length"));
-        int width = Integer.parseInt(request.getParameter("width"));
-        int height = Integer.parseInt(request.getParameter("height"));
-        int weight = Integer.parseInt(request.getParameter("weight"));
+        int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle").replace(" ",""));
+        int length = Integer.parseInt(request.getParameter("length").replace(" ",""));
+        int width = Integer.parseInt(request.getParameter("width").replace(" ",""));
+        int height = Integer.parseInt(request.getParameter("height").replace(" ",""));
+        int weight = Integer.parseInt(request.getParameter("weight").replace(" ",""));
         String licensePlate = request.getParameter("licensePlate");
-        String apartmentNumber = request.getParameter("apartmentNumber");
-        String streetName = request.getParameter("streetName");
-        String district = request.getParameter("district");
-        String ward = request.getParameter("ward");
-        String city = request.getParameter("city");
+        String apartmentNumber = request.getParameter("apartmentNumber").replace(" ","");
+        String streetName = request.getParameter("streetName").trim().replace("  "," ");
+        String district = request.getParameter("district").trim().replace("  "," ");
+        String ward = request.getParameter("ward").trim().replace("  "," ");
+        String city = request.getParameter("city").trim().replace("  "," ");
         String imageVehicleFront = request.getParameter("imageVehicleFront");
         String imageVehicleLeft = request.getParameter("imageVehicleLeft");
         String imageVehicleRight = request.getParameter("imageVehicleRight");
@@ -113,16 +114,16 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
     }
 
     private void registerTransitVehicle(HttpServletRequest request, HttpServletResponse response) {
-        String cccd = request.getParameter("cccd");
-        String firstName = request.getParameter("firstName");
-        String middleName = request.getParameter("middleName");
-        String lastName = request.getParameter("lastName");
-        String phoneNumber = request.getParameter("phoneNumber");
+        String cccd = request.getParameter("cccd").replace(" ","");
+        String firstName = request.getParameter("firstName").trim().replace("  "," ");
+        String middleName = request.getParameter("middleName").trim().replace("  "," ");
+        String lastName = request.getParameter("lastName").trim().replace("  "," ");
+        String phoneNumber = request.getParameter("phoneNumber").replace(" ","");
         String password = request.getParameter("password");
         String nameAccount = firstName + " " + middleName + " " + lastName;
-        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth"));
-        char sex = request.getParameter("sex").charAt(0);
-        String email = request.getParameter("email");
+        LocalDate dateOfBirth = LocalDate.parse(request.getParameter("dateOfBirth").replace(" ",""));
+        char sex = request.getParameter("sex").replace(" ","").charAt(0);
+        String email = request.getParameter("email").trim();
         String imageSelfie = request.getParameter("imageSelfie");
         String imageCccdFront = request.getParameter("imageCccdFront");
         String imageCccdBack = request.getParameter("imageCccdBack");
@@ -134,21 +135,22 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String imageBirthCertificate = request.getParameter("imageBirthCertificate");
         String imageHouseholdRegistration = request.getParameter("imageHouseholdRegistration");
         String imageHealthExaminationCertificate = request.getParameter("imageHealthExaminationCertificate");
-        int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle"));
-        int length = Integer.parseInt(request.getParameter("length"));
-        int width = Integer.parseInt(request.getParameter("width"));
-        int height = Integer.parseInt(request.getParameter("height"));
-        int weight = Integer.parseInt(request.getParameter("weight"));
+        int idTypeVehicle = Integer.parseInt(request.getParameter("idTypeVehicle").replace(" ",""));
+        int length = Integer.parseInt(request.getParameter("length").replace(" ",""));
+        int width = Integer.parseInt(request.getParameter("width").replace(" ",""));
+        int height = Integer.parseInt(request.getParameter("height").replace(" ",""));
+        int weight = Integer.parseInt(request.getParameter("weight").replace(" ",""));
         String licensePlate = request.getParameter("licensePlate");
-        String apartmentNumber = request.getParameter("apartmentNumber");
-        String streetName = request.getParameter("streetName");
-        String district = request.getParameter("district");
-        String ward = request.getParameter("ward");
-        String city = request.getParameter("city");
+        String apartmentNumber = request.getParameter("apartmentNumber").replace(" ","");
+        String streetName = request.getParameter("streetName").trim().replace("  "," ");
+        String district = request.getParameter("district").trim().replace("  "," ");
+        String ward = request.getParameter("ward").trim().replace("  "," ");
+        String city = request.getParameter("city").trim().replace("  "," ");
         String imageVehicleFront = request.getParameter("imageVehicleFront");
         String imageVehicleLeft = request.getParameter("imageVehicleLeft");
         String imageVehicleRight = request.getParameter("imageVehicleRight");
         String imageVehicleBehind = request.getParameter("imageVehicleBehind");
+
 
         Address currentPosition = new Address(apartmentNumber,streetName,district,ward,city);
         TypeVehicle typeVehicle = new TypeVehicle(idTypeVehicle);
