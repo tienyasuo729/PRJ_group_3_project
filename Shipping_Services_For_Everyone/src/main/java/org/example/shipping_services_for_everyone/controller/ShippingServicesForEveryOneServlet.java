@@ -20,9 +20,9 @@ import java.util.List;
 
 @WebServlet(name = "ShippingServicesForEveryOneServlet", value = "/shipping")
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+        fileSizeThreshold = 1024 * 1024 * 1,  // 2MB
         maxFileSize = 1024 * 1024 * 10,       // 10MB
-        maxRequestSize = 1024 * 1024 * 50      // 50MB
+        maxRequestSize = 1024 * 1024 * 100      // 50MB
 )
 public class ShippingServicesForEveryOneServlet extends HttpServlet {
     private AccountShippingRepositoryImpl accountShippingRepository = new AccountShippingRepositoryImpl();

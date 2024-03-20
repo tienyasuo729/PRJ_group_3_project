@@ -7,6 +7,8 @@ import org.example.shipping_services_for_everyone.repository.queryStatement.Imag
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class ImageRepositoryImpl implements IRepository<Image> {
@@ -45,17 +47,7 @@ public class ImageRepositoryImpl implements IRepository<Image> {
     void saveImage(Part part, String savePath, String newFileName) throws IOException, ServletException {
 
         String fullPath = savePath + File.separator + newFileName;
-        try (InputStream inputStream = part.getInputStream();
-             OutputStream outputStream = new FileOutputStream(fullPath)) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ServletException("Error uploading file", e);
-        }
+        part.write(fullPath);
     }
 
 }
