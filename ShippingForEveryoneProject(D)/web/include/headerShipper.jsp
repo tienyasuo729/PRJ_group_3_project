@@ -66,7 +66,7 @@
                                 </li>
                                 <li class="nav-list mx-3">
                                     <a href="searchOrder.jsp" class="nav-link px-2">
-                                        <h5> Contact </h5>
+                                        <h5> Search Order </h5>
                                     </a>
                                 </li>
                             </ul>
