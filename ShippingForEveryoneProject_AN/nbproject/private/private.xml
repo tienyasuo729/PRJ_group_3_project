@@ -9,6 +9,8 @@
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/login.jsp</file>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/Impl/AccountUserImpl.java</file>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/include/headerShipper.jsp</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/logOutServlet.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/upLoadShippingService.java</file>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/Account.java</file>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/Impl/AccountShippingImpl.java</file>
         </group>

@@ -12,6 +12,10 @@
         <servlet-name>logOutServlet</servlet-name>
         <servlet-class>controller.logOutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>upLoadShippingService</servlet-name>
+        <servlet-class>controller.upLoadShippingService</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>logOutServlet</servlet-name>
         <url-pattern>/logOutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>upLoadShippingService</servlet-name>
+        <url-pattern>/upLoadShippingService</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
