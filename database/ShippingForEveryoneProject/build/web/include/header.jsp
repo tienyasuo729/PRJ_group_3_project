@@ -80,10 +80,17 @@
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         ${sessionScope.name}
+                                        
                                     </button>
                                     <ul class="dropdown-menu">
+<<<<<<< HEAD:ShippingForEveryoneProject/build/web/include/header.jsp
+                                        
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+=======
                                         <li><a class="dropdown-item" href="createorder">New Order Shipping</a></li>
                                         <li><a class="dropdown-item" href="manageaccount.jsp">Account</a></li>
+>>>>>>> c8d18ac668c5438f138bd703097fc84b9e4e8dad:ShippingForEveryoneProject(DINH)/web/include/header.jsp
                                         <li><a class="dropdown-item" href="logOutServlet">Log Out</a></li>
                                     </ul>
                                 </div>
