@@ -35,8 +35,8 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
             preparedStatement.setDate(7, Date.valueOf(userAccount.getPeople().getDateOfBirth()));
             preparedStatement.setString(8, String.valueOf(userAccount.getPeople().getSex()));
             preparedStatement.setString(9, userAccount.getPeople().getEmail());
-            preparedStatement.setString(10, userAccount.getPeople().getAddress().getNameAddress() + "|" + userAccount.getPeople().getAddress().getApartmentNumber() + "|" + userAccount.getPeople().getAddress().getStreetName() + "|" + userAccount.getPeople().getAddress().getDistrict() + "|" + userAccount.getPeople().getAddress().getWard() + "|" + userAccount.getPeople().getAddress().getCity()+ "|" + userAccount.getPeople().getAddress().getPhoneNumberForThisAddress());
-            preparedStatement.setString(11, userAccount.getPeople().getAddress().getNameAddress() + "|" + userAccount.getPeople().getAddress().getApartmentNumber() + "|" + userAccount.getPeople().getAddress().getStreetName() + "|" + userAccount.getPeople().getAddress().getDistrict() + "|" + userAccount.getPeople().getAddress().getWard() + "|" + userAccount.getPeople().getAddress().getCity()+ "|" + userAccount.getPeople().getAddress().getPhoneNumberForThisAddress() + ".");
+            preparedStatement.setString(10, userAccount.getPeople().getAddress().toString());
+            preparedStatement.setString(11, userAccount.getPeople().getAddress().toString() + ".");
             preparedStatement.setString(12, userAccount.getPeople().getImageSelfie());
             preparedStatement.setString(13, userAccount.getPeople().getImageCccdFront());
             preparedStatement.setString(14, userAccount.getPeople().getImageCccdBack());
@@ -64,6 +64,18 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
     @Override
     public Boolean checkIdIsExist(UserAccount object) {
         return null;
+    }
+
+    public void editDefaltAddress(UserAccount userAccount){
+        try {
+            PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.editAddress);
+            preparedStatement.setString(1, userAccount.getPeople().getAddress().toString());
+            preparedStatement.setInt(2, userAccount.getAccount().getIdAccount());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void editOrDeleteAddressInTheListById(UserAccount userAccount){

@@ -1,5 +1,6 @@
 package org.example.shipping_services_for_everyone.model;
 
+import javax.servlet.http.Part;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -17,10 +18,16 @@ public class People {
     private String imageSelfie;
     private String imageCccdFront ;
     private String imageCccdBack;
+    private Part fileImageSelfie;
+    private Part fileCccdFront;
+    private Part fileCccdBack;
+
 
     public People() {
     }
-
+    public People(Address address) {
+        this.address = address;
+    }
     public People(List<Address> listOldAddress) {
         this.listOldAddress = listOldAddress;
     }
@@ -37,6 +44,21 @@ public class People {
         this.imageSelfie = imageSelfie;
         this.imageCccdFront = imageCccdFront;
         this.imageCccdBack = imageCccdBack;
+    }
+
+    public People(String cccd, String firstName, String middleName, String lastName, LocalDate dateOfBirth, char sex, String email, Address address, List<Address> listOldAddress, Part fileImageSelfie, Part fileCccdFront, Part fileCccdBack) {
+        this.cccd = cccd;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.email = email;
+        this.address = address;
+        this.listOldAddress = listOldAddress;
+        this.fileImageSelfie = fileImageSelfie;
+        this.fileCccdFront = fileCccdFront;
+        this.fileCccdBack = fileCccdBack;
     }
 
     public String getCccd() {
@@ -134,13 +156,38 @@ public class People {
     public void setImageCccdBack(String imageCccdBack) {
         this.imageCccdBack = imageCccdBack;
     }
+
+    public Part getFileImageSelfie() {
+        return fileImageSelfie;
+    }
+
+    public void setFileImageSelfie(Part fileImageSelfie) {
+        this.fileImageSelfie = fileImageSelfie;
+    }
+
+    public Part getFileCccdFront() {
+        return fileCccdFront;
+    }
+
+    public void setFileCccdFront(Part fileCccdFront) {
+        this.fileCccdFront = fileCccdFront;
+    }
+
+    public Part getFileCccdBack() {
+        return fileCccdBack;
+    }
+
+    public void setFileCccdBack(Part fileCccdBack) {
+        this.fileCccdBack = fileCccdBack;
+    }
+
     public String toStringListOld_address(){
         if (listOldAddress.isEmpty()){
             return null;
         }else {
             String listAddress = null;
             for (Address oldAddress: listOldAddress) {
-                listAddress += oldAddress.getNameAddress() + "|" + oldAddress.getApartmentNumber() + "|" + oldAddress.getStreetName() + "|" + oldAddress.getDistrict() + "|" + oldAddress.getWard() + "|" + oldAddress.getCity() + "|" + oldAddress.getPhoneNumberForThisAddress();
+                listAddress += oldAddress.toString() + "|";
             }
             listAddress = listAddress.substring(0,listAddress.length() - 1) + ".";
             return listAddress;

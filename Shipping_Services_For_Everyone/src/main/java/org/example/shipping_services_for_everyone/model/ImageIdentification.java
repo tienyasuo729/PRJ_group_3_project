@@ -1,5 +1,7 @@
 package org.example.shipping_services_for_everyone.model;
 
+import javax.servlet.http.Part;
+
 public class ImageIdentification {
     private String imageDriverLicense;
     private String imageVehicleRegistration;
@@ -9,6 +11,14 @@ public class ImageIdentification {
     private String imageBirthCertificate;
     private String imageHouseholdRegistration;
     private String imageHealthExaminationCertificate;
+    private Part fileImageDriverLicense;
+    private Part fileImageVehicleRegistration;
+    private Part fileImageCurriculumVitae;
+    private Part fileImageCivilGuaranteeLetter;
+    private Part fileImageCertificateOfNoCriminalRecord;
+    private Part fileImageBirthCertificate;
+    private Part fileImageHouseholdRegistration;
+    private Part fileImageHealthExaminationCertificate;
 
     public ImageIdentification() {
     }
@@ -22,6 +32,17 @@ public class ImageIdentification {
         this.imageBirthCertificate = imageBirthCertificate;
         this.imageHouseholdRegistration = imageHouseholdRegistration;
         this.imageHealthExaminationCertificate = imageHealthExaminationCertificate;
+    }
+
+    public ImageIdentification(Part fileImageDriverLicense, Part fileImageVehicleRegistration, Part fileImageCurriculumVitae, Part fileImageCivilGuaranteeLetter, Part fileImageCertificateOfNoCriminalRecord, Part fileImageBirthCertificate, Part fileImageHouseholdRegistration, Part fileImageHealthExaminationCertificate) {
+        this.fileImageDriverLicense = fileImageDriverLicense;
+        this.fileImageVehicleRegistration = fileImageVehicleRegistration;
+        this.fileImageCurriculumVitae = fileImageCurriculumVitae;
+        this.fileImageCivilGuaranteeLetter = fileImageCivilGuaranteeLetter;
+        this.fileImageCertificateOfNoCriminalRecord = fileImageCertificateOfNoCriminalRecord;
+        this.fileImageBirthCertificate = fileImageBirthCertificate;
+        this.fileImageHouseholdRegistration = fileImageHouseholdRegistration;
+        this.fileImageHealthExaminationCertificate = fileImageHealthExaminationCertificate;
     }
 
     public String getImageDriverLicense() {
@@ -86,5 +107,69 @@ public class ImageIdentification {
 
     public void setImageHealthExaminationCertificate(String imageHealthExaminationCertificate) {
         this.imageHealthExaminationCertificate = imageHealthExaminationCertificate;
+    }
+
+    public Part getFileImageDriverLicense() {
+        return fileImageDriverLicense;
+    }
+
+    public void setFileImageDriverLicense(Part fileImageDriverLicense) {
+        this.fileImageDriverLicense = fileImageDriverLicense;
+    }
+
+    public Part getFileImageVehicleRegistration() {
+        return fileImageVehicleRegistration;
+    }
+
+    public void setFileImageVehicleRegistration(Part fileImageVehicleRegistration) {
+        this.fileImageVehicleRegistration = fileImageVehicleRegistration;
+    }
+
+    public Part getFileImageCurriculumVitae() {
+        return fileImageCurriculumVitae;
+    }
+
+    public void setFileImageCurriculumVitae(Part fileImageCurriculumVitae) {
+        this.fileImageCurriculumVitae = fileImageCurriculumVitae;
+    }
+
+    public Part getFileImageCivilGuaranteeLetter() {
+        return fileImageCivilGuaranteeLetter;
+    }
+
+    public void setFileImageCivilGuaranteeLetter(Part fileImageCivilGuaranteeLetter) {
+        this.fileImageCivilGuaranteeLetter = fileImageCivilGuaranteeLetter;
+    }
+
+    public Part getFileImageCertificateOfNoCriminalRecord() {
+        return fileImageCertificateOfNoCriminalRecord;
+    }
+
+    public void setFileImageCertificateOfNoCriminalRecord(Part fileImageCertificateOfNoCriminalRecord) {
+        this.fileImageCertificateOfNoCriminalRecord = fileImageCertificateOfNoCriminalRecord;
+    }
+
+    public Part getFileImageBirthCertificate() {
+        return fileImageBirthCertificate;
+    }
+
+    public void setFileImageBirthCertificate(Part fileImageBirthCertificate) {
+        this.fileImageBirthCertificate = fileImageBirthCertificate;
+    }
+
+    public Part getFileImageHouseholdRegistration() {
+        return fileImageHouseholdRegistration;
+    }
+
+    public void setFileImageHouseholdRegistration(Part fileImageHouseholdRegistration) {
+        this.fileImageHouseholdRegistration = fileImageHouseholdRegistration;
+    }
+
+    public Part getFileImageHealthExaminationCertificate() {
+        return fileImageHealthExaminationCertificate;
+    }
+
+    public void setFileImageHealthExaminationCertificate(Part fileImageHealthExaminationCertificate) {
+        this.fileImageHealthExaminationCertificate = fileImageHealthExaminationCertificate;
     }
 }

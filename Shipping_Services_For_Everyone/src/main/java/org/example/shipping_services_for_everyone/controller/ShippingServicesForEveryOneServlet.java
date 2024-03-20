@@ -35,7 +35,6 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         registerUserAccount(request,response);
-
     }
 
     private void registerUserAccount(HttpServletRequest request, HttpServletResponse response) {
@@ -64,7 +63,6 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         UserAccount userAccount = new UserAccount(account,people);
         userAccountRepository.addNew(userAccount);
     }
-
     private void registerShipper(HttpServletRequest request, HttpServletResponse response) {
         String cccd = ValidateByRegex.checkCccdAccountShipping(request.getParameter("cccd"));
         String firstName = ValidateByRegex.checkFirstName(request.getParameter("firstName"));
@@ -115,7 +113,6 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         accountShippingRepository.addNew(accountShipping);
         shipperRepository.addNew(shipper);
     }
-
     private void registerTransitVehicle(HttpServletRequest request, HttpServletResponse response) {
         String cccd = ValidateByRegex.checkCccdAccountShipping(request.getParameter("cccd"));
         String firstName = ValidateByRegex.checkFirstName(request.getParameter("firstName"));
@@ -167,9 +164,8 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         accountShippingRepository.addNew(accountShipping);
         transitVehicleRepository.addNew(transitVehicle);
     }
-
     private void formEditAddressDefault(HttpServletRequest request, HttpServletResponse response){
-        int idUserWam = ValidateByRegex.checkLength(request.getParameter("newAddressToAdd"));
+        int idUserWamtToEditDefaultAddress = ValidateByRegex.checkLength(request.getParameter("idUserAccount"));
         String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
         String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
         String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
@@ -177,14 +173,39 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
         String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
         String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
+        Account account = new Account(idUserWamtToEditDefaultAddress);
+        Address address = new Address(nameAddress,apartmentNumber,streetName,district,ward,city,phoneNumber);
+        UserAccount userAccount = new UserAccount(account,new People(address));
+        userAccountRepository.editDefaltAddress(userAccount);
     }
-
-    private void formGetListOldAddress(HttpServletRequest request, HttpServletResponse response){
-
+    private void formDeleteElementAddressInlist(HttpServletRequest request, HttpServletResponse response){
+        int idUserWamtToDeleteAddress = ValidateByRegex.checkLength(request.getParameter("idUserAccount"));
+        int indexElementDelete = ValidateByRegex.checkLength(request.getParameter("indexElementDelete"));
+        Account account = new Account(idUserWamtToDeleteAddress);
+        List<Address> addressList = userAccountRepository.getAddressToTheListById(new UserAccount(account));
+        addressList.remove(indexElementDelete);
+        People people = new People(addressList);
+        userAccountRepository.editOrDeleteAddressInTheListById(new UserAccount(account,people));
     }
-
+    private void formEditElementAddressInlist(HttpServletRequest request, HttpServletResponse response){
+        int idUserWamtToDeleteAddress = ValidateByRegex.checkLength(request.getParameter("idUserAccount"));
+        int indexElementEdit = ValidateByRegex.checkLength(request.getParameter("indexElementDelete"));
+        String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
+        String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
+        String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
+        String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));
+        String district = ValidateByRegex.checkPropertiesAddress(request.getParameter("district"));
+        String ward = ValidateByRegex.checkPropertiesAddress(request.getParameter("ward"));
+        String city = ValidateByRegex.checkPropertiesAddress(request.getParameter("city"));
+        Account account = new Account(idUserWamtToDeleteAddress);
+        Address address = new Address(nameAddress,apartmentNumber,streetName,district,ward,city,phoneNumber);
+        List<Address> addressList = userAccountRepository.getAddressToTheListById(new UserAccount(account));
+        addressList.set(indexElementEdit, address);
+        People people = new People(addressList);
+        userAccountRepository.editOrDeleteAddressInTheListById(new UserAccount(account,people));
+    }
     private void formAddNewAddressToListOldAddress(HttpServletRequest request, HttpServletResponse response){
-        int idUserWantToAddNewAddress = ValidateByRegex.checkLength(request.getParameter("newAddressToAdd"));
+        int idUserWantToAddNewAddress = ValidateByRegex.checkLength(request.getParameter("idUserAccount"));
         String phoneNumber = ValidateByRegex.checkPhoneNumber(request.getParameter("phoneNumber"));
         String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
         String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
@@ -198,5 +219,8 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         addressList.add(newAddress);
         People people = new People(addressList);
         userAccountRepository.editOrDeleteAddressInTheListById(new UserAccount(account,people));
+    }
+    private void formGetListOldAddress(HttpServletRequest request, HttpServletResponse response){
+
     }
 }
