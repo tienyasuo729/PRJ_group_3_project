@@ -7,8 +7,19 @@ public class Address {
     private String district;
     private String ward;
     private String city;
+    private String phoneNumberForThisAddress;
 
     public Address() {
+    }
+
+    public Address(String nameAddress, String apartmentNumber, String streetName, String district, String ward, String city, String phoneNumberForThisAddress) {
+        this.nameAddress = nameAddress;
+        this.apartmentNumber = apartmentNumber;
+        this.streetName = streetName;
+        this.district = district;
+        this.ward = ward;
+        this.city = city;
+        this.phoneNumberForThisAddress = phoneNumberForThisAddress;
     }
 
     public Address(String apartmentNumber, String streetName, String district, String ward, String city) {
@@ -17,6 +28,14 @@ public class Address {
         this.district = district;
         this.ward = ward;
         this.city = city;
+    }
+
+    public String getPhoneNumberForThisAddress() {
+        return phoneNumberForThisAddress;
+    }
+
+    public void setPhoneNumberForThisAddress(String phoneNumberForThisAddress) {
+        this.phoneNumberForThisAddress = phoneNumberForThisAddress;
     }
 
     public String getNameAddress() {
@@ -65,5 +84,10 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return nameAddress + "|" + apartmentNumber + "|" + streetName + "|" + district + "|" + ward + "|" + city + "|" + phoneNumberForThisAddress;
     }
 }

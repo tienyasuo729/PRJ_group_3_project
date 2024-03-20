@@ -1,10 +1,16 @@
 package org.example.shipping_services_for_everyone.model;
 
+import javax.servlet.http.Part;
+
 public class TransportImage {
     private String imageVehicleFront;
     private String imageVehicleLeft;
     private String imageVehicleRight;
     private String imageVehicleBehind;
+    private Part fileImageVehicleFront;
+    private Part fileImageVehicleLeft;
+    private Part fileImageVehicleRight;
+    private Part fileImageVehicleBehind;
 
     public TransportImage() {
     }
@@ -46,5 +52,37 @@ public class TransportImage {
 
     public void setImageVehicleBehind(String imageVehicleBehind) {
         this.imageVehicleBehind = imageVehicleBehind;
+    }
+
+    public Part getFileImageVehicleFront() {
+        return fileImageVehicleFront;
+    }
+
+    public void setFileImageVehicleFront(Part fileImageVehicleFront) {
+        this.fileImageVehicleFront = fileImageVehicleFront;
+    }
+
+    public Part getFileImageVehicleLeft() {
+        return fileImageVehicleLeft;
+    }
+
+    public void setFileImageVehicleLeft(Part fileImageVehicleLeft) {
+        this.fileImageVehicleLeft = fileImageVehicleLeft;
+    }
+
+    public Part getFileImageVehicleRight() {
+        return fileImageVehicleRight;
+    }
+
+    public void setFileImageVehicleRight(Part fileImageVehicleRight) {
+        this.fileImageVehicleRight = fileImageVehicleRight;
+    }
+
+    public Part getFileImageVehicleBehind() {
+        return fileImageVehicleBehind;
+    }
+
+    public void setFileImageVehicleBehind(Part fileImageVehicleBehind) {
+        this.fileImageVehicleBehind = fileImageVehicleBehind;
     }
 }
