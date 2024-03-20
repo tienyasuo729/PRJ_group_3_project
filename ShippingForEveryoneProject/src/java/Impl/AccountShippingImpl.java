@@ -43,7 +43,7 @@ public class AccountShippingImpl implements IRepository<AccountShipping>{
 
     @Override
     public List<AccountShipping> find(AccountShipping shippingAccount) {
-        String sqlQuerry_find ="select name_account,phone_number,password from account_shipping where phone_number=? and password=?";
+        String sqlQuerry_find ="select id_account_shipping,name_account,phone_number,password from account_shipping where phone_number=? and password=?";
         List<AccountShipping> list = new ArrayList<>();
         String Number = shippingAccount.getAccount().getPhoneNumber();
         String pass = shippingAccount.getAccount().getPassword();
@@ -55,10 +55,11 @@ public class AccountShippingImpl implements IRepository<AccountShipping>{
             
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String name =rs.getString(1);
-                String phoneNumber = rs.getString(2);
-                String password = rs.getString(3);
-                Account c = new Account(phoneNumber, password);
+                int id_account =rs.getInt(1);
+                String name =rs.getString(2);
+                String phoneNumber = rs.getString(3);
+                String password = rs.getString(4);
+                Account c = new Account(id_account, phoneNumber, password);
                 AccountShipping accShipping = new AccountShipping(name, c);
                 list.add(accShipping);
                 
