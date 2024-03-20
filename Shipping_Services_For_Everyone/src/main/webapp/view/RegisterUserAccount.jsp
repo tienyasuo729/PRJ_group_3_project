@@ -12,7 +12,7 @@
 </head>
 <body>
     <h2>Add New User Account</h2>
-    <form action="/shipping" method="post">
+    <form action="/shipping" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="registerUserAccount">
 
         <label for="phoneNumber">Phone Number:</label><br>

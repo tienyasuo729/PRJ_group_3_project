@@ -46,7 +46,7 @@ public class People {
         this.imageCccdBack = imageCccdBack;
     }
 
-    public People(String cccd, String firstName, String middleName, String lastName, LocalDate dateOfBirth, char sex, String email, Address address, List<Address> listOldAddress, Part fileImageSelfie, Part fileCccdFront, Part fileCccdBack) {
+    public People(String cccd, String firstName, String middleName, String lastName, LocalDate dateOfBirth, char sex, String email, Address address, Part fileImageSelfie, Part fileCccdFront, Part fileCccdBack) {
         this.cccd = cccd;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -55,7 +55,6 @@ public class People {
         this.sex = sex;
         this.email = email;
         this.address = address;
-        this.listOldAddress = listOldAddress;
         this.fileImageSelfie = fileImageSelfie;
         this.fileCccdFront = fileCccdFront;
         this.fileCccdBack = fileCccdBack;

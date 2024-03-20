@@ -42,9 +42,9 @@ public class ImageRepositoryImpl implements IRepository<Image> {
         return null;
     }
 
-    private void saveImage(Part part, String savePath) throws IOException, ServletException {
-        String fileName = extractFileName(part);
-        String fullPath = savePath + File.separator + fileName;
+    void saveImage(Part part, String savePath, String newFileName) throws IOException, ServletException {
+
+        String fullPath = savePath + File.separator + newFileName;
         try (InputStream inputStream = part.getInputStream();
              OutputStream outputStream = new FileOutputStream(fullPath)) {
             byte[] buffer = new byte[1024];
@@ -58,14 +58,4 @@ public class ImageRepositoryImpl implements IRepository<Image> {
         }
     }
 
-    private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length() - 1);
-            }
-        }
-        return "";
-    }
 }

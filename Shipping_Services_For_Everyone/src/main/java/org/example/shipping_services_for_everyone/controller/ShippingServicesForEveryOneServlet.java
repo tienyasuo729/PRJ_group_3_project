@@ -8,15 +8,22 @@ import org.example.shipping_services_for_everyone.model.*;
 import org.example.shipping_services_for_everyone.validate.ValidateByRegex;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet(name = "ShippingServicesForEveryOneServlet", value = "/shipping")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+        maxFileSize = 1024 * 1024 * 10,       // 10MB
+        maxRequestSize = 1024 * 1024 * 50      // 50MB
+)
 public class ShippingServicesForEveryOneServlet extends HttpServlet {
     private AccountShippingRepositoryImpl accountShippingRepository = new AccountShippingRepositoryImpl();
     private ShipperRepositoryImpl shipperRepository = new ShipperRepositoryImpl();
@@ -27,7 +34,7 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("view/RegisterUserAccount.jsp").forward(request, response);
-        userAccountRepository.getAddressToTheListById(new UserAccount(new Account(1)));
+//        userAccountRepository.getAddressToTheListById(new UserAccount(new Account(1)));
     }
 
     @Override
@@ -47,9 +54,18 @@ public class ShippingServicesForEveryOneServlet extends HttpServlet {
         LocalDate dateOfBirth = LocalDate.parse(ValidateByRegex.checkDateOfBirth(request.getParameter("dateOfBirth")));
         char sex = ValidateByRegex.checkSex(request.getParameter("sex")).charAt(0);
         String email = ValidateByRegex.checkEmail(request.getParameter("email"));
-        String imageSelfie = ValidateByRegex.checkImageSelfie(request.getParameter("imageSelfie"));
-        String imageCccdFront = ValidateByRegex.checkImageCccdFront(request.getParameter("imageCccdFront"));
-        String imageCccdBack = ValidateByRegex.checkImageCccdBack(request.getParameter("imageCccdBack"));
+        Part imageSelfie = null;
+        Part imageCccdFront = null;
+        Part imageCccdBack = null;
+        try {
+            imageSelfie = request.getPart("imageSelfie");
+            imageCccdFront = request.getPart("imageCccdFront");
+            imageCccdBack = request.getPart("imageCccdBack");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
         String nameAddress = ValidateByRegex.checkPropertiesAddress(request.getParameter("nameAddress"));
         String apartmentNumber = ValidateByRegex.checkPropertiesAddress(request.getParameter("apartmentNumber"));
         String streetName = ValidateByRegex.checkPropertiesAddress(request.getParameter("streetName"));

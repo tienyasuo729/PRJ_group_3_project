@@ -2,10 +2,14 @@ package org.example.shipping_services_for_everyone.repository.Impl;
 
 import org.example.shipping_services_for_everyone.model.Address;
 import org.example.shipping_services_for_everyone.repository.IRepository;
+import org.example.shipping_services_for_everyone.repository.queryStatement.ImageLocationStatement;
 import org.example.shipping_services_for_everyone.repository.queryStatement.UserAccountQueryStatement;
 import org.example.shipping_services_for_everyone.connection_config.BaseRepositoryJDBC;
 import org.example.shipping_services_for_everyone.model.UserAccount;
 
+import javax.servlet.ServletException;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +20,9 @@ import java.util.List;
 public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
     private BaseRepositoryJDBC baseRepositoryJDBC = new BaseRepositoryJDBC();
     private UserAccountQueryStatement userAccountQueryStatement = new UserAccountQueryStatement();
+    private ImageLocationStatement locationStatement = new ImageLocationStatement();
+    private ImageRepositoryImpl imageRepository = new ImageRepositoryImpl();
+    private final String folderImage = locationStatement.userAccountImage;
 
     @Override
     public List<UserAccount> display(UserAccount object) {
@@ -36,12 +43,19 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
             preparedStatement.setString(8, String.valueOf(userAccount.getPeople().getSex()));
             preparedStatement.setString(9, userAccount.getPeople().getEmail());
             preparedStatement.setString(10, userAccount.getPeople().getAddress().toString());
-            preparedStatement.setString(11, userAccount.getPeople().getAddress().toString() + ".");
-            preparedStatement.setString(12, userAccount.getPeople().getImageSelfie());
-            preparedStatement.setString(13, userAccount.getPeople().getImageCccdFront());
-            preparedStatement.setString(14, userAccount.getPeople().getImageCccdBack());
+            preparedStatement.setString(11, userAccount.getPeople().getAddress().toString());
+            preparedStatement.setString(12, folderImage + File.separator + userAccount.getAccount().getPhoneNumber() + "ImageSelfie");
+            preparedStatement.setString(13, folderImage + File.separator + userAccount.getAccount().getPhoneNumber() + "ImageCccdFront");
+            preparedStatement.setString(14, folderImage + File.separator + userAccount.getAccount().getPhoneNumber() + "ImageCccdBack");
+            imageRepository.saveImage(userAccount.getPeople().getFileImageSelfie(), folderImage, userAccount.getAccount().getPhoneNumber() + "ImageSelfie");
+            imageRepository.saveImage(userAccount.getPeople().getFileCccdFront(), folderImage, userAccount.getAccount().getPhoneNumber() + "ImageCccdFront");
+            imageRepository.saveImage(userAccount.getPeople().getFileCccdBack(), folderImage, userAccount.getAccount().getPhoneNumber() + "ImageCccdBack");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

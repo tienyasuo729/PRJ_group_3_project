@@ -1,5 +1,7 @@
 package org.example.shipping_services_for_everyone.validate;
 
+import javax.servlet.http.Part;
+
 public class ValidateByRegex {
     private static RegexStatement regexStatement = new RegexStatement();
 
@@ -202,6 +204,15 @@ public class ValidateByRegex {
         }
 
     }
+
+//    public static Part checkImage(Part image){
+//        if (image.equals()){
+//            return null;
+//        }else {
+//            re
+//        }
+//
+//    };
 
     public static String checkImageSelfie(String imageSelfie) { return imageSelfie; }
     public static String checkImageCccdFront(String imageCccdFront) { return imageCccdFront; }
