@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/java/controller/detailOrderServlet.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>37</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/MyOrderServlet.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/login.jsp</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/updateOrderServlet.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/addOrderShipping.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/myorder.jsp</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/successOrderServlet.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/context/OrderShippingDAO.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/OrderShipping.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/deleteOrderServlet.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/update.jsp</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/orderDetail.jsp</file>
+        </group>
+    </open-files>
+</project-private>
