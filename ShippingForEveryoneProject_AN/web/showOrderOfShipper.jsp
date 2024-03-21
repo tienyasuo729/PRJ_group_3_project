@@ -28,7 +28,8 @@
                                 <th>SĐT Người Nhận</th>
                                 <th>Địa Chỉ</th>
                                 <th>Phí Vận Chuyển</th>
-                                <th>Details</th>
+                                <th>Trạng Thái</th>
+                                <<th>detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +41,14 @@
                                     <td>${item.receiverPhoneNum}</td>
                                     <td>${item.address.apartmentNumber},${item.address.streetName},${item.address.district},${item.address.ward},${item.address.city}</td>
                                     <td>${item.transportationCost}</td>
-                                    <td>${item.noteForShipper}</td>
+                                    <td><c:if test="${item.statusOrder==true}">
+                                            <p>Giao thành công</p>
+                                        </c:if>
+                                        <c:if test="${item.statusOrder==false}">
+                                            <p>Chưa Giao thành công</p> 
+                                        </c:if>    
+                                    </td>
+                                    <td><a href="detailOrderServlet?action=${item.idOrder}">Chi tiết đơn hàng</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

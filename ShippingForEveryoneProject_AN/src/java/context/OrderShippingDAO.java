@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -105,34 +106,33 @@ public class OrderShippingDAO extends DBcontext {
         }
         return list;
     }
-    public OrderShipping get(int id) throws Exception {
-        String sql = "SELECT [collection_money], [transportation_cost], [status_order], [apartment_number], [street_name], [District], [Ward], [city], [note_for_shipper], [check_package], [order_date] FROM orders WHERE id_order = ?";
-
-        try (Connection conn = new DBcontext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            
+    public OrderShipping get(int id)  {
+        String sql = "SELECT [collection_money], [transportation_cost], [status_order], [apartment_number], [street_name], [District], [Ward], [city], [note_for_shipper], [check_package], [order_date], [receiver_name], [receiver_phonenumber] FROM Order_Shipping WHERE id_order = ?";
+        try {
+            Connection conn = new DBcontext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    OrderShipping orderShipping = new OrderShipping();
-                    Address address = new Address();
-                    
-                    orderShipping.setCollectionMoney(rs.getInt("collection_money"));
-                    orderShipping.setTransportationCost(rs.getInt("transportation_cost"));
-                    orderShipping.setStatusOrder(rs.getBoolean("status_order"));
-                    address.setApartmentNumber(rs.getString("apartment_number"));
-                    address.setStreetName(rs.getString("street_name"));
-                    address.setDistrict(rs.getString("District"));
-                    address.setWard(rs.getString("Ward"));
-                    address.setCity(rs.getString("city"));
-                    orderShipping.setNoteForShipper(rs.getString("note_for_shipper"));
-                    orderShipping.setCheckPackage(rs.getBoolean("check_package"));
-                    orderShipping.setOrderDate(rs.getDate("order_date").toLocalDate());
-                    
-                    return orderShipping;
-                }
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int CollectionMoney = rs.getInt(1);
+                int TransportationCost = rs.getInt(2);
+                Boolean StarusOrder = rs.getBoolean(3);
+                String ApartmentNumber = rs.getString(4);
+                String StreetName = rs.getString(5);
+                String District = rs.getString(6);
+                String Ward = rs.getString(7);
+                String City = rs.getString(8);               
+                Address address = new Address(ApartmentNumber, StreetName, District, Ward, City);
+                String NoteForShipper = rs.getString(9);
+                Boolean CheckPackage = rs.getBoolean(10);
+                LocalDate OrederDate = rs.getDate(11).toLocalDate();
+                String ReceiverName = rs.getString(12);
+                String ReceiverPhoneNum = rs.getString(13);
+                OrderShipping orderShipping = new OrderShipping(CollectionMoney, TransportationCost, OrederDate, CheckPackage, StarusOrder, address, NoteForShipper, ReceiverName, ReceiverPhoneNum);
+                return orderShipping;
+
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -206,4 +206,20 @@ public class OrderShippingDAO extends DBcontext {
             }
        return null; 
     } 
+    public boolean updateOrderStatus (int id){
+        String SQLquery="UPDATE Order_Shipping Set status_order=1 where id_order =?";
+        try {
+            String id_order = Integer.toString(id);
+            Connection conn = new DBcontext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(SQLquery);
+            ps.setString(1, id_order);
+            int rowsAffected=ps.executeUpdate();
+            if(rowsAffected!=0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

@@ -64,11 +64,7 @@
                                         <h5> Nhận yêu cầu Shipping </h5>
                                     </a>
                                 </li>
-                                <li class="nav-list mx-3">
-                                    <a href="listOrderServlet?action=update" class="nav-link px-2">
-                                        <h5> Cập nhật kết quả shipping </h5>
-                                    </a>
-                                </li>
+                                
                             </ul>
 
                             <div class="account d-flex align-items-center mt-5 mt-lg-0 justify-content-center justify-content-lg-end">

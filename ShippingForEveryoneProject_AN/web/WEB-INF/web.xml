@@ -24,6 +24,14 @@
         <servlet-name>listOrderServlet</servlet-name>
         <servlet-class>controller.listOrderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>detailOrderServlet</servlet-name>
+        <servlet-class>controller.detailOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>successOrderServlet</servlet-name>
+        <servlet-class>controller.successOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -48,9 +56,17 @@
         <servlet-name>listOrderServlet</servlet-name>
         <url-pattern>/listOrderServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detailOrderServlet</servlet-name>
+        <url-pattern>/detailOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>successOrderServlet</servlet-name>
+        <url-pattern>/successOrderServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            200
         </session-timeout>
     </session-config>
     <welcome-file-list>
