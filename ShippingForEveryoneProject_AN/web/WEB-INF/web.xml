@@ -16,6 +16,14 @@
         <servlet-name>upLoadShippingService</servlet-name>
         <servlet-class>controller.upLoadShippingService</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>orderShippingServlet</servlet-name>
+        <servlet-class>controller.orderShippingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listOrderServlet</servlet-name>
+        <servlet-class>controller.listOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>upLoadShippingService</servlet-name>
         <url-pattern>/upLoadShippingService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderShippingServlet</servlet-name>
+        <url-pattern>/orderShippingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listOrderServlet</servlet-name>
+        <url-pattern>/listOrderServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
