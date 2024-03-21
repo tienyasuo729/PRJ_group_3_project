@@ -3,5 +3,44 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
-
+<!--    <servlet>-->
+<!--        <servlet-name>loginServlet</servlet-name>-->
+<!--        <servlet-class>org.example.shipping_services_for_everyone.controller.loginServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet>-->
+<!--        <servlet-name>signUpServlet</servlet-name>-->
+<!--        <servlet-class>org.example.shipping_services_for_everyone.controller.signUpServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet>-->
+<!--        <servlet-name>logOutServlet</servlet-name>-->
+<!--        <servlet-class>org.example.shipping_services_for_everyone.controller.logOutServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet>-->
+<!--        <servlet-name>upLoadShippingService</servlet-name>-->
+<!--        <servlet-class>org.example.shipping_services_for_everyone.controller.upLoadShippingService</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>loginServlet</servlet-name>-->
+<!--        <url-pattern>/loginServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>signUpServlet</servlet-name>-->
+<!--        <url-pattern>/signUpServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>logOutServlet</servlet-name>-->
+<!--        <url-pattern>/logOutServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>upLoadShippingService</servlet-name>-->
+<!--        <url-pattern>/upLoadShippingService</url-pattern>-->
+<!--    </servlet-mapping>-->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

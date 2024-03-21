@@ -1,10 +1,14 @@
 package org.example.shipping_services_for_everyone.repository.Impl;
 
 import org.example.shipping_services_for_everyone.repository.IRepository;
+import org.example.shipping_services_for_everyone.repository.queryStatement.ImageLocationStatement;
 import org.example.shipping_services_for_everyone.repository.queryStatement.ShipperQueryStatement;
 import org.example.shipping_services_for_everyone.connection_config.BaseRepositoryJDBC;
 import org.example.shipping_services_for_everyone.model.Shipper;
 
+import javax.servlet.ServletException;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,6 +17,9 @@ import java.util.List;
 public class ShipperRepositoryImpl implements IRepository<Shipper> {
     private BaseRepositoryJDBC baseRepositoryJDBC = new BaseRepositoryJDBC();
     private ShipperQueryStatement shipperQueryStatement = new ShipperQueryStatement();
+    private ImageLocationStatement locationStatement = new ImageLocationStatement();
+    private ImageRepositoryImpl imageRepository = new ImageRepositoryImpl();
+    private final String folderImage = locationStatement.shipperImage;
     @Override
     public List<Shipper> display(Shipper object) {
         return null;
@@ -32,17 +39,29 @@ public class ShipperRepositoryImpl implements IRepository<Shipper> {
             preparedStatement.setString(8, shipper.getPeople().getImageSelfie());
             preparedStatement.setString(9, shipper.getPeople().getImageCccdFront());
             preparedStatement.setString(10, shipper.getPeople().getImageCccdBack());
-            preparedStatement.setString(11, shipper.getImageIdentification().getImageDriverLicense());
-            preparedStatement.setString(12, shipper.getImageIdentification().getImageVehicleRegistration());
-            preparedStatement.setString(13, shipper.getImageIdentification().getImageCurriculumVitae());
-            preparedStatement.setString(14, shipper.getImageIdentification().getImageCivilGuaranteeLetter());
-            preparedStatement.setString(15, shipper.getImageIdentification().getImageCertificateOfNoCriminalRecord());
-            preparedStatement.setString(16, shipper.getImageIdentification().getImageBirthCertificate());
-            preparedStatement.setString(17, shipper.getImageIdentification().getImageHouseholdRegistration());
-            preparedStatement.setString(18, shipper.getImageIdentification().getImageHealthExaminationCertificate());
+            preparedStatement.setString(11, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageDriverLicense");
+            preparedStatement.setString(12, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageVehicleRegistration");
+            preparedStatement.setString(13, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageCurriculumVitae");
+            preparedStatement.setString(14, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageCivilGuaranteeLetter");
+            preparedStatement.setString(15, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageCertificateOfNoCriminalRecord");
+            preparedStatement.setString(16, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageBirthCertificate");
+            preparedStatement.setString(17, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
+            preparedStatement.setString(18, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageHealthExaminationCertificate");
             preparedStatement.setInt(19, new AccountShippingRepositoryImpl().selectIdForAddNewAccountShipping());
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageDriverLicense(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageDriverLicense");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageVehicleRegistration(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageVehicleRegistration");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCurriculumVitae(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCurriculumVitae");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCivilGuaranteeLetter(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCivilGuaranteeLetter");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCertificateOfNoCriminalRecord(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCertificateOfNoCriminalRecord");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageBirthCertificate(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageBirthCertificate");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageHouseholdRegistration(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageHealthExaminationCertificate(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

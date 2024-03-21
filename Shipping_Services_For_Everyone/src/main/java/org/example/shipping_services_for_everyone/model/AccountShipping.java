@@ -11,6 +11,14 @@ public class AccountShipping {
 
     public AccountShipping() {
     }
+    public AccountShipping(Account account) {
+        this.account = account;
+    }
+
+    public AccountShipping(String nameAccount, Account account) {
+        this.nameAccount = nameAccount;
+        this.account = account;
+    }
 
     public AccountShipping(String nameAccount, Account account, TypeVehicle typeVehicle, Size size, String licensePlate, Address currentPosition, TransportImage transportImage) {
         this.nameAccount = nameAccount;

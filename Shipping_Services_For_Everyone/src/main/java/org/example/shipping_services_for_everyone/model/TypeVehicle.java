@@ -7,6 +7,11 @@ public class TypeVehicle {
     public TypeVehicle() {
     }
 
+    public TypeVehicle(int idTypeVehicle, String nameTablePermission) {
+        this.idTypeVehicle = idTypeVehicle;
+        this.nameTablePermission = nameTablePermission;
+    }
+
     public TypeVehicle(int idTypeVehicle) {
         this.idTypeVehicle = idTypeVehicle;
     }

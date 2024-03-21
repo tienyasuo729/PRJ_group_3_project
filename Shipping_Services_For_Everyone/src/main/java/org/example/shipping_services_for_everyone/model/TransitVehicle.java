@@ -9,6 +9,12 @@ public class TransitVehicle {
     public TransitVehicle() {
     }
 
+    public TransitVehicle(People people, ImageIdentification imageIdentification, Account idAccountShipping) {
+        this.people = people;
+        this.imageIdentification = imageIdentification;
+        this.idAccountShipping = idAccountShipping;
+    }
+
     public TransitVehicle(People people, ImageIdentification imageIdentification) {
         this.people = people;
         this.imageIdentification = imageIdentification;

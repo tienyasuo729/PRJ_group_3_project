@@ -19,6 +19,11 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
+    public Account(int idAccount, String phoneNumber, String password) {
+        this.idAccount = idAccount;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
 
     public int getIdAccount() {
         return idAccount;

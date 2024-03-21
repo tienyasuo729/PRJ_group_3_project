@@ -32,6 +32,12 @@ public class People {
         this.listOldAddress = listOldAddress;
     }
 
+    public People(String firstName, String middleName, String lastName) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+    }
+
     public People(String cccd, String firstName, String middleName, String lastName, LocalDate dateOfBirth, char sex, String email, Address address, String imageSelfie, String imageCccdFront, String imageCccdBack) {
         this.cccd = cccd;
         this.firstName = firstName;

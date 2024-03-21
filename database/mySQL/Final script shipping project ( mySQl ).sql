@@ -195,11 +195,15 @@ create table evaluate (
 	FOREIGN KEY (id_account_shipping) REFERENCES account_shipping(id_account_shipping)
 );
 
+create table sex(
+	sign char primary key,
+    gender varchar(500)
+);
+
 -- type_vehicle
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('motorbike');
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('bus');
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('truck');
-INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('xe container');
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('container truck');
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('airplane');
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('train');
@@ -269,6 +273,10 @@ INSERT INTO `shipping_project`.`evaluate` (`Rating`, `comment`, `id_account_ship
 INSERT INTO `shipping_project`.`evaluate` (`Rating`, `comment`, `id_account_shipping`) VALUES ('4.5', 'n', '4');
 INSERT INTO `shipping_project`.`evaluate` (`Rating`, `comment`, `id_account_shipping`) VALUES ('5', 'n', '5');
 
+-- sex
+INSERT INTO `shipping_project`.`sex` (`sign`, `gender`) VALUES ('m', 'Nam');
+INSERT INTO `shipping_project`.`sex` (`sign`, `gender`) VALUES ('f', 'Nữ');
+INSERT INTO `shipping_project`.`sex` (`sign`, `gender`) VALUES ('l', 'LGBT');
 
 
 

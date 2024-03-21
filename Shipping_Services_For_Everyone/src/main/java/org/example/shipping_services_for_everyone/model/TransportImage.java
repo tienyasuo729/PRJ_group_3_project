@@ -15,6 +15,13 @@ public class TransportImage {
     public TransportImage() {
     }
 
+    public TransportImage(Part fileImageVehicleFront, Part fileImageVehicleLeft, Part fileImageVehicleRight, Part fileImageVehicleBehind) {
+        this.fileImageVehicleFront = fileImageVehicleFront;
+        this.fileImageVehicleLeft = fileImageVehicleLeft;
+        this.fileImageVehicleRight = fileImageVehicleRight;
+        this.fileImageVehicleBehind = fileImageVehicleBehind;
+    }
+
     public TransportImage(String imageVehicleFront, String imageVehicleLeft, String imageVehicleRight, String imageVehicleBehind) {
         this.imageVehicleFront = imageVehicleFront;
         this.imageVehicleLeft = imageVehicleLeft;

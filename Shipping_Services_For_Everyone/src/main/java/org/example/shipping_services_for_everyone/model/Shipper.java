@@ -10,6 +10,12 @@ public class Shipper {
 
     }
 
+    public Shipper(People people, ImageIdentification imageIdentification, Account idAccountShipping) {
+        this.people = people;
+        this.imageIdentification = imageIdentification;
+        this.idAccountShipping = idAccountShipping;
+    }
+
     public Shipper(People people, ImageIdentification imageIdentification) {
         this.people = people;
         this.imageIdentification = imageIdentification;
@@ -22,7 +28,6 @@ public class Shipper {
     public void setIdShipper(int idShipper) {
         this.idShipper = idShipper;
     }
-
 
     public People getPeople() {
         return people;

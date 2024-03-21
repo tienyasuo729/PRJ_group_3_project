@@ -205,14 +205,14 @@ public class ValidateByRegex {
 
     }
 
-//    public static Part checkImage(Part image){
-//        if (image.equals()){
-//            return null;
-//        }else {
-//            re
-//        }
-//
-//    };
+    public static Part checkImage(Part image){
+        if (image.getSize() == 0){
+            return null;
+        }else {
+            return image;
+        }
+
+    };
 
     public static String checkImageSelfie(String imageSelfie) { return imageSelfie; }
     public static String checkImageCccdFront(String imageCccdFront) { return imageCccdFront; }

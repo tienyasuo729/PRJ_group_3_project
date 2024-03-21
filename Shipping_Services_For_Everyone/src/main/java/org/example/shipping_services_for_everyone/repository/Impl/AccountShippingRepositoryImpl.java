@@ -1,18 +1,29 @@
 package org.example.shipping_services_for_everyone.repository.Impl;
 
+import org.example.shipping_services_for_everyone.model.Account;
 import org.example.shipping_services_for_everyone.repository.IRepository;
 import org.example.shipping_services_for_everyone.repository.queryStatement.AccountShippingQueryStatement;
 import org.example.shipping_services_for_everyone.connection_config.BaseRepositoryJDBC;
 import org.example.shipping_services_for_everyone.model.AccountShipping;
+import org.example.shipping_services_for_everyone.repository.queryStatement.ImageLocationStatement;
 
+import javax.servlet.ServletException;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AccountShippingRepositoryImpl implements IRepository<AccountShipping> {
     private BaseRepositoryJDBC baseRepositoryJDBC = new BaseRepositoryJDBC();
     private AccountShippingQueryStatement accountShippingQueryStatement = new AccountShippingQueryStatement();
+    private ImageLocationStatement locationStatement = new ImageLocationStatement();
+    private ImageRepositoryImpl imageRepository = new ImageRepositoryImpl();
+    private final String folderImage = locationStatement.vehicleImage;
     @Override
     public List<AccountShipping> display(AccountShipping object) {
         return null;
@@ -36,12 +47,20 @@ public class AccountShippingRepositoryImpl implements IRepository<AccountShippin
             preparedStatement.setString(12, accountShipping.getCurrentPosition().getDistrict());
             preparedStatement.setString(13, accountShipping.getCurrentPosition().getWard());
             preparedStatement.setString(14, accountShipping.getCurrentPosition().getCity());
-            preparedStatement.setString(15, accountShipping.getTransportImage().getImageVehicleFront());
-            preparedStatement.setString(16, accountShipping.getTransportImage().getImageVehicleLeft());
-            preparedStatement.setString(17, accountShipping.getTransportImage().getImageVehicleRight());
-            preparedStatement.setString(18, accountShipping.getTransportImage().getImageVehicleBehind());
+            preparedStatement.setString(15, folderImage + File.separator + accountShipping.getAccount().getPhoneNumber() + "ImageVehicleFront");
+            preparedStatement.setString(16, folderImage + File.separator + accountShipping.getAccount().getPhoneNumber() + "ImageVehicleLeft");
+            preparedStatement.setString(17, folderImage + File.separator + accountShipping.getAccount().getPhoneNumber() + "ImageVehicleRight");
+            preparedStatement.setString(18, folderImage + File.separator + accountShipping.getAccount().getPhoneNumber() + "ImageVehicleBehind");
+            imageRepository.saveImage(accountShipping.getTransportImage().getFileImageVehicleFront(), folderImage, accountShipping.getAccount().getPhoneNumber() + "ImageVehicleFront");
+            imageRepository.saveImage(accountShipping.getTransportImage().getFileImageVehicleLeft(), folderImage, accountShipping.getAccount().getPhoneNumber() + "ImageVehicleLeft");
+            imageRepository.saveImage(accountShipping.getTransportImage().getFileImageVehicleRight(), folderImage, accountShipping.getAccount().getPhoneNumber() + "ImageVehicleRight");
+            imageRepository.saveImage(accountShipping.getTransportImage().getFileImageVehicleBehind(), folderImage, accountShipping.getAccount().getPhoneNumber() + "ImageVehicleBehind");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -57,8 +76,31 @@ public class AccountShippingRepositoryImpl implements IRepository<AccountShippin
     }
 
     @Override
-    public List<AccountShipping> find(AccountShipping object) {
-        return null;
+    public List<AccountShipping> find(AccountShipping shippingAccount) {
+        String sqlQuerry_find ="select id_account_shipping,name_account,phone_number,password from account_shipping where phone_number=? and password=?";
+        List<AccountShipping> list = new ArrayList<>();
+        String Number = shippingAccount.getAccount().getPhoneNumber();
+        String pass = shippingAccount.getAccount().getPassword();
+        try {
+            PreparedStatement ps = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(sqlQuerry_find);
+            ps.setString(1, Number);
+            ps.setString(2, pass);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id_account =rs.getInt(1);
+                String name =rs.getString(2);
+                String phoneNumber = rs.getString(3);
+                String password = rs.getString(4);
+                Account c = new Account(id_account, phoneNumber, password);
+                AccountShipping accShipping = new AccountShipping(name, c);
+                list.add(accShipping);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserAccountRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return list;
     }
 
     @Override
