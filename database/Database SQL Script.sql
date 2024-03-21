@@ -103,7 +103,8 @@ CREATE TABLE Shipper (
 CREATE TABLE Order_Shipping (
     id_order INT PRIMARY KEY IDENTITY(1,1),
     id_sender INT NOT NULL,
-    id_receiver INT NOT NULL,
+    receiver_name varchar(500),
+	receiver_phonenumber varchar(20),
     collection_money INT DEFAULT 0,
     transportation_cost INT DEFAULT 0,
     status_order BIT,
@@ -119,10 +120,9 @@ CREATE TABLE Order_Shipping (
     id_pickup INT,
     id_delivery INT,
     FOREIGN KEY (id_sender) REFERENCES user_account(id_account),
-    FOREIGN KEY (id_receiver) REFERENCES user_account(id_account),
     FOREIGN KEY (id_pickup) REFERENCES account_shipping(id_account_shipping),
     FOREIGN KEY (id_delivery) REFERENCES account_shipping(id_account_shipping),
-    CONSTRAINT CheckSenderReceiverDifferent CHECK (id_sender <> id_receiver)
+   
 );
 
 CREATE TABLE current_location (
@@ -200,11 +200,11 @@ INSERT INTO shipping_project.dbo.shipper (cccd, first_name, middle_name, last_na
 INSERT INTO shipping_project.dbo.shipper (cccd, first_name, middle_name, last_name, DateOfBirth, sex, email, image_selfie, image_cccd_front, image_cccd_back, image_driver_license, image_vehicle_registration, image_Curriculum_Vitae, image_Civil_Guarantee_Letter, image_Certificate_of_No_Criminal_Record, image_Birth_Certificate, image_Household_Registration, image_Health_Examination_Certificate, id_account_shipping) VALUES ('000000000006', 'lò', 'văn', 'luyện', '2006-06-06', 'f', 'luyen@gmail.com', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '6');
 
 -- order_shipping
-INSERT INTO shipping_project.dbo.order_shipping (id_sender, id_receiver, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('1', '2', '1000000', '2000000', '1', '1', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'a', '2024-12-12 12:30:00', '1', '1', '6');
-INSERT INTO shipping_project.dbo.order_shipping (id_sender, id_receiver, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('1', '3', '1000000', '2000000', '0', '2', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'b', '2024-12-12 12:30:00', '0', '1', '6');
-INSERT INTO shipping_project.dbo.order_shipping (id_sender, id_receiver, collection_money, transportation_cost, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('1', '4', '1000000', '2000000', '3', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'c', '2024-12-12 12:30:00', '1', '1', '6');
-INSERT INTO shipping_project.dbo.order_shipping (id_sender, id_receiver, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('1', '5', '1000000', '2000000', '1', '4', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'd', '2024-12-12 12:30:00', '0', '6', '1');
-INSERT INTO shipping_project.dbo.order_shipping (id_sender, id_receiver, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('2', '1', '1000000', '2000000', '0', '5', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'f', '2024-12-12 12:30:00', '1', '6', '1');
+INSERT INTO shipping_project.dbo.order_shipping (id_sender,receiver_name,receiver_phonenumber, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery)
+VALUES (1, 'Tran van a','0123456789', '1000000', '2000000', '1', '1', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'a', '2024-12-12 12:30:00', '1', '1', '6');
+INSERT INTO shipping_project.dbo.order_shipping (id_sender,receiver_name,receiver_phonenumber, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('1', 'Le Thi B','0987654321', '1000000', '2000000', '0', '2', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'b', '2024-12-12 12:30:00', '0', '1', '6');
+INSERT INTO shipping_project.dbo.order_shipping (id_sender,receiver_name,receiver_phonenumber, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('1', 'Tran van D','0123123123', '1000000', '2000000', '1', '4', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'd', '2024-12-12 12:30:00', '0', '6', '1');
+INSERT INTO shipping_project.dbo.order_shipping (id_sender,receiver_name,receiver_phonenumber, collection_money, transportation_cost, status_order, apartment_number, street_name, District, Ward, city, note_for_shipper, estimated_delivery_time, check_package, id_pickup, id_delivery) VALUES ('2', 'Tran van T', '0987987987','1000000', '2000000', '0', '5', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'f', '2024-12-12 12:30:00', '1', '6', '1');
 
 -- package
 INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weight, image_1, image_2, image_3, image_4, id_order) VALUES ('cá', '1', '1', '1', '1', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '1');
@@ -212,7 +212,7 @@ INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weig
 INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weight, image_1, image_2, image_3, image_4, id_order) VALUES ('đồ chơi', '3', '3', '3', '3', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '2');
 INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weight, image_1, image_2, image_3, image_4, id_order) VALUES ('áo', '4', '4', '4', '4', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '3');
 INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weight, image_1, image_2, image_3, image_4, id_order) VALUES ('quần', '5', '5', '5', '5', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '4');
-INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weight, image_1, image_2, image_3, image_4, id_order) VALUES ('cần', '6', '6', '6', '6', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '5');
+INSERT INTO shipping_project.dbo.package (name_Item, length, width, height, weight, image_1, image_2, image_3, image_4, id_order) VALUES ('cần', '6', '6', '6', '6', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '4');
 
 -- current_location
 INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, image_4, id_order, id_account_shipping) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '1', '1');
@@ -223,8 +223,7 @@ INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, im
 INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, image_4, id_order, id_account_shipping) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '3', '2');
 INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, image_4, id_order, id_account_shipping) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '4', '3');
 INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, image_4, id_order, id_account_shipping) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '4', '4');
-INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, image_4, id_order, id_account_shipping) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '5', '5');
-INSERT INTO shipping_project.dbo.current_location (image_1, image_2, image_3, image_4, id_order, id_account_shipping) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '5', '6');
+
 
 -- evaluate
 INSERT INTO shipping_project.dbo.evaluate (Rating, comment, id_account_shipping) VALUES ('0', 'n', '1');

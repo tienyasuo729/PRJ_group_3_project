@@ -63,7 +63,9 @@
          <div class="container">
         <h2>Thông tin đơn hàng</h2>
         <div class="order-info">
-            <c:if test="${not empty orderShipping}">
+           
+                <p><span class="label">Receiver Name:</span> ${orderShipping.receiverName}</p>
+                <p><span class="label">Receiver Phone Number:</span> ${orderShipping.receiverPhoneNum}</p>
                 <p><span class="label">Collection Money:</span> ${orderShipping.collectionMoney}</p>
                 <p><span class="label">Transportation Cost:</span> ${orderShipping.transportationCost}</p>
                 <p><span class="label">Status Order:</span> ${orderShipping.statusOrder}</p>
@@ -75,7 +77,7 @@
                 <p><span class="label">Note for Shipper:</span> ${orderShipping.noteForShipper}</p>
                 <p><span class="label">Check Package:</span> ${orderShipping.checkPackage}</p>
                 <p><span class="label">Order Date:</span> ${orderShipping.orderDate}</p>
-            </c:if>
+            
            
         </div>
     </div>

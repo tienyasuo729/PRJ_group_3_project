@@ -51,19 +51,40 @@
                                 </li>
 
                                 <li class="nav-list mx-3">
-                                    <a href="index.jsp#services" class="nav-link px-2">
-                                        <h5> Services </h5>
+                                    <c:if test="${sessionScope.loginSession!=null}">
+                                    <a href="createorder" class="nav-link px-2">  
+                                        <h5> Tạo đơn hàng </h5>
                                     </a>
+                                    </c:if>    
+                                    <c:if test="${sessionScope.loginSession==null}">
+                                        <a href="loginServlet" class="nav-link px-2">  
+                                            <h5> Tạo đơn hàng </h5>
+                                        </a>  
+                                    </c:if>    
                                 </li>
                                 <li class="nav-list mx-3">
-                                    <a href="index.jsp#articles" class="nav-link px-2">
-                                        <h5> Blog </h5>
+                                    <c:if test="${sessionScope.loginSession!=null}">
+                                    <a href="myorder" class="nav-link px-2">  
+                                        <h5> Đơn hàng của tôi </h5>
                                     </a>
+                                    </c:if>    
+                                    <c:if test="${sessionScope.loginSession==null}">
+                                        <a href="loginServlet" class="nav-link px-2">  
+                                            <h5> Đơn hàng của tôi </h5>
+                                        </a>  
+                                    </c:if>  
                                 </li>
                                 <li class="nav-list mx-3">
-                                    <a href="searchOrder.jsp" class="nav-link px-2">
-                                        <h5> Contact </h5>
+                                     <c:if test="${sessionScope.loginSession!=null}">
+                                    <a href="searchOrder" class="nav-link px-2">  
+                                        <h5> Theo dõi đơn đơn hàng </h5>
                                     </a>
+                                    </c:if>    
+                                    <c:if test="${sessionScope.loginSession==null}">
+                                        <a href="loginServlet" class="nav-link px-2">  
+                                            <h5> Theo dõi đơn đơn hàng </h5>
+                                        </a>  
+                                    </c:if> 
                                 </li>
                             </ul>
                             <c:if test="${sessionScope.loginSession==null}">
@@ -83,7 +104,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="createorder">New Order Shipping</a></li>
-                                        <li><a class="dropdown-item" href="manageaccount.jsp">Account</a></li>
+                                        <li><a class="dropdown-item" href="myorder.jsp">My Order</a></li>
                                         <li><a class="dropdown-item" href="logOutServlet">Log Out</a></li>
                                     </ul>
                                 </div>

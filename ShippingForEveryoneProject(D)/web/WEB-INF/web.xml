@@ -20,6 +20,10 @@
         <servlet-name>SearchOrderServlet</servlet-name>
         <servlet-class>controller.SearchOrderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <servlet-class>controller.MyOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>SearchOrderServlet</servlet-name>
         <url-pattern>/searchOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <url-pattern>/myorder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -76,23 +76,25 @@ public class SearchOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String orderIdString = request.getParameter("orderId");             
-        if (orderIdString != null && !orderIdString.isEmpty()) {
+        if (orderIdString != null ) {
             try {             
                 int orderId = Integer.parseInt(orderIdString);
                 OrderShippingDAO orderShippingDAO = new OrderShippingDAO();
                 OrderShipping orderShipping = orderShippingDAO.get(orderId);
                 request.setAttribute("orderShipping", orderShipping);
-                response.sendRedirect("searchOrder.jsp");
+                request.getRequestDispatcher("searchOrder.jsp").forward(request, response);
             } catch (NumberFormatException e) {
               
-                response.sendRedirect(request.getContextPath() + "/error.jsp");
+                //response.sendRedirect(request.getContextPath() + "/error.jsp");
             } catch (Exception e) {
                 // Xử lý nếu có lỗi xảy ra trong quá trình tìm kiếm đơn hàng
-                response.sendRedirect(request.getContextPath() + "/error.jsp");
+                System.out.println("loi tim kiem");
+                //response.sendRedirect(request.getContextPath() + "/error.jsp");
             }
         } else {
+            System.out.println("k co id");
             // Xử lý nếu không có orderId được cung cấp
-            response.sendRedirect(request.getContextPath() + "/error.jsp");
+            //response.sendRedirect(request.getContextPath() + "/error.jsp");
         }
     }
 

@@ -7,22 +7,20 @@ package controller;
 import context.OrderShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
-import model.Address;
 import model.OrderShipping;
 
 /**
  *
  * @author DINH
  */
-public class OrderShippingServlet extends HttpServlet {
+public class MyOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class OrderShippingServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OrderShippingServlet</title>");
+            out.println("<title>Servlet MyOrderServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet OrderShippingServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MyOrderServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +60,16 @@ public class OrderShippingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("createorder.jsp").forward(request, response);
+         OrderShippingDAO orderDAO = new OrderShippingDAO();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("loginSession");
+        int id = account.getIdAccount();       
+        ArrayList<OrderShipping> list = orderDAO.getmyOrder(id);
+        
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("myorder.jsp").forward(request, response);
+       
+            
     }
 
     /**
@@ -76,45 +83,7 @@ public class OrderShippingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("loginSession");
-            
-            
-        try {
-            
-            int senderId= Integer.parseInt(request.getParameter("sender"));
-            String receiverName = request.getParameter("receiverName");
-            String receiverPhoneNum = request.getParameter("receiverPhoneNum");
-            int collectionMoney =Integer.parseInt( request.getParameter("collectionMoney"));           
-            String city = request.getParameter("city");
-            String district = request.getParameter("district");
-            String ward = request.getParameter("ward");
-            String streetName = request.getParameter("streetName");
-            String apartmentNumber = request.getParameter("apartmentNumber");
-            String noteForShipper = request.getParameter("noteForShipper");
-            // String imagePackage = request.getParameter("imagePackage");
-            boolean statusOrder = false;
-            boolean checkPackage =Boolean.parseBoolean(request.getParameter("checkPackage"));
-            int idDelivery = Integer.parseInt(request.getParameter("idDelivery"));
-            
-            if ( apartmentNumber.equals("")
-                    || streetName.equals("")
-                    || district.equals("")
-                    || ward.equals("")
-                    || city.equals("")) {
-                request.setAttribute("msg", "Enter name again!!");
-                request.getRequestDispatcher("createorder.jsp").forward(request, response);
-                return;
-            }
-            OrderShippingDAO orderDAO = new OrderShippingDAO();
-            Address address = new Address(apartmentNumber, streetName, district, ward, city);
-            OrderShipping ordershipping = new OrderShipping(senderId, collectionMoney, checkPackage,statusOrder,address, noteForShipper, receiverName, receiverPhoneNum, idDelivery);
-            orderDAO.addorder(ordershipping);
-            response.sendRedirect("myorder.jsp");
-        } catch (Exception ex) {
-            Logger.getLogger(OrderShippingServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+       
     }
 
     /**
