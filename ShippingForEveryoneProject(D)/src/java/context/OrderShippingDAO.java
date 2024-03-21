@@ -171,4 +171,75 @@ public class OrderShippingDAO extends DBcontext {
         }
         return null;
     }
+       public void delete(int id) {
+        try (Connection conn = new DBcontext().getConnection();
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM Order_Shipping WHERE id_order = ?")) {
+            ps.setInt(1, id);
+            ps.executeUpdate();       
+        } catch (Exception ex) {
+            Logger.getLogger(OrderShippingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void update(OrderShipping orderShipping)
+    {
+        String sql = "UPDATE Order_Shipping " +
+             "SET collection_money = ?, " +
+             "    apartment_number = ?, " +
+             "    street_name = ?, " +
+             "    District = ?, " +
+             "    Ward = ?, " +
+             "    city = ?, " +
+             "    note_for_shipper = ?, " +
+             "    receiver_name = ?, " +
+             "    receiver_phonenumber = ? " +
+             "WHERE id_order = ?";
+        try {
+            Connection conn = new DBcontext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            Address address = new Address();
+            ps.setInt(1, orderShipping.getCollectionMoney());
+            ps.setString(2, orderShipping.getAddress().getApartmentNumber());
+            ps.setString(3, orderShipping.getAddress().getStreetName());
+            ps.setString(4, orderShipping.getAddress().getDistrict());
+            ps.setString(5, orderShipping.getAddress().getWard());
+            ps.setString(6, orderShipping.getAddress().getCity());
+            ps.setString(7, orderShipping.getNoteForShipper());
+            ps.setString(8, orderShipping.getReceiverName());
+            ps.setString(9, orderShipping.getReceiverPhoneNum());
+            
+//            ps.setString(1, c.getName());
+//            ps.setString(2, c.getDescribe());
+//            ps.setInt(3, c.getId());
+             ps.execute();
+        
+        } catch (Exception ex) {
+            Logger.getLogger(OrderShippingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }  
+      public OrderShipping getIdOrder(int id)  {
+        String sql = "SELECT [collection_money], [apartment_number], [street_name], [District], [Ward], [city], [note_for_shipper], [receiver_name], [receiver_phonenumber] FROM Order_Shipping WHERE id_order = ?";
+        try {
+            Connection conn = new DBcontext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int CollectionMoney = rs.getInt(1);                        
+                String ApartmentNumber = rs.getString(2);
+                String StreetName = rs.getString(3);
+                String District = rs.getString(4);
+                String Ward = rs.getString(5);
+                String City = rs.getString(6);
+                Address address = new Address(ApartmentNumber, StreetName, District, Ward, City);
+                String NoteForShipper = rs.getString(7);                             
+                String ReceiverName = rs.getString(8);
+                String ReceiverPhoneNum = rs.getString(9);
+                OrderShipping orderShipping = new OrderShipping(CollectionMoney, address, NoteForShipper, ReceiverName, ReceiverPhoneNum);
+                return orderShipping;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -24,6 +24,14 @@
         <servlet-name>MyOrderServlet</servlet-name>
         <servlet-class>controller.MyOrderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteOrder</servlet-name>
+        <servlet-class>controller.DeleteOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateOrder</servlet-name>
+        <servlet-class>controller.UpdateOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>MyOrderServlet</servlet-name>
         <url-pattern>/myorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteOrder</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateOrder</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

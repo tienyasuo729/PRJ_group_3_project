@@ -28,23 +28,20 @@
                                         <input type="radio" id="shipperRadio" name="role" value="shipper">
                                         <br>
                                         <div class="form-floating mb-3">
-                                            <input type="text" name="phoneNumber" value="${number}" class="form-control" id="floatingInputUsername" placeholder="myusername" required
+                                            <input type="text" name="number" class="form-control" id="floatingInputUsername" placeholder="myusername" required
                                                    autofocus>
                                             <label for="floatingInputUsername">Phone Number</label>
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="password" name="password" value="${pass}" class="form-control" id="floatingPassword" placeholder="Password">
+                                            <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Password">
                                             <label for="floatingPassword">Password</label>
                                         </div>
-                                        <div>
-                                            <input type="checkbox" id="remember_me" name="remember" >
-                                            <label for="remember_me">  Remember Me</label><br>
-                                        </div>    
+
                                         <div class="d-grid mb-2">
                                             <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Login</button>
                                         </div>
-                                        
+
                                         <a class="d-block text-center mt-2 small" href="signUp.jsp">Don't have an account? Sign Up</a>
                                         <br />
                                         <hr class="my-2">

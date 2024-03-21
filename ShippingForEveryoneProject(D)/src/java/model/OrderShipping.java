@@ -33,7 +33,15 @@ public class OrderShipping {
         this.receiverName = receiverName;
         this.receiverPhoneNum = receiverPhoneNum;
     }
-
+    
+    public OrderShipping(int collectionMoney, Address address, String noteForShipper, String receiverName, String receiverPhoneNum) {
+        this.collectionMoney = collectionMoney;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
+    }
+    
     public OrderShipping(int idSender, int collectionMoney, Boolean checkPackage,Boolean statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum, int idDelivery) {
         this.idSender = idSender;
         this.collectionMoney = collectionMoney;

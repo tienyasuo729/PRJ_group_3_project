@@ -2,7 +2,14 @@
 <%@include file="include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <section>
-    
+ <script type="text/javascript">
+            function doDelete(id){
+                if (confirm("Bạn có muốn hủy đơn hàng")+id)
+                {
+                    window.location="delete?id="+id;
+                }
+            }
+        </script>  
     <style>
         .card{
             margin-top: 100px;
@@ -40,8 +47,13 @@
                                 <td>${orderShipping.collectionMoney}</td>
                                 <td>${orderShipping.noteForShipper}</td>                                                          
                                 <td>
-                                    <a href="editorder.jsp?id=${order.id}" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="deleteorder?id=${order.id}" class="btn btn-danger btn-sm">Delete</a>
+                                    <c:if test="${orderShipping.statusOrder}">
+                                        <span class="text-success">Đã giao hàng thành công</span>
+                                    </c:if>
+                                    <c:if test="${not orderShipping.statusOrder}">
+                                        <a href="update?id=${orderShipping.idOrder}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="#" onclick="doDelete('${orderShipping.idOrder}')" class="btn btn-danger btn-sm">Delete</a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>

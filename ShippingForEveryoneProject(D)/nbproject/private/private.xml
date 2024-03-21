@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/java/context/OrderShippingDAO.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>121</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/web/createorder.jsp</file>
+            <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/src/java/controller/UpdateOrder.java</file>
+            <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/web/update.jsp</file>
+            <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/web/myorder.jsp</file>
+            <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/src/java/model/Address.java</file>
             <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/src/java/context/OrderShippingDAO.java</file>
             <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/src/java/model/OrderShipping.java</file>
-            <file>file:/C:/Users/DINH/Desktop/Github/PRJ_group_3_project/ShippingForEveryoneProject(D)/src/java/controller/OrderShippingServlet.java</file>
         </group>
     </open-files>
 </project-private>
