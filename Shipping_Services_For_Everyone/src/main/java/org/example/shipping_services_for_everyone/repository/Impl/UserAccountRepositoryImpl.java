@@ -170,4 +170,33 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
         }
         return addressList;
     }
+
+    public UserAccount findIdByPhoneNumber(String phoneNumberToFind) throws SQLException {
+        PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.findIdByPhoneNumber);
+        preparedStatement.setString(1, phoneNumberToFind);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return new UserAccount(new Account(resultSet.getInt("id_account")));
+    }
+
+    public Address getAddressByIdUser(int idUser) throws SQLException {
+        PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.getAddresByIdUser);
+        preparedStatement.setInt(1, idUser);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        String[] elements = resultSet.getString("address").split("\\|");
+        Address address = null;
+        for (int i = 0; i < elements.length; i += 7) {
+            address =  new Address(
+                    elements[i],
+                    elements[i + 1],
+                    elements[i + 2],
+                    elements[i + 3],
+                    elements[i + 4],
+                    elements[i + 5],
+                    elements[i + 6]
+            );
+        }
+        return address;
+    }
 }

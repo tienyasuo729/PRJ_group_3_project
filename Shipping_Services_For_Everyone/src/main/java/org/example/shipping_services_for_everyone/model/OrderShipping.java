@@ -20,6 +20,50 @@ public class OrderShipping {
     public OrderShipping() {
     }
 
+    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, Boolean checkPackage, Address address, String noteForShipper) {
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
+        this.collectionMoney = collectionMoney;
+        this.checkPackage = checkPackage;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+    }
+
+    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, Boolean checkPackage, Address address, String noteForShipper, AccountShipping idPickup) {
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
+        this.collectionMoney = collectionMoney;
+        this.checkPackage = checkPackage;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.idPickup = idPickup;
+    }
+
+    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, int transportationCost, Boolean checkPackage, Address address, String noteForShipper, AccountShipping idPickup, AccountShipping idDelivery) {
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
+        this.collectionMoney = collectionMoney;
+        this.transportationCost = transportationCost;
+        this.checkPackage = checkPackage;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.idPickup = idPickup;
+        this.idDelivery = idDelivery;
+    }
+
+    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, int transportationCost, Boolean checkPackage, Address address, String noteForShipper, LocalDate estimatedDeliveryTime, AccountShipping idPickup, AccountShipping idDelivery) {
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
+        this.collectionMoney = collectionMoney;
+        this.transportationCost = transportationCost;
+        this.checkPackage = checkPackage;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.estimatedDeliveryTime = estimatedDeliveryTime;
+        this.idPickup = idPickup;
+        this.idDelivery = idDelivery;
+    }
+
     public UserAccount getIdSender() {
         return idSender;
     }

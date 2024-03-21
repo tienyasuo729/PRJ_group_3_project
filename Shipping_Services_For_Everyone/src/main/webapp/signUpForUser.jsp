@@ -128,7 +128,7 @@
                             <form action="signUpServlet" method="get">
                                 <input type="hidden" name="action1" value="signUpShipping">
                                 <div class="d-grid mb-2">
-                                    <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Đăng kí</button>
+                                    <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Đăng kí Tài xế</button>
                                 </div>
                             </form>
                         </div>

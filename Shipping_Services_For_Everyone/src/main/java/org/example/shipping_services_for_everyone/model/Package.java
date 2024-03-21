@@ -8,6 +8,12 @@ public class Package {
     public Package() {
     }
 
+    public Package(String nameItem, Size sizeItem, Image imageItem) {
+        this.nameItem = nameItem;
+        this.sizeItem = sizeItem;
+        this.imageItem = imageItem;
+    }
+
     public String getNameItem() {
         return nameItem;
     }

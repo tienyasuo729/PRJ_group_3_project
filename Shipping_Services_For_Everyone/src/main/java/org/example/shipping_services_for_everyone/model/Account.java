@@ -11,6 +11,10 @@ public class Account {
     public Account() {
     }
 
+    public Account(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Account(int idAccount) {
         this.idAccount = idAccount;
     }

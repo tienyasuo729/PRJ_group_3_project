@@ -29,6 +29,17 @@ public class ShipperRepositoryImpl implements IRepository<Shipper> {
     public void addNew(Shipper shipper) {
         try {
             PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(shipperQueryStatement.addNewShipper);
+            imageRepository.saveImage(shipper.getPeople().getFileImageSelfie(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageSelfie");
+            imageRepository.saveImage(shipper.getPeople().getFileCccdFront(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCccdFront");
+            imageRepository.saveImage(shipper.getPeople().getFileCccdBack(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "imageCccdBack");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageDriverLicense(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageDriverLicense");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageVehicleRegistration(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageVehicleRegistration");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCurriculumVitae(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCurriculumVitae");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCivilGuaranteeLetter(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCivilGuaranteeLetter");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCertificateOfNoCriminalRecord(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCertificateOfNoCriminalRecord");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageBirthCertificate(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageBirthCertificate");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageHouseholdRegistration(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
+            imageRepository.saveImage(shipper.getImageIdentification().getFileImageHealthExaminationCertificate(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
             preparedStatement.setString(1, shipper.getPeople().getCccd());
             preparedStatement.setString(2, shipper.getPeople().getFirstName());
             preparedStatement.setString(3, shipper.getPeople().getMiddleName());
@@ -36,9 +47,9 @@ public class ShipperRepositoryImpl implements IRepository<Shipper> {
             preparedStatement.setDate(5, Date.valueOf(shipper.getPeople().getDateOfBirth()));
             preparedStatement.setString(6, String.valueOf(shipper.getPeople().getSex()));
             preparedStatement.setString(7, shipper.getPeople().getEmail());
-            preparedStatement.setString(8, shipper.getPeople().getImageSelfie());
-            preparedStatement.setString(9, shipper.getPeople().getImageCccdFront());
-            preparedStatement.setString(10, shipper.getPeople().getImageCccdBack());
+            preparedStatement.setString(8, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber()+ "ImageSelfie");
+            preparedStatement.setString(9, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageCccdFront");
+            preparedStatement.setString(10, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "imageCccdBack");
             preparedStatement.setString(11, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageDriverLicense");
             preparedStatement.setString(12, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageVehicleRegistration");
             preparedStatement.setString(13, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageCurriculumVitae");
@@ -48,14 +59,6 @@ public class ShipperRepositoryImpl implements IRepository<Shipper> {
             preparedStatement.setString(17, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
             preparedStatement.setString(18, folderImage + File.separator + shipper.getIdAccountShipping().getPhoneNumber() + "ImageHealthExaminationCertificate");
             preparedStatement.setInt(19, new AccountShippingRepositoryImpl().selectIdForAddNewAccountShipping());
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageDriverLicense(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageDriverLicense");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageVehicleRegistration(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageVehicleRegistration");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCurriculumVitae(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCurriculumVitae");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCivilGuaranteeLetter(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCivilGuaranteeLetter");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageCertificateOfNoCriminalRecord(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageCertificateOfNoCriminalRecord");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageBirthCertificate(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageBirthCertificate");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageHouseholdRegistration(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
-            imageRepository.saveImage(shipper.getImageIdentification().getFileImageHealthExaminationCertificate(), folderImage, shipper.getIdAccountShipping().getPhoneNumber() + "ImageHouseholdRegistration");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -49,9 +49,9 @@ public class TransitVehicleRepositoryImpl implements IRepository<TransitVehicle>
             preparedStatement.setDate(5, Date.valueOf(transitVehicle.getPeople().getDateOfBirth()));
             preparedStatement.setString(6, String.valueOf(transitVehicle.getPeople().getSex()));
             preparedStatement.setString(7, transitVehicle.getPeople().getEmail());
-            preparedStatement.setString(8, folderImage + File.separator + transitVehicle.getPeople().getFileImageSelfie() + "FileImageSelfie");
-            preparedStatement.setString(9, folderImage + File.separator + transitVehicle.getPeople().getFileCccdFront() + "FileCccdFront");
-            preparedStatement.setString(10, folderImage + File.separator + transitVehicle.getPeople().getFileCccdBack() + "FileCccdBack");
+            preparedStatement.setString(8, folderImage + File.separator + transitVehicle.getIdAccountShipping().getPhoneNumber() + "ImageSelfie");
+            preparedStatement.setString(9, folderImage + File.separator + transitVehicle.getIdAccountShipping().getPhoneNumber() + "ImageCccdFront");
+            preparedStatement.setString(10, folderImage + File.separator + transitVehicle.getIdAccountShipping().getPhoneNumber() + "ImageCccdBack");
             preparedStatement.setString(11, folderImage + File.separator + transitVehicle.getIdAccountShipping().getPhoneNumber() + "ImageDriverLicense");
             preparedStatement.setString(12, folderImage + File.separator + transitVehicle.getIdAccountShipping().getPhoneNumber() + "ImageVehicleRegistration");
             preparedStatement.setString(13, folderImage + File.separator + transitVehicle.getIdAccountShipping().getPhoneNumber() + "ImageCurriculumVitae");
