@@ -32,6 +32,22 @@
         <servlet-name>successOrderServlet</servlet-name>
         <servlet-class>controller.successOrderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <servlet-class>controller.MyOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addOrderShipping</servlet-name>
+        <servlet-class>controller.addOrderShipping</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>progressingOrderServlet</servlet-name>
+        <servlet-class>controller.progressingOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logOutShipperServlet</servlet-name>
+        <servlet-class>controller.logOutShipperServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginServlet</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -63,6 +79,22 @@
     <servlet-mapping>
         <servlet-name>successOrderServlet</servlet-name>
         <url-pattern>/successOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <url-pattern>/MyOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addOrderShipping</servlet-name>
+        <url-pattern>/addOrderShipping</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>progressingOrderServlet</servlet-name>
+        <url-pattern>/progressingOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logOutShipperServlet</servlet-name>
+        <url-pattern>/logOutShipperServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

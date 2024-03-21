@@ -91,6 +91,7 @@ private IRepository shipimpl= new AccountShippingImpl();
                 request.setAttribute("MSG_Login", msg);
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }else{
+                
                 if("user".equals(role)){
                     //phần đăng nhập của User 
                     List<UserAccount> listUsers = new ArrayList<>();
@@ -126,6 +127,7 @@ private IRepository shipimpl= new AccountShippingImpl();
                                        
                 }else{
                         //phần đăng nhập của Shiper
+                       AccountShippingImpl impl = new AccountShippingImpl();
                        List<AccountShipping> listShippers = new ArrayList<>();
                        String number = request.getParameter("phoneNumber");
                        String password = request.getParameter("password");
@@ -146,10 +148,25 @@ private IRepository shipimpl= new AccountShippingImpl();
                             cookieP.setMaxAge(7 * 24 * 60 * 60);
                             response.addCookie(cookieP);
                         }
+                        
                         int id_account = listShippers.get(0).getAccount().getIdAccount();
+                        if(listShippers.get(0).isActive_status()==false){  //sửa Active Status
+                            if(impl.updateActiveStatusOn(id_account)==true){ //sửa Active Status trong AccountShipping implement
+                                accShipping.setActive_status(true);  //sửa Active Status
+                            }
+                            // em sửa thêm logOutShipperServlet nha
+                            //sửa headerShiper cái logout chuyển thành servlet logOutShipperServlet
+                        }
+//                        else{
+//                            String msg = "tài khoản của bạn đang hoạt động không thể đăng nhập!";
+//                            request.setAttribute("MSG_Login", msg);
+//                            request.getRequestDispatcher("login.jsp").forward(request, response);
+//                        }    
                         Account accountLogin = new Account(id_account, number, password);
                         HttpSession session = request.getSession();
                         session.setAttribute("loginSession", accountLogin);
+                        boolean activeStatus=accShipping.isActive_status();          //sửa Active Status trong model   
+                        session.setAttribute("activeStatus",activeStatus); //sửa Active Status
                         String name = listShippers.get(0).getNameAccount();
                         session.setAttribute("name", name);
                         request.getRequestDispatcher("indexShipper.jsp").forward(request, response);

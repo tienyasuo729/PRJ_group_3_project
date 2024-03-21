@@ -52,15 +52,21 @@
                 <p><span class="label">Note for Shipper:</span> ${orderShipping.noteForShipper}</p>
                 <p><span class="label">Check Package:</span> ${orderShipping.checkPackage}</p>
                 <p><span class="label">Order Date:</span> ${orderShipping.orderDate}</p>
-                <c:if test="${orderShipping.statusOrder==true}">
-                    <p><span class="label">Status Order:</span>Giao thành công   </p>                    
+                <c:if test=" ${orderShipping.statusOrder eq 'Đã giao hàng thành công' }">
+                    <p><span class="label">Status Order:</span>Đã giao hàng thành công   </p>                    
                 </c:if>
-                <c:if test="${orderShipping.statusOrder==false}">
-                    <p><span class="label">Status Order:</span>Chưa Giao thành công</p>
+                <c:if test="${orderShipping.statusOrder eq  'Đang giao hàng'}">
+                    <p><span class="label">Status Order:</span>Đang giao hàng</p>
                     <form action="successOrderServlet?action=${id_order}" method="post">
                         <span> <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase">xác nhận giao thành công</button></span>
                     </form>
-                </c:if>                 
+                </c:if>
+                <c:if test="${orderShipping.statusOrder eq 'Chưa lấy hàng'}">
+                    <p><span class="label">Status Order:</span>Chưa nhận hàng</p>
+                    <form action="progressingOrderServlet?action=${id_order}" method="post">
+                        <span> <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase">xác nhận đã nhận hàng</button></span>
+                    </form>
+                </c:if>          
             </c:if>      
     </div>
 </section>

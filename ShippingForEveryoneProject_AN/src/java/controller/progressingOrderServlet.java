@@ -4,18 +4,20 @@
  */
 package controller;
 
+import context.OrderShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.OrderShipping;
 
 /**
  *
  * @author ASUS
  */
-public class upLoadShippingService extends HttpServlet {
+public class progressingOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,19 +30,18 @@ public class upLoadShippingService extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet upLoadShippingService</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet upLoadShippingService at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String action =request.getParameter("action");
+        OrderShippingDAO DAO = new OrderShippingDAO();
+        OrderShipping orderShipping = new OrderShipping();
+        orderShipping=DAO.get(Integer.parseInt(action));
+        boolean order_status= DAO.updateOrderStatusSuccess(Integer.parseInt(action));
+        if(order_status){
+            orderShipping.setStatusOrder("D");
+            request.setAttribute("orderShipping", orderShipping);
+            request.getRequestDispatcher("orderDetail.jsp").forward(request, response);
         }
     }
 

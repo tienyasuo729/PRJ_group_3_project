@@ -9,7 +9,7 @@ public class AccountShipping {
     private String licensePlate;
     private Address currentPosition;
     private TransportImage transportImage;
-
+    private boolean active_status;
     public AccountShipping() {
     }
 
@@ -28,10 +28,23 @@ public class AccountShipping {
         this.account = account;       
     }
 
-    public AccountShipping(String nameAccount, Account account) {
+    public AccountShipping(String nameAccount, Account account, boolean active_status) {
         this.nameAccount = nameAccount;
         this.account = account;
+        this.active_status = active_status;
     }
+
+    
+
+    public boolean isActive_status() {
+        return active_status;
+    }
+
+    public void setActive_status(boolean active_status) {
+        this.active_status = active_status;
+    }
+
+    
 
     
     

@@ -21,58 +21,7 @@ import model.OrderShipping;
 
 
 public class OrderShippingDAO extends DBcontext {  
-//    public void add(Review review) {
-//        try {
-//            String sql = "INSERT INTO reviews (name, rating, comment) VALUES (?, ?, ?)";
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ps.setString(1, review.getName());
-//            ps.setInt(2, review.getRating());
-//            ps.setString(3, review.getComment());
-//            ps.execute();
-//            ps.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ReviewDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    
-//    public ArrayList<Review> getAll() {
-//        ArrayList<Review> list = new ArrayList<>();
-//        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM reviews"); 
-//                ResultSet rs = ps.executeQuery()) {
-//            while (rs.next()) {
-//                Review review = new Review();                
-//                review.setName(rs.getString("name"));
-//                review.setRating(rs.getInt("rating"));
-//                review.setComment(rs.getString("comment"));
-//                list.add(review);
-//            }
-//            rs.close();
-//            ps.close();
-//            return list;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ReviewDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-//    }
-//public ArrayList<Review> searchOrder() {
-//        ArrayList<Review> list = new ArrayList<>();
-//        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM reviews"); 
-//                ResultSet rs = ps.executeQuery()) {
-//            while (rs.next()) {
-//                Review review = new Review();                
-//                review.setName(rs.getString("name"));
-//                review.setRating(rs.getInt("rating"));
-//                review.setComment(rs.getString("comment"));
-//                list.add(review);
-//            }
-//            rs.close();
-//            ps.close();
-//            return list;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ReviewDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-//    }
+
     public List<OrderShipping> viewAll(int id){
         String idShiper = Integer.toString(id);
         String sqlQuerry_searsh ="select id_order,receiver_name,receiver_phonenumber,collection_money,status_order,transportation_cost,apartment_number,street_name,District,Ward,city,note_for_shipper  from Order_Shipping where id_delivery=?";
@@ -87,7 +36,7 @@ public class OrderShippingDAO extends DBcontext {
                 String receiver_name=rs.getString(2);
                 String receiver_phonenumber=rs.getString(3);
                 int collection_money=rs.getInt(4);
-                boolean status_order=rs.getBoolean(5);
+                char status_order=rs.getString(5).charAt(0);
                 int transportation_cost=rs.getInt(6);
                 String apartment_number=rs.getString(7);
                 String street_name=rs.getString(8);
@@ -96,7 +45,7 @@ public class OrderShippingDAO extends DBcontext {
                 String city=rs.getString(11);
                 String note_for_shipper=rs.getString(12);
                 Address address = new Address(apartment_number, street_name, District, Ward, city);
-                OrderShipping ordershipping = new OrderShipping(id_order, collection_money, transportation_cost, status_order, status_order, address, note_for_shipper, receiver_name, receiver_phonenumber);
+                OrderShipping ordershipping = new OrderShipping(id_order, collection_money, transportation_cost, status_order, address, note_for_shipper, receiver_name, receiver_phonenumber, id_order);
                 list.add(ordershipping);
             }
             conn.close();
@@ -116,7 +65,7 @@ public class OrderShippingDAO extends DBcontext {
             if (rs.next()) {
                 int CollectionMoney = rs.getInt(1);
                 int TransportationCost = rs.getInt(2);
-                Boolean StarusOrder = rs.getBoolean(3);
+                char StarusOrder = rs.getString(3).charAt(0);
                 String ApartmentNumber = rs.getString(4);
                 String StreetName = rs.getString(5);
                 String District = rs.getString(6);
@@ -138,41 +87,31 @@ public class OrderShippingDAO extends DBcontext {
         return null;
     }
     
-   public void addorder(OrderShipping ordershipping,Address address) throws Exception
-   {
+    public void addorder(OrderShipping ordershipping)  {
         try {
-            String sql = "INSERT INTO Order_Shipping (" +
-                     "collection_money, " +
-                     "transportation_cost, " +
-                     "status_order, " +
-                     "apartment_number, " +
-                     "street_name, " +
-                     "District, " +
-                     "Ward, " +
-                     "city, " +
-                     "note_for_shipper, " +                   
-                     "check_package, " +                    
-                     "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Order_Shipping (id_sender, receiver_name, receiver_phonenumber, collection_money, status_order, city, district, ward, street_name, apartment_number, note_for_shipper, check_package, id_delivery) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             Connection conn = new DBcontext().getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);           
-            ps.setInt(1, ordershipping.getCollectionMoney());
-            ps.setInt(2, ordershipping.getTransportationCost());
-            ps.setBoolean(3, ordershipping.getStatusOrder());                     
-            ps.setString(4, address.getApartmentNumber());
-            ps.setString(5, address.getStreetName());
-            ps.setString(6, address.getDistrict());
-            ps.setString(7, address.getWard());
-            ps.setString(8, address.getCity());
-            ps.setString(9, ordershipping.getNoteForShipper());
-            ps.setBoolean(10, ordershipping.getCheckPackage()); 
-//            ps.setString(11, ordershipping.getEstimatedDeliveryTime());
-                   
             
-             ps.execute();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, ordershipping.getIdSender());
+            ps.setString(2, ordershipping.getReceiverName());
+            ps.setString(3, ordershipping.getReceiverPhoneNum());
+            ps.setInt(4, ordershipping.getCollectionMoney());
+            ps.setBoolean(5, false);
+            ps.setString(6, ordershipping.getAddress().getCity());
+            ps.setString(7, ordershipping.getAddress().getDistrict());
+            ps.setString(8, ordershipping.getAddress().getWard());
+            ps.setString(9, ordershipping.getAddress().getStreetName());
+            ps.setString(10, ordershipping.getAddress().getApartmentNumber());
+            ps.setString(11, ordershipping.getNoteForShipper());
+            ps.setBoolean(12, ordershipping.getCheckPackage());
+            ps.setInt(13, ordershipping.getIdDelivery());
+            ps.execute();
             ps.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }
+
     }
     public ArrayList<OrderShipping> ordersStatus(int id){
             String idShiper = Integer.toString(id);
@@ -188,7 +127,7 @@ public class OrderShippingDAO extends DBcontext {
                 String receiver_name=rs.getString(2);
                 String receiver_phonenumber=rs.getString(3);
                 int collection_money=rs.getInt(4);
-                boolean status_order=rs.getBoolean(5);
+                char status_order=rs.getString(5).charAt(0);
                 int transportation_cost=rs.getInt(6);
                 String apartment_number=rs.getString(7);
                 String street_name=rs.getString(8);
@@ -197,7 +136,7 @@ public class OrderShippingDAO extends DBcontext {
                 String city=rs.getString(11);
                 String note_for_shipper=rs.getString(12);
                 Address address = new Address(apartment_number, street_name, District, Ward, city);
-                OrderShipping ordershipping = new OrderShipping(id_order, collection_money, transportation_cost, status_order, status_order, address, note_for_shipper, receiver_name, receiver_phonenumber);
+                OrderShipping ordershipping = new OrderShipping(id_order, collection_money, transportation_cost, status_order, address, note_for_shipper, receiver_name, receiver_phonenumber, id_order);
                 list.add(ordershipping);
                 
                 }
@@ -205,9 +144,9 @@ public class OrderShippingDAO extends DBcontext {
                 Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
             }
        return null; 
-    } 
-    public boolean updateOrderStatus (int id){
-        String SQLquery="UPDATE Order_Shipping Set status_order=1 where id_order =?";
+    }
+    public boolean updateOrderStatusProgress (int id){
+        String SQLquery="UPDATE Order_Shipping Set status_order='D' where id_order =?";
         try {
             String id_order = Integer.toString(id);
             Connection conn = new DBcontext().getConnection();
@@ -221,5 +160,54 @@ public class OrderShippingDAO extends DBcontext {
             Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public boolean updateOrderStatusSuccess (int id){
+        String SQLquery="UPDATE Order_Shipping Set status_order='T' where id_order =?";
+        try {
+            String id_order = Integer.toString(id);
+            Connection conn = new DBcontext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(SQLquery);
+            ps.setString(1, id_order);
+            int rowsAffected=ps.executeUpdate();
+            if(rowsAffected!=0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public ArrayList<OrderShipping> getmyOrder(int id)  {
+        ArrayList<OrderShipping> list = new ArrayList<>();
+        String sql = "SELECT [id_order], [collection_money], [status_order], [apartment_number], [street_name], [District], [Ward], [city], [note_for_shipper], [order_date], [receiver_name], [receiver_phonenumber] FROM Order_Shipping WHERE id_sender = ?";
+        try {
+            Connection conn = new DBcontext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int OrderID = rs.getInt(1);
+                int CollectionMoney = rs.getInt(2);
+                char StarusOrder = rs.getString(3).charAt(0);
+                String ApartmentNumber = rs.getString(4);
+                String StreetName = rs.getString(5);
+                String District = rs.getString(6);
+                String Ward = rs.getString(7);
+                String City = rs.getString(8);
+                Address address = new Address(ApartmentNumber, StreetName, District, Ward, City);
+                String NoteForShipper = rs.getString(9);
+                LocalDate OrederDate = rs.getDate(10).toLocalDate();
+                String ReceiverName = rs.getString(11);
+                String ReceiverPhoneNum = rs.getString(12);
+                OrderShipping orderShipping = new OrderShipping(OrderID, CollectionMoney, OrederDate, StarusOrder, address, NoteForShipper, ReceiverName, ReceiverPhoneNum);
+                list.add(orderShipping);
+            }
+            rs.close();
+            ps.close();
+            return list;
+        } catch (Exception ex) {
+            Logger.getLogger(OrderShipping.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

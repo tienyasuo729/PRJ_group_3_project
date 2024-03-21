@@ -29,14 +29,15 @@ public class successOrderServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String action =request.getParameter("action");
         OrderShippingDAO DAO = new OrderShippingDAO();
         OrderShipping orderShipping = new OrderShipping();
         orderShipping=DAO.get(Integer.parseInt(action));
-        boolean order_status= DAO.updateOrderStatus(Integer.parseInt(action));
+        boolean order_status= DAO.updateOrderStatusSuccess(Integer.parseInt(action));
         if(order_status==true){
-            orderShipping.setStatusOrder(true);
+            orderShipping.setStatusOrder("Thanh_cong");
             request.setAttribute("orderShipping", orderShipping);
             request.getRequestDispatcher("orderDetail.jsp").forward(request, response);
         }

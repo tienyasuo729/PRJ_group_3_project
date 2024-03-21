@@ -4,18 +4,21 @@
  */
 package controller;
 
+import Impl.AccountShippingImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
  * @author ASUS
  */
-public class upLoadShippingService extends HttpServlet {
+public class logOutShipperServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,20 +31,16 @@ public class upLoadShippingService extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet upLoadShippingService</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet upLoadShippingService at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            response.setCharacterEncoding("UTF-8");
+            HttpSession session =request.getSession();
+            AccountShippingImpl impl = new AccountShippingImpl();
+            Account account =(Account) session.getAttribute("loginSession");
+            int id=account.getIdAccount();
+            impl.updateActiveStatusOff(id); // trong AccountShippingImpl          
+            session.removeAttribute("loginSession");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

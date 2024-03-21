@@ -33,7 +33,8 @@ public class listOrderServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         OrderShippingDAO DAO = new OrderShippingDAO();
         List<OrderShipping> orderList = new ArrayList();
@@ -45,6 +46,7 @@ public class listOrderServlet extends HttpServlet {
            if(orderList.isEmpty()){
                 request.getRequestDispatcher("showOrderOfShipper.jsp").forward(request, response);
            } else {
+                    
                 request.setAttribute("OrderList", orderList);
                 request.getRequestDispatcher("showOrderOfShipper.jsp").forward(request, response);
             }
