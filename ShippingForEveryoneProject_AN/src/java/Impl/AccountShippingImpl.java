@@ -66,8 +66,7 @@ public class AccountShippingImpl implements IRepository<AccountShipping>{
             }
             conn.close();
         } catch (Exception ex) {
-            Logger.getLogger(AccountUserImpl.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Logger.getLogger(AccountUserImpl.class.getName()).log(Level.SEVERE, null, ex);  
         }
        return list;
     }

@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="model.*"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     
@@ -13,22 +13,22 @@
         <meta charset="UTF-8"><style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="stylesheet" type="text/css" href="./Style/style.css">
         <title>Giao Hàng Tiện Lợi</title>
 
-        <link rel="stylesheet" type="text/css" href="Style/vendor.css">
+        <link rel="stylesheet" type="text/css" href="./Style/vendor.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="Style/style.css">
+        
         <script src="../js/modernizr.js"></script>
         
         
 
     </head>
-    <body>   
+    <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">   
         <section id="navigation-bar" class="navigation position-fixed">
             <nav id="navbar-example2" class="navbar navbar-expand-lg">
 
@@ -55,18 +55,18 @@
                                 </li>
 
                                 <li class="nav-list mx-3">
-                                    <a href="index.jsp#services" class="nav-link px-2">
-                                        <h5> dịch vụ </h5>
+                                    <a href="listOrderServlet?action=yourlist" class="nav-link px-2">
+                                        <h5> Xem Đơn hàng </h5>
                                     </a>
                                 </li>
                                 <li class="nav-list mx-3">
-                                    <a href="index.jsp#articles" class="nav-link px-2">
-                                        <h5> Blog </h5>
+                                    <a href="listOrderServlet?action=accept" class="nav-link px-2">
+                                        <h5> Nhận yêu cầu Shipping </h5>
                                     </a>
                                 </li>
                                 <li class="nav-list mx-3">
-                                    <a href="index.jsp#contact" class="nav-link px-2">
-                                        <h5> Contact </h5>
+                                    <a href="listOrderServlet?action=update" class="nav-link px-2">
+                                        <h5> Cập nhật kết quả shipping </h5>
                                     </a>
                                 </li>
                             </ul>

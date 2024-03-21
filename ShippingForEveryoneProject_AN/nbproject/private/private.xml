@@ -4,15 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/loginServlet.java</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/Shipper.java</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/include/header.jsp</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/login.jsp</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/Impl/AccountUserImpl.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/listOrderServlet.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/Address.java</file>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/web/include/headerShipper.jsp</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/logOutServlet.java</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/controller/upLoadShippingService.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/Package.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/context/OrderShippingDAO.java</file>
+            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/OrderShipping.java</file>
             <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/model/Account.java</file>
-            <file>file:/D:/NetBeansProjects/ShippingForEveryoneProject/src/java/Impl/AccountShippingImpl.java</file>
         </group>
     </open-files>
 </project-private>
