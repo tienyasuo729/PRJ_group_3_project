@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get User Location and Convert to Address</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <script>
+        function getLocationAndConvert() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(convertCoordinatesToAddress, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function convertCoordinatesToAddress(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var address = data.display_name;
+                    alert("Your current address: " + address);
+                })
+                .catch(error => console.log("Error:", error));
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<button onclick="getLocationAndConvert()">Get Location and Convert to Address</button>
+
+</body>
+</html>

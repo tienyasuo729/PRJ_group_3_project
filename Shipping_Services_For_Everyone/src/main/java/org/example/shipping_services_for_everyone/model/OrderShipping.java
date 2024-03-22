@@ -4,98 +4,165 @@ import java.time.LocalDate;
 
 public class OrderShipping {
     private int idOrder;
-    private UserAccount idSender;
-    private UserAccount idReceiver;
+    private int idSender;
     private int collectionMoney;
     private int transportationCost;
     private LocalDate orderDate;
     private Boolean checkPackage;
-    private Boolean statusOrder;
+    private char statusOrder;
     private Address address;
     private String noteForShipper;
     private LocalDate estimatedDeliveryTime;
-    private AccountShipping idPickup;
-    private AccountShipping idDelivery;
+    private String receiverName;
+    private String receiverPhoneNum;
+    private int idDelivery;
+//    public OrderShipping(int collectionMoney, int transportationCost, Boolean statusOrder, String noteForShipper) {
+//        this.collectionMoney = collectionMoney;
+//        this.transportationCost = transportationCost;
+//        this.statusOrder = statusOrder;
+//        this.noteForShipper = noteForShipper;
+//    }
+    
+    public OrderShipping(int idSender, int collectionMoney, Boolean checkPackage, char statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum, int idDelivery) {
+        this.idSender = idSender;
+        this.collectionMoney = collectionMoney;
+        this.checkPackage = checkPackage;
+        this.address = address;
+        this.statusOrder= statusOrder;
+        this.noteForShipper = noteForShipper;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
+        this.idDelivery = idDelivery;
+    }
+
+    public OrderShipping(int collectionMoney, Address address, String noteForShipper, String receiverName, String receiverPhoneNum) {
+        this.collectionMoney = collectionMoney;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
+    }
+
+    
+
+    
+    
+    
+    
+    public OrderShipping(int collectionMoney, int transportationCost, LocalDate orderDate, Boolean checkPackage, char statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum) {
+        this.collectionMoney = collectionMoney;
+        this.transportationCost = transportationCost;
+        this.orderDate = orderDate;
+        this.checkPackage = checkPackage;
+        this.statusOrder = statusOrder;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
+    }
+
 
     public OrderShipping() {
     }
 
-    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, Boolean checkPackage, Address address, String noteForShipper) {
-        this.idSender = idSender;
-        this.idReceiver = idReceiver;
+    public OrderShipping(int idOrder, int collectionMoney, LocalDate orderDate, char statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum) {
+        this.idOrder = idOrder;
         this.collectionMoney = collectionMoney;
-        this.checkPackage = checkPackage;
+        this.orderDate = orderDate;
+        this.statusOrder = statusOrder;
         this.address = address;
         this.noteForShipper = noteForShipper;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
     }
 
-    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, Boolean checkPackage, Address address, String noteForShipper, AccountShipping idPickup) {
-        this.idSender = idSender;
-        this.idReceiver = idReceiver;
-        this.collectionMoney = collectionMoney;
-        this.checkPackage = checkPackage;
-        this.address = address;
-        this.noteForShipper = noteForShipper;
-        this.idPickup = idPickup;
-    }
-
-    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, int transportationCost, Boolean checkPackage, Address address, String noteForShipper, AccountShipping idPickup, AccountShipping idDelivery) {
-        this.idSender = idSender;
-        this.idReceiver = idReceiver;
+    public OrderShipping(int idOrder, int collectionMoney, int transportationCost, char statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum, int idDelivery) {
+        this.idOrder = idOrder;
         this.collectionMoney = collectionMoney;
         this.transportationCost = transportationCost;
-        this.checkPackage = checkPackage;
+        this.statusOrder = statusOrder;
         this.address = address;
         this.noteForShipper = noteForShipper;
-        this.idPickup = idPickup;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
         this.idDelivery = idDelivery;
     }
 
-    public OrderShipping(UserAccount idSender, UserAccount idReceiver, int collectionMoney, int transportationCost, Boolean checkPackage, Address address, String noteForShipper, LocalDate estimatedDeliveryTime, AccountShipping idPickup, AccountShipping idDelivery) {
+    public OrderShipping(int idSender, int collectionMoney, int transportationCost, Boolean checkPackage, char statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum, int idDelivery) {
         this.idSender = idSender;
-        this.idReceiver = idReceiver;
         this.collectionMoney = collectionMoney;
         this.transportationCost = transportationCost;
         this.checkPackage = checkPackage;
+        this.statusOrder = statusOrder;
         this.address = address;
         this.noteForShipper = noteForShipper;
-        this.estimatedDeliveryTime = estimatedDeliveryTime;
-        this.idPickup = idPickup;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
         this.idDelivery = idDelivery;
     }
 
-    public UserAccount getIdSender() {
+    
+    
+    
+
+    public OrderShipping(int idOrder, int collectionMoney, int transportationCost, Boolean checkPackage, char statusOrder, Address address, String noteForShipper, String receiverName, String receiverPhoneNum) {
+        this.idOrder = idOrder;
+        this.collectionMoney = collectionMoney;
+        this.transportationCost = transportationCost;
+        this.checkPackage = checkPackage;
+        this.statusOrder = statusOrder;
+        this.address = address;
+        this.noteForShipper = noteForShipper;
+        this.receiverName = receiverName;
+        this.receiverPhoneNum = receiverPhoneNum;
+    }
+
+    
+    
+    public int getIdSender() {
         return idSender;
     }
 
-    public void setIdSender(UserAccount idSender) {
+    public void setIdSender(int idSender) {
         this.idSender = idSender;
     }
 
-    public UserAccount getIdReceiver() {
-        return idReceiver;
-    }
-
-    public void setIdReceiver(UserAccount idReceiver) {
-        this.idReceiver = idReceiver;
-    }
-
-    public AccountShipping getIdPickup() {
-        return idPickup;
-    }
-
-    public void setIdPickup(AccountShipping idPickup) {
-        this.idPickup = idPickup;
-    }
-
-    public AccountShipping getIdDelivery() {
+    public int getIdDelivery() {
         return idDelivery;
     }
 
-    public void setIdDelivery(AccountShipping idDelivery) {
+    public void setIdDelivery(int idDelivery) {
         this.idDelivery = idDelivery;
     }
+    
+    
+    
+    public LocalDate getEstimatedDeliveryTime() {
+        return estimatedDeliveryTime;
+    }
 
+    public void setEstimatedDeliveryTime(LocalDate estimatedDeliveryTime) {
+        this.estimatedDeliveryTime = estimatedDeliveryTime;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverPhoneNum() {
+        return receiverPhoneNum;
+    }
+
+    public void setReceiverPhoneNum(String receiverPhoneNum) {
+        this.receiverPhoneNum = receiverPhoneNum;
+    }
+
+    
+    
     public int getIdOrder() {
         return idOrder;
     }
@@ -136,12 +203,17 @@ public class OrderShipping {
         this.checkPackage = checkPackage;
     }
 
-    public Boolean getStatusOrder() {
-        return statusOrder;
+    public String getStatusOrder() {
+        switch(statusOrder){
+            case 'C':return "C:Chưa lấy hàng"; 
+            case 'D':return "D:Đang giao hàng"; 
+            case 'T':return "T:Đã giao hàng Thành công";
+            default: return "NA";
+        }
     }
 
-    public void setStatusOrder(Boolean statusOrder) {
-        this.statusOrder = statusOrder;
+    public void setStatusOrder(String statusOrder) {
+        this.statusOrder = statusOrder.charAt(0);
     }
 
     public Address getAddress() {
@@ -160,11 +232,7 @@ public class OrderShipping {
         this.noteForShipper = noteForShipper;
     }
 
-    public LocalDate getEstimatedDeliveryTime() {
-        return estimatedDeliveryTime;
-    }
+ 
 
-    public void setEstimatedDeliveryTime(LocalDate estimatedDeliveryTime) {
-        this.estimatedDeliveryTime = estimatedDeliveryTime;
-    }
+  
 }

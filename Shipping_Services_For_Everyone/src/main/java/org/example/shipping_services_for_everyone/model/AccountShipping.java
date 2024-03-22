@@ -8,6 +8,8 @@ public class AccountShipping {
     private String licensePlate;
     private Address currentPosition;
     private TransportImage transportImage;
+    private boolean active_status;
+
 
     public AccountShipping() {
     }
@@ -19,6 +21,11 @@ public class AccountShipping {
         this.nameAccount = nameAccount;
         this.account = account;
     }
+    public AccountShipping(String nameAccount, Account account, boolean active_status) {
+        this.nameAccount = nameAccount;
+        this.account = account;
+        this.active_status = active_status;
+    }
 
     public AccountShipping(String nameAccount, Account account, TypeVehicle typeVehicle, Size size, String licensePlate, Address currentPosition, TransportImage transportImage) {
         this.nameAccount = nameAccount;
@@ -28,6 +35,14 @@ public class AccountShipping {
         this.licensePlate = licensePlate;
         this.currentPosition = currentPosition;
         this.transportImage = transportImage;
+    }
+
+    public boolean isActive_status() {
+        return active_status;
+    }
+
+    public void setActive_status(boolean active_status) {
+        this.active_status = active_status;
     }
 
     public String getNameAccount() {

@@ -11,11 +11,11 @@ CREATE TABLE user_account (
     password NOT REGEXP '[^\x00-\x7F]' -- Không chứa chữ cái tiếng Việt
 	),
     cccd VARCHAR(12) CHECK (cccd REGEXP '^[0-9]{12}$') unique,
-    first_name VARCHAR(500) NOT NULL CHECK (first_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    first_name VARCHAR(500) CHECK (first_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
     middle_name VARCHAR(500) CHECK (middle_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    last_name VARCHAR(500) NOT NULL CHECK (last_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
-    DateOfBirth DATE not null,
-    sex CHAR(1) not null,
+    last_name VARCHAR(500) CHECK (last_name REGEXP '^[a-zA-Zà-ạăằẳẵặâấầẩẫậè-ệêềếểễệì-ịò-ọô-ộơ-ợù-ụưứừửữựỳỹỷỵ ]+$'),
+    DateOfBirth DATE,
+    sex CHAR(1),
     email VARCHAR(500) CHECK (email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,4}$'),
     address VARCHAR(500),
     list_old_address TEXT,
@@ -65,7 +65,7 @@ CREATE TABLE account_shipping (
     CHAR_LENGTH(password) <= 99 AND -- Tối đa 99 ký tự
     BINARY password != BINARY LOWER(password) AND -- Có ít nhất 1 ký tự in hoa
     password NOT REGEXP '[^\x00-\x7F]' -- Không chứa chữ cái tiếng Việt
-	),    
+	),
 	type int not null,
     length int,
     width int,
@@ -82,6 +82,7 @@ CREATE TABLE account_shipping (
     image_vehicle_left VARCHAR(500) not null,
     image_vehicle_right VARCHAR(500) not null,
     image_vehicle_behind VARCHAR(500) not null,
+    active_status boolean default false,
 	FOREIGN KEY (type) REFERENCES type_vehicle(id_type)
 );
 
@@ -139,12 +140,32 @@ CREATE TABLE Order_Shipping (
 	id_receiver int not null ,
     collection_money INT default 0,
     transportation_cost INT default 0,
-    status_order BOOLEAN,
+    status_order char,
+    
+    -- apartment_number_sender VARCHAR(500) not null,
+--     street_name_sender VARCHAR(500) not null,
+--     District_sender VARCHAR(500) not null,
+--     Ward_sender VARCHAR(500) not null,
+--     city_sender VARCHAR(500)not null,
+
+-- 	apartment_number_sender VARCHAR(500),
+--     street_name_sender VARCHAR(500),
+--     District_sender VARCHAR(500),
+--     Ward_sender VARCHAR(500),
+--     city_sender VARCHAR(500),
+-- --     
+--     apartment_number_receiver VARCHAR(500) not null,
+--     street_name_receiver VARCHAR(500) not null,
+--     District_receiver VARCHAR(500) not null,
+--     Ward_receiver VARCHAR(500) not null,
+--     city_receiver VARCHAR(500)not null,
+
     apartment_number VARCHAR(500) not null,
     street_name VARCHAR(500) not null,
     District VARCHAR(500) not null,
     Ward VARCHAR(500) not null,
     city VARCHAR(500)not null,
+
     note_for_shipper VARCHAR(500),
     estimated_delivery_time VARCHAR(500),
     check_package BOOLEAN,
@@ -200,6 +221,11 @@ create table sex(
     gender varchar(500)
 );
 
+create table status_Order(
+	sign_status_order char primary key,
+    name_status_order varchar(500)
+);
+
 -- type_vehicle
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('motorbike');
 INSERT INTO `shipping_project`.`type_vehicle` (`name_type`) VALUES ('bus');
@@ -235,11 +261,17 @@ INSERT INTO `shipping_project`.`shipper` (`cccd`, `first_name`, `middle_name`, `
 INSERT INTO `shipping_project`.`shipper` (`cccd`, `first_name`, `middle_name`, `last_name`, `DateOfBirth`, `sex`, `email`, `image_selfie`, `image_cccd_front`, `image_cccd_back`, `image_driver_license`, `image_vehicle_registration`, `image_Curriculum_Vitae`, `image_Civil_Guarantee_Letter`, `image_Certificate_of_No_Criminal_Record`, `image_Birth_Certificate`, `image_Household_Registration`, `image_Health_Examination_Certificate`, `id_account_shipping`) VALUES ('000000000006', 'lò', 'văn', 'luyện', '2006-06-06', 'f', 'luyen@gmail.com', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '6');
 
 -- order_shipping
-INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `estimated_delivery_time`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '2', '1000000', '2000000', '1', '1', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'a', '12:30 | 2024-12-12', '1', '1', '6');
-INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `estimated_delivery_time`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '3', '1000000', '2000000', '0', '2', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'b', '12:30 | 2024-12-12', '0', '1', '6');
-INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `estimated_delivery_time`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '4', '1000000', '2000000', '3', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'c', '12:30 | 2024-12-12', '1', '1', '6');
-INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `estimated_delivery_time`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '5', '1000000', '2000000', '1', '4', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'd', '12:30 | 2024-12-12', '0', '6', '1');
-INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `estimated_delivery_time`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('2', '1', '1000000', '2000000', '0', '5', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'f', '12:30 | 2024-12-12', '1', '6', '1');
+INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '2', '111', '123', 'a', '1', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'ádad', '0', '1', '2');
+INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '3', '222', '345', 'a', '2', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'ádasd', '1', '2', '1');
+INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '4', '333', '1232', 'a', '3', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'áds', '0', '3', '4');
+INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '5', '444', '234', 'a', '4', 'bình kỳ', 'hoà quý', 'ngũ hành sơnngũ hành sơn', 'đà nẵng', 'dsdsds', '1', '4', '5');
+INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number`, `street_name`, `District`, `Ward`, `city`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('2', '1', '55', '65464', 'a', '5', 'bình kỳ', 'hoà quý', 'ngũ hành sơn', 'đà nẵng', 'ds', '0', '1', '3');
+
+-- INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number_sender`, `street_name_sender`, `District_sender`, `Ward_sender`, `city_sender`, `apartment_number_receiver`, `street_name_receiver`, `District_receiver`, `Ward_receiver`, `city_receiver`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '2', '1', '1', '0', '1', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'h', '0', '1', '5');
+-- INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number_sender`, `street_name_sender`, `District_sender`, `Ward_sender`, `city_sender`, `apartment_number_receiver`, `street_name_receiver`, `District_receiver`, `Ward_receiver`, `city_receiver`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '3', '1', '1', '1', '2', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'h', '1', '2', '6');
+-- INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number_sender`, `street_name_sender`, `District_sender`, `Ward_sender`, `city_sender`, `apartment_number_receiver`, `street_name_receiver`, `District_receiver`, `Ward_receiver`, `city_receiver`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '4', '1', '1', '0', '3', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'h', '0', '1', '5');
+-- INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number_sender`, `street_name_sender`, `District_sender`, `Ward_sender`, `city_sender`, `apartment_number_receiver`, `street_name_receiver`, `District_receiver`, `Ward_receiver`, `city_receiver`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('1', '5', '1', '1', '1', '4', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'h', '1', '1', '6');
+-- INSERT INTO `shipping_project`.`order_shipping` (`id_sender`, `id_receiver`, `collection_money`, `transportation_cost`, `status_order`, `apartment_number_sender`, `street_name_sender`, `District_sender`, `Ward_sender`, `city_sender`, `apartment_number_receiver`, `street_name_receiver`, `District_receiver`, `Ward_receiver`, `city_receiver`, `note_for_shipper`, `check_package`, `id_pickup`, `id_delivery`) VALUES ('2', '1', '1', '1', '1', '5', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'bình kỳ', 'h', '0', '2', '5');
 
 -- package
 INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '1');
@@ -248,6 +280,13 @@ INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `heigh
 INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('áo', '4', '4', '4', '4', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '3');
 INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('quần', '5', '5', '5', '5', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '4');
 INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cần', '6', '6', '6', '6', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '5');
+
+-- INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'hgh', 'hghghgh', 'ghghg', 'hghghgh', '1');
+-- INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'ghgh', 'ghgh', 'ghghgh', 'ghg', '1');
+-- INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'ghghg', 'ghgh', 'hghg', 'ghgh', '2');
+-- INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'hghgh', 'ghghgh', 'hghg', 'ghghg', '3');
+-- INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'hghg', 'ghghgh', 'hghg', 'hghgh', '4');
+-- INSERT INTO `shipping_project`.`package` (`name_Item`, `length`, `width`, `height`, `weight`, `image_1`, `image_2`, `image_3`, `image_4`, `id_order`) VALUES ('cá', '1', '1', '1', '1', 'ghghgh', 'ghghgh', 'hghghg', 'ghgh', '5');
 
 -- current_location
 INSERT INTO `shipping_project`.`current_location` (`image_1`, `image_2`, `image_3`, `image_4`, `id_order`, `id_account_shipping`) VALUES ('D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', 'D:\\codegym\\PRJ_group_3_project', '1', '1');
@@ -278,6 +317,32 @@ INSERT INTO `shipping_project`.`sex` (`sign`, `gender`) VALUES ('m', 'Nam');
 INSERT INTO `shipping_project`.`sex` (`sign`, `gender`) VALUES ('f', 'Nữ');
 INSERT INTO `shipping_project`.`sex` (`sign`, `gender`) VALUES ('l', 'LGBT');
 
+-- statusOrder
+INSERT INTO `shipping_project`.`status_order` (`sign_status_order`, `name_status_order`) VALUES ('a', 'shipper đang tới lấy đơn hàng');
+INSERT INTO `shipping_project`.`status_order` (`sign_status_order`, `name_status_order`) VALUES ('b', 'shipper đang đi giao đơn hàng');
+INSERT INTO `shipping_project`.`status_order` (`sign_status_order`, `name_status_order`) VALUES ('c', 'đang vận chuyển đơn hàng tới người nhận');
+INSERT INTO `shipping_project`.`status_order` (`sign_status_order`, `name_status_order`) VALUES ('d', 'giao hàng thành công');
+INSERT INTO `shipping_project`.`status_order` (`sign_status_order`, `name_status_order`) VALUES ('e', 'giao hàng thất bại');
+INSERT INTO `shipping_project`.`status_order` (`sign_status_order`, `name_status_order`) VALUES ('f', 'người dùng đang mang kiện hàng tới xe vận chuyển');
 
 
+-- SELECT 
+--     a.id_account_shipping,
+--     COUNT(CASE WHEN o.status_order = 'a' THEN o.id_order ELSE NULL END) AS total_orders_with_status_a,
+--     SUM(e.Rating) AS total_rating_points
+-- FROM 
+--     account_shipping AS a
+-- LEFT JOIN 
+--     Order_Shipping AS o ON a.id_account_shipping = o.id_sender
+-- LEFT JOIN 
+--     evaluate AS e ON a.id_account_shipping = e.id_account_shipping
+-- WHERE 
+--     a.District = 'hoà quý' AND a.Ward = 'ngũ hành sơn' AND a.city = 'đà nẵng'
+--     AND a.active_status = 1
+--     AND a.type = 1
+-- GROUP BY 
+--     a.id_account_shipping
+-- ORDER BY 
+--     total_rating_points DESC,
+--     total_orders_with_status_a DESC;
 

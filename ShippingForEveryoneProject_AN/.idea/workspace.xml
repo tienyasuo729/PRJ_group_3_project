@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5a85384b-c1ec-4e47-85c7-e51cf751c290" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/controller/OrderShippingServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/controller/OrderShippingServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/model/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/model/OrderShipping.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/model/OrderShipping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/model/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/model/People.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/AccountShippingRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/AccountShippingRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/OrdersShippingRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/OrdersShippingRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/ShipperRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/ShipperRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/UserAccountRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/Impl/UserAccountRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/queryStatement/AccountShippingQueryStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/queryStatement/AccountShippingQueryStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/queryStatement/OrderShippingQueryStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/queryStatement/OrderShippingQueryStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/queryStatement/UserAccountQueryStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/java/org/example/shipping_services_for_everyone/repository/queryStatement/UserAccountQueryStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/webapp/AddNewUserAccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Shipping_Services_For_Everyone/src/main/webapp/AddNewUserAccount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../callApiProvinces/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../callApiProvinces/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2dxc4LWBB4rhdx2CTTl3EZNZvNN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/codegym/PRJ_group_3_project/ShippingForEveryoneProjectAn+DINH",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="ShippingForEveryoneProject_AN" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="ShippingForEveryoneProject_AN" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5a85384b-c1ec-4e47-85c7-e51cf751c290" name="Changes" comment="" />
+      <created>1710952978030</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710952978030</updated>
+      <workItem from="1710952979083" duration="2199000" />
+      <workItem from="1710955466318" duration="2580000" />
+      <workItem from="1711041402275" duration="599000" />
+      <workItem from="1711064680927" duration="57000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

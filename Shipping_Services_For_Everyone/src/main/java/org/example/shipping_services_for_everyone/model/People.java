@@ -25,6 +25,8 @@ public class People {
 
     public People() {
     }
+
+
     public People(Address address) {
         this.address = address;
     }

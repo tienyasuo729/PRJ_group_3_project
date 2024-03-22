@@ -1,6 +1,7 @@
 package org.example.shipping_services_for_everyone.repository.Impl;
 
 import org.example.shipping_services_for_everyone.model.Account;
+import org.example.shipping_services_for_everyone.model.UserAccount;
 import org.example.shipping_services_for_everyone.repository.IRepository;
 import org.example.shipping_services_for_everyone.repository.queryStatement.AccountShippingQueryStatement;
 import org.example.shipping_services_for_everyone.connection_config.BaseRepositoryJDBC;
@@ -15,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -92,9 +94,11 @@ public class AccountShippingRepositoryImpl implements IRepository<AccountShippin
                 String name =rs.getString(2);
                 String phoneNumber = rs.getString(3);
                 String password = rs.getString(4);
+                boolean active_status=rs.getBoolean(5);
                 Account c = new Account(id_account, phoneNumber, password);
-                AccountShipping accShipping = new AccountShipping(name, c);
+                AccountShipping accShipping = new AccountShipping(name, c,active_status);
                 list.add(accShipping);
+
             }
         } catch (Exception ex) {
             Logger.getLogger(UserAccountRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,5 +121,59 @@ public class AccountShippingRepositoryImpl implements IRepository<AccountShippin
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public AccountShipping findShipperToPickupOrder(UserAccount receiver, char status){
+        List<AccountShipping> accountShippingList = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(accountShippingQueryStatement.findShipperToPickupOrDeliveryOrder);
+            preparedStatement.setString(1, String.valueOf(status));
+            preparedStatement.setString(2, receiver.getPeople().getAddress().getDistrict());
+            preparedStatement.setString(3, receiver.getPeople().getAddress().getDistrict());
+            preparedStatement.setString(4, receiver.getPeople().getAddress().getCity());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id_account_shipping = resultSet.getInt("id_account_shipping");
+                int total_orders_with_status_a = resultSet.getInt("total_orders_with_status_a");
+                int total_rating_points = resultSet.getInt("total_rating_points");
+                accountShippingList.add(new AccountShipping(new Account(id_account_shipping)));
+            }
+            Random random = new Random();
+            return accountShippingList.get(random.nextInt(accountShippingList.size()-1)+1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean updateActiveStatusOn(int id){
+        String SQLquery="UPDATE account_shipping  Set active_status=1 where id_account_shipping =?";
+        try {
+            String id_Shiper = Integer.toString(id);
+            PreparedStatement ps = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(SQLquery);
+            ps.setString(1, id_Shiper);
+            int rowsAffected=ps.executeUpdate();
+            if(rowsAffected!=0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountShippingRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean updateActiveStatusOff(int id){
+        String SQLquery="UPDATE account_shipping  Set active_status=0 where id_account_shipping =?";
+        try {
+            String id_Shiper = Integer.toString(id);
+            PreparedStatement ps = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(SQLquery);
+            ps.setString(1, id_Shiper);
+            int rowsAffected=ps.executeUpdate();
+            if(rowsAffected!=0) {
+                return false;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountShippingRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }

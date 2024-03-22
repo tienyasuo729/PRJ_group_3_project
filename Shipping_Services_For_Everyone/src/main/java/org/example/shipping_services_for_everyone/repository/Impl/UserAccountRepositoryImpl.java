@@ -171,12 +171,16 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
         return addressList;
     }
 
-    public UserAccount findIdByPhoneNumber(String phoneNumberToFind) throws SQLException {
+    public UserAccount findIdByPhoneNumber(UserAccount receiver) throws SQLException {
         PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.findIdByPhoneNumber);
-        preparedStatement.setString(1, phoneNumberToFind);
+        preparedStatement.setString(1, receiver.getAccount().getPhoneNumber());
         ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        return new UserAccount(new Account(resultSet.getInt("id_account")));
+        if (resultSet.next()){
+            return new UserAccount(new Account(resultSet.getInt("id_account")));
+        }else {
+            addNew(receiver);
+            return new UserAccount(new Account(selectIdForNewReceiver()));
+        }
     }
 
     public Address getAddressByIdUser(int idUser) throws SQLException {
@@ -198,5 +202,16 @@ public class UserAccountRepositoryImpl implements IRepository<UserAccount> {
             );
         }
         return address;
+    }
+
+    public int selectIdForNewReceiver(){
+        try {
+            PreparedStatement preparedStatement = this.baseRepositoryJDBC.getConnectionJavaToDB().prepareStatement(userAccountQueryStatement.selectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("max_id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

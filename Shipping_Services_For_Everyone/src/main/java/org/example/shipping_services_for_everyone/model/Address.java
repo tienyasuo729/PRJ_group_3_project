@@ -88,6 +88,10 @@ public class Address {
 
     @Override
     public String toString() {
-        return nameAddress + "|" + apartmentNumber + "|" + streetName + "|" + district + "|" + ward + "|" + city + "|" + phoneNumberForThisAddress;
+        if (nameAddress == null && apartmentNumber == null && streetName == null && district == null && ward == null && city == null && phoneNumberForThisAddress == null){
+            return null;
+        }else {
+            return nameAddress + "|" + apartmentNumber + "|" + streetName + "|" + district + "|" + ward + "|" + city + "|" + phoneNumberForThisAddress;
+        }
     }
 }

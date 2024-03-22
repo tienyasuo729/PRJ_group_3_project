@@ -7,6 +7,5 @@ public class UserAccountQueryStatement {
     public final String editAddress = "UPDATE user_account SET address = ? WHERE id_account = ?";
     public final String findIdByPhoneNumber = "SELECT id_account FROM user_account WHERE phone_number = ?";
     public final String getAddresByIdUser = "SELECT address FROM user_account WHERE id_account = ?";
-
-
+    public final String selectID = "SELECT MAX(id_account) AS max_id FROM user_account;";
 }

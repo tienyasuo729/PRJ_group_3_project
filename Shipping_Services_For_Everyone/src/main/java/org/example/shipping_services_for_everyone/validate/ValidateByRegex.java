@@ -114,6 +114,9 @@ public class ValidateByRegex {
         }
     }
     public static String checkPropertiesAddress(String propertiesAddress) {
+        if (propertiesAddress == null){
+            return propertiesAddress;
+        }
         if (propertiesAddress.replace(" ","").isEmpty()){
             return null;
         }else if (propertiesAddress.trim().replace("  ", " ").matches(regexStatement.propertiesAddress)){

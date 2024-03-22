@@ -1,5 +1,8 @@
 package org.example.shipping_services_for_everyone.repository.Impl;
 
+import org.example.shipping_services_for_everyone.model.AccountShipping;
+import org.example.shipping_services_for_everyone.model.Address;
+import org.example.shipping_services_for_everyone.model.UserAccount;
 import org.example.shipping_services_for_everyone.repository.IRepository;
 import org.example.shipping_services_for_everyone.repository.queryStatement.ImageLocationStatement;
 import org.example.shipping_services_for_everyone.repository.queryStatement.ShipperQueryStatement;
@@ -88,4 +91,9 @@ public class ShipperRepositoryImpl implements IRepository<Shipper> {
     public Boolean checkIdIsExist(Shipper object) {
         return null;
     }
+
+//    public AccountShipping getIdAccountShippingToTakePickupOrder (UserAccount sender){
+//        UserAccountRepositoryImpl userAccountRepository = new UserAccountRepositoryImpl();
+//        Address address = userAccountRepository.getAddressByIdUser(sender);
+//    }
 }
