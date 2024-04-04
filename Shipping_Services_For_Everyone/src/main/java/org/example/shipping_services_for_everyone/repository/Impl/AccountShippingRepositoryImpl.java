@@ -79,7 +79,7 @@ public class AccountShippingRepositoryImpl implements IRepository<AccountShippin
 
     @Override
     public List<AccountShipping> find(AccountShipping shippingAccount) {
-        String sqlQuerry_find ="select id_account_shipping,name_account,phone_number,password from account_shipping where phone_number=? and password=?";
+        String sqlQuerry_find ="select id_account_shipping,name_account,phone_number,password,active_status from account_shipping where phone_number=? and password=?";
         List<AccountShipping> list = new ArrayList<>();
         String Number = shippingAccount.getAccount().getPhoneNumber();
         String pass = shippingAccount.getAccount().getPassword();

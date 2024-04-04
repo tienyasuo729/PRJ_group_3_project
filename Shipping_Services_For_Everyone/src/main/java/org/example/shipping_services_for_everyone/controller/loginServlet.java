@@ -2,6 +2,7 @@ package org.example.shipping_services_for_everyone.controller;
 
 import org.example.shipping_services_for_everyone.model.Account;
 import org.example.shipping_services_for_everyone.model.AccountShipping;
+import org.example.shipping_services_for_everyone.model.Address;
 import org.example.shipping_services_for_everyone.model.UserAccount;
 import org.example.shipping_services_for_everyone.repository.IRepository;
 import org.example.shipping_services_for_everyone.repository.Impl.AccountShippingRepositoryImpl;
@@ -12,10 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "loginServlet", value = "/loginServlet")
 public class loginServlet extends HttpServlet {
+    private static Map<Account, Address> onlineAccountShipping = new HashMap<>();
     private IRepository usimpl=new UserAccountRepositoryImpl();
     private IRepository shipimpl= new AccountShippingRepositoryImpl();
 
