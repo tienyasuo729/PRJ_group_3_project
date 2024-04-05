@@ -18,11 +18,13 @@
     <link rel="stylesheet" type="text/css" href="Style/vendor.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">--%>
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">--%>
+<%--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>--%>
     <link rel="stylesheet" type="text/css" href="Style/style.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
 <section id="navigation-bar" class="navigation position-fixed">
@@ -98,13 +100,24 @@
                     <c:if test="${sessionScope.loginSession!=null}">
                         <div class="account d-flex align-items-center mt-5 mt-lg-0 justify-content-center justify-content-lg-end">
 
+<%--                            <div class="dropdown">--%>
+<%--                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">--%>
+<%--                                        ${sessionScope.name}--%>
+<%--                                </button>--%>
+<%--                                <ul class="dropdown-menu">--%>
+<%--                                    <li><a class="dropdown-item" href="createorder">New Order Shipping</a></li>--%>
+<%--                                    <li><a class="dropdown-item" href="myorder.jsp">My Order</a></li>--%>
+<%--                                    <li><a class="dropdown-item" href="logOutServlet">Log Out</a></li>--%>
+<%--                                </ul>--%>
+<%--                            </div>--%>
+
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        ${sessionScope.name}
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="createorder">New Order Shipping</a></li>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" href="personalInformation">${sessionScope.name}</button>
+
+                                <ul class="dropdown-menu dropdown-content">
+                                    <li><a class="dropdown-item" href="createorder.jsp">New Order Shipping</a></li>
                                     <li><a class="dropdown-item" href="myorder.jsp">My Order</a></li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="logOutServlet">Log Out</a></li>
                                 </ul>
                             </div>

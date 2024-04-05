@@ -19,7 +19,6 @@ import java.util.Map;
 
 @WebServlet(name = "loginServlet", value = "/loginServlet")
 public class loginServlet extends HttpServlet {
-    private static Map<Account, Address> onlineAccountShipping = new HashMap<>();
     private IRepository usimpl=new UserAccountRepositoryImpl();
     private IRepository shipimpl= new AccountShippingRepositoryImpl();
 
@@ -34,12 +33,11 @@ public class loginServlet extends HttpServlet {
         for (Cookie o : cookies){
             if(o.getName().equals("Account")){
                 number=o.getValue();
-                request.setAttribute("number", number);
-
+                request.setAttribute("phoneNumber", number);
             }
-            if (o.getName().equals("pass")) {
+            if (o.getName().equals("Password")) {
                 pwd = o.getValue();
-                request.setAttribute("pass",pwd);
+                request.setAttribute("password",pwd);
             }
         }
         request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -48,7 +46,6 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String role = request.getParameter("role");
@@ -77,7 +74,7 @@ public class loginServlet extends HttpServlet {
                         cookieU.setMaxAge(7*24*60*60);
                         response.addCookie(cookieU);
 
-                        Cookie cookieP = new Cookie("pass", password);
+                        Cookie cookieP = new Cookie("Password", password);
                         cookieP.setMaxAge(7 * 24 * 60 * 60);
                         response.addCookie(cookieP);
                     }
@@ -111,7 +108,7 @@ public class loginServlet extends HttpServlet {
                         cookieU.setMaxAge(7 * 24 * 60 * 60);
                         response.addCookie(cookieU);
 
-                        Cookie cookieP = new Cookie("pass", password);
+                        Cookie cookieP = new Cookie("Password", password);
                         cookieP.setMaxAge(7 * 24 * 60 * 60);
                         response.addCookie(cookieP);
                     }

@@ -1,77 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<section>
-    <script>
-        function updateDistricts() {
-            var city = document.getElementById("city").value;
-            var districtDropdown = document.getElementById("district");
-            districtDropdown.innerHTML = "";
-            if (city === "Hanoi") {
-                var districts = ["Ba Đình", "Hoàn Kiếm", "Hai Bà Trưng", "Đống Đa", "Tây Hồ", "Cầu Giấy", "Thanh Xuân", "Hoàng Mai", "Long Biên", "Nam Từ Liêm", "Bắc Từ Liêm", "Hà Đông", "Sơn Tây", "Ba Vì", "Phúc Thọ", "Đan Phượng", "Hoài Đức", "Quốc Oai", "Thạch Thất", "Chương Mỹ", "Thanh Oai", "Thường Tín", "Phú Xuyên", "Ứng Hòa", "Mê Linh"];
-                for (var i = 0; i < districts.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = districts[i];
-                    option.value = districts[i];
-                    districtDropdown.add(option);
-                }
-            } else if (city === "Ho Chi Minh City") {
-                var districts = ["Quận 1", "Quận 2", "Quận 3", "Quận 4", "Quận 5", "Quận 6", "Quận 7", "Quận 8", "Quận 9", "Quận 10", "Quận 11", "Quận 12", "Quận Bình Tân", "Quận Bình Thạnh", "Quận Gò Vấp", "Quận Phú Nhuận", "Quận Tân Bình", "Quận Tân Phú", "Quận Thủ Đức", "Huyện Bình Chánh", "Huyện Cần Giờ", "Huyện Củ Chi", "Huyện Hóc Môn", "Huyện Nhà Bè"];
-                for (var i = 0; i < districts.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = districts[i];
-                    option.value = districts[i];
-                    districtDropdown.add(option);
-                }
-            } else if (city === "Da Nang") {
-                var districts = ["Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Cẩm Lệ", "Liên Chiểu", "Hòa Vang"];
-                for (var i = 0; i < districts.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = districts[i];
-                    option.value = districts[i];
-                    districtDropdown.add(option);
-                }
-            }
-            updateWards();
-        }
-
-        function updateWards() {
-            var district = document.getElementById("district").value;
-            var wardDropdown = document.getElementById("ward");
-            wardDropdown.innerHTML = "";
-            if (district === "Hải Châu") {
-                var wards = ["Hải Châu 1", "Hải Châu 2", "Hải Châu 3", "Hải Châu 4", "Hải Châu 5", "Hải Châu 6", "Hải Châu 7", "Hải Châu 8", "Hải Châu 9", "Hải Châu 10"];
-                for (var i = 0; i < wards.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = wards[i];
-                    option.value = wards[i];
-                    wardDropdown.add(option);
-                }
-            } else if (district === "Thanh Khê") {
-                var wards = ["An Khê", "Chính Gián", "Hòa Khê", "Tam Thuận", "Tân Chính", "Thạc Gián", "Thuận Phước", "Vĩnh Trung"];
-                for (var i = 0; i < wards.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = wards[i];
-                    option.value = wards[i];
-                    wardDropdown.add(option);
-                }
-            } else if (district === "Ngũ Hành Sơn") {
-                var wards = ["Hòa Hải", "Khuê Mỹ", "Mỹ An", "Kỳ Hòa", "Hòa Quý"];
-                for (var i = 0; i < wards.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = wards[i];
-                    option.value = wards[i];
-                    wardDropdown.add(option);
-                }
-            }
-            // Add more conditions for other districts if needed
-        }
-    </script>
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 </head>
-<body>
+<section>
+
+    <body>
     <style>
         .card{
-            margin-top: 100px;
+            margin-top: 200px;
         }
     </style>
     <div class="container mt-5">
@@ -80,75 +18,170 @@
                 <h3 class="text-center">Fast Delivery - Create Order</h3>
             </div>
             <div class="card-body">
-                <form action="addOrderShipping" method="post" >
+                <form action="OrderShippingServlet" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" value="${sessionScope.loginSession.getIdAccount()}" class="form-control" id="idSender" name="idSender">
+
                     <div class="form-group">
-                        <label for="sender">Sender ID:</label>
-                        <input type="text" value="${sessionScope.loginSession.getIdAccount()}" class="form-control" id="sender" name="sender" required>
+                        <label for="receiverFirstName">Receiver First Name:</label>
+                        <input type="text" class="form-control" id="receiverFirstName" name="receiverFirstName" required autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="receiverName">Receiver Name:</label>
-                        <input type="text" class="form-control" id="receiverName" name="receiverName">
+                        <label for="receiverMiddleName">Receiver Middle Name:</label>
+                        <input type="text" class="form-control" id="receiverMiddleName" name="receiverMiddleName" required autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="receiverPhoneNum">Receiver Phone Number:</label>
-                        <input type="text" class="form-control" id="receiverPhoneNum" name="receiverPhoneNum">
+                        <label for="receiverLastName">Receiver Last Name:</label>
+                        <input type="text" class="form-control" id="receiverLastName" name="receiverLastName" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="receiverPhoneNumber">Phone Number Receiver:</label>
+                        <input type="number" class="form-control" id="receiverPhoneNumber" name="receiverPhoneNumber" required autofocus>
                     </div>
                     <div class="form-group">
                         <label for="collectionMoney">Collection Money:</label>
-                        <input type="text" class="form-control" id="collectionMoney" name="collectionMoney">
-                    </div>                 
+                        <input type="number" class="form-control" id="collectionMoney" name="collectionMoney" required autofocus>
+                    </div>
                     <div class="form-group">
-                        <label for="city">City:</label>
-                        <select class="form-control" id="city" name="city" required onchange="updateDistricts()">
-                           <option value="Da Nang">Da Nang</option>
-                            <option value="Hanoi">Hanoi</option>
-                            <option value="Ho Chi Minh City">Ho Chi Minh City</option>
-                            
-                            <!-- Add more options here if needed -->
+                        <label for="apartmentNumberReceiver">Apartment Number Receiver:</label>
+                        <input type="text" class="form-control" id="apartmentNumberReceiver" name="apartmentNumberReceiver" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="streetNameReceiver">Street Name Receiver:</label>
+                        <input type="text" class="form-control" id="streetNameReceiver" name="streetNameReceiver" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="provinces">Provinces Receiver:</label>
+                        <select id="provinces" onchange="getDistricts()" name="districtReceiver" class="form-control" required autofocus>
+                            <option value="">Chọn Tỉnh/Thành phố</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="district">District:</label>
-                        <select class="form-control" id="district" name="district" required onchange="updateWards()">
-                            <!-- Options will be dynamically added based on the selected city -->
+                        <label for="districts">Districts Receiver:</label>
+                        <select id="districts" onchange="getWards()" name="wardReceiver" class="form-control" required autofocus>
+                            <option value="">Chọn Quận/Huyện</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="ward">Ward:</label>
-                        <select class="form-control" id="ward" name="ward" required>
-                            <!-- Options will be dynamically added based on the selected district -->
+                        <label for="wards">Wards Receiver:</label>
+                        <select id="wards" name="cityReceiver" class="form-control" required autofocus>
+                            <option value="">Chọn Xã/Phường</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="streetName">Street Name:</label>
-                        <input type="text" class="form-control" id="streetName" name="streetName" required>
+
+                    <div class="form-group form-check form-switch">
+                        <input type="checkbox" class="form-check-input" id="checkPackage" name="checkPackage" role="switch">
+                        <label class="form-check-label" for="checkPackage">Allow viewing of packages</label>
                     </div>
-                    <div class="form-group">
-                        <label for="apartmentNumber">Apartment Number:</label>
-                        <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber" required>
+
+                    <div class="form-group form-check form-switch">
+                        <input role="switch" type="checkbox" class="form-check-input" id="senderWantShipperTakePackageOrNot" name="senderWantShipperTakePackageOrNot" onclick="getLocationAndConvert()">
+                        <label class="form-check-label" for="senderWantShipperTakePackageOrNot">Pick up at location.</label>
                     </div>
+
+                    <div class="form-group">
+                        <label for="nameItem">Name Item:</label>
+                        <input type="text" class="form-control" id="nameItem" name="nameItem" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="length">Length Package:</label>
+                        <input type="number" class="form-control" id="length" name="length" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="width">Width Package:</label>
+                        <input type="number" class="form-control" id="width" name="width" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">Height Package:</label>
+                        <input type="number" class="form-control" id="height" name="height" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">weight Package:</label>
+                        <input type="number" class="form-control" id="weight" name="weight" required autofocus>
+                    </div>
+
+                    <label for="image">Image Package:</label>
+                    <div id="image">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="fileImage1" name="fileImage1" accept="image/*" placeholder="Hình kiện hàng mặc trên">
+                            <label class="input-group-text" for="fileImage1">Image 1:</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="fileImage2" name="fileImage2" accept="image/*" placeholder="Hình kiện hàng mặc trên">
+                            <label class="input-group-text" for="fileImage2">Image 2:</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="fileImage3" name="fileImage3" accept="image/*" placeholder="Hình kiện hàng mặc trên">
+                            <label class="input-group-text" for="fileImage3">Image 3:</label>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="fileImage4" name="fileImage4" accept="image/*" placeholder="Hình kiện hàng mặc trên">
+                            <label class="input-group-text" for="fileImage4">Image 4:</label>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="noteForShipper">Note for Shipper:</label>
                         <textarea class="form-control" id="noteForShipper" name="noteForShipper" rows="3"></textarea>
-                    </div>                 
-                    <!--<div class="form-group">
-                        <label for="imagePackage">Image Package:</label>
-                        <input type="file" class="form-control-file" id="imagePackage" name="imagePackage">
-                    </div>-->
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="checkPackage" name="checkPackage">
-                        <label class="form-check-label" for="checkPackage">Check Package</label>
                     </div>
-                    <div class="form-group">
-                        <label for="idDelivery">Delivery ID:</label>
-                        <input type="text" class="form-control" id="idDelivery" name="idDelivery">
-                    </div>
-
                     <button type="submit" class="btn btn-primary">Create Order</button>
                 </form>
                 <p>${msg}</p>
             </div>
         </div>
     </div>
+    </body>
+    <script>
+        function getLocationAndConvert() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(convertCoordinatesToAddress, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function convertCoordinatesToAddress(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var address = data.address;
+                    document.getElementById("districtSender").value = address.district || "";
+                    document.getElementById("wardSender").value = address.suburb || "";
+                    document.getElementById("citySender").value = address.city || "";
+                    alert(address)
+                })
+                .catch(error => console.log("Error:", error));
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+    </script>
+    <script src='js/main.js'></script>
 </section>
 <%@ include file="/include/footer.jsp" %>
